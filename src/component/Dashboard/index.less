@@ -1,12 +1,12 @@
 @import '../../less/variables.less';
- 
+
 
 footer {
   display: flex;
 }
 
 .m-menu-cnt {
-    display: none; 
+    display: none;
     position: absolute;
     background: #fff;
     padding: 0 12px;
@@ -86,4 +86,57 @@ footer {
 
 .m-menu>img {
     width: 28px;
+}
+
+// hsy 一级菜单小图标样式
+.m-menu-more {
+    width: 14px;
+    padding-right: 5px;
+    padding-bottom: 3px;
+}
+
+// hsy 按下菜单改变背景色
+.m-menu:hover {
+    background: #EAEAEA;
+}
+
+.m-menu:active {
+    background: #000000;
+}
+
+.m-submenu:active {
+    background: #EAEAEA;
+}
+
+// hsy 二级菜单弹出动画
+@keyframes slideInUp {
+    from {
+        transform: translate3d(0, 100%, 0);
+        //visibility: visible;
+        opacity:1;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        //visibility: hidden;
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
+.menu-slide-in {
+    animation: slideInUp 100ms both
+}
+
+.menu-slide-out {
+    animation: slideOutDown 100ms both
 }

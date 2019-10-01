@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react'
 import { MENU_MAIN }  from 'constant/data'
 import './index.less'
 import IMG_KY from './keyboard.svg'
+import ICON_MORE from './more.svg'
 
 @inject('mainActions', 'mainStore')
 @observer
@@ -18,18 +19,53 @@ class Dashboard extends React.Component {
     }
   }
 
-  hideMenu = (e)=>{
-    this.setState({
-      menu: ['','','']
-    })
+  /**
+   * ios 设备执行如下函数才能激活 active 伪类
+   * @author hsy
+   */
+  componentDidMount() {
+    document.body.addEventListener('touchstart', function () { });
   }
 
-  showMenu = (index,e)=>{
-    e.stopPropagation()
-    let menu = ['','','']
-    menu[index] = 'fn-show'
+  // hideMenu = (e)=>{
+  //   this.setState({
+  //     menu: ['','','']
+  //   })
+  // }
+
+  // showMenu = (index,e)=>{
+  //   e.stopPropagation()
+  //   let menu = ['','','']
+  //   menu[index] = 'fn-show'
+  //   this.setState({
+  //     menu: menu
+  //   })
+  // }
+
+  /**
+   * 显示一级菜单
+   * @author hsy
+   */
+  showMenu = (index, ele) => {
+    ele.stopPropagation()
+
+    let menu = ['', '', '']
+    menu[index] = 'fn-show menu-slide-in'
+
+    this.setState({menu})
+  }
+
+  /**
+   * 隐藏二级菜单
+   * @author hsy
+   */
+  hideMenu = (menu) => {
+    console.log(menu)
+    let newMenu = menu.map((item) => {
+      return item.length > 0 ? 'fn-show menu-slide-out' : ''
+    })
     this.setState({
-      menu: menu
+      menu: newMenu
     })
   }
 
@@ -37,7 +73,7 @@ class Dashboard extends React.Component {
     let { menu } = this.state
 
     return (
-      <div className="g-index" onClick={this.hideMenu}>
+      <div className="g-index" onClick={this.hideMenu.bind(this, menu)}>
         <div className="g-content">
           {this.props.children}
         </div>
@@ -47,11 +83,11 @@ class Dashboard extends React.Component {
           </div>
           {MENU_MAIN.map((item,j)=>
             <div className='m-menu' key={j}  onClick={this.showMenu.bind(this,j)}>
-              <span>{item.title}</span>
+              <span><img className='m-menu-more' src={ICON_MORE} alt=""/>{item.title}</span>
               <div  className={`m-menu-cnt ${menu[j]}`}>
                 {(item.submenu)&& item.submenu.map((subitem,i)=>
                   <div className="m-submenu" key={i}>{subitem.title}</div>
-                )} 
+                )}
               </div>
             </div>
           )}
