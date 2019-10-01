@@ -65,6 +65,8 @@ footer {
     display: flex;
     height: 56px;
     border-top: 1px solid #d9d9da;
+    z-index: 100;
+    background: #fff;
 }
 
 .m-menu {
@@ -95,18 +97,6 @@ footer {
     padding-bottom: 3px;
 }
 
-// hsy 按下菜单改变背景色
-.m-menu:hover {
-    background: #EAEAEA;
-}
-
-.m-menu:active {
-    background: #000000;
-}
-
-.m-submenu:active {
-    background: #EAEAEA;
-}
 
 // hsy 二级菜单弹出动画
 @keyframes slideInUp {
@@ -139,4 +129,19 @@ footer {
 
 .menu-slide-out {
     animation: slideOutDown 100ms both
+}
+
+
+.g-menu-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    z-index: 1;
+}
+
+.g-menu-wrap>div {
+    height: 100%;
 }

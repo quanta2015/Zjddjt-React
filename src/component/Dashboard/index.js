@@ -27,23 +27,8 @@ class Dashboard extends React.Component {
     document.body.addEventListener('touchstart', function () { });
   }
 
-  // hideMenu = (e)=>{
-  //   this.setState({
-  //     menu: ['','','']
-  //   })
-  // }
-
-  // showMenu = (index,e)=>{
-  //   e.stopPropagation()
-  //   let menu = ['','','']
-  //   menu[index] = 'fn-show'
-  //   this.setState({
-  //     menu: menu
-  //   })
-  // }
-
   /**
-   * 显示一级菜单
+   * 显示二级菜单
    * @author hsy
    */
   showMenu = (index, ele) => {
@@ -51,8 +36,9 @@ class Dashboard extends React.Component {
 
     let menu = ['', '', '']
     menu[index] = 'fn-show menu-slide-in'
-
     this.setState({menu})
+
+    console.log('a')
   }
 
   /**
@@ -84,6 +70,13 @@ class Dashboard extends React.Component {
           {MENU_MAIN.map((item,j)=>
             <div className='m-menu' key={j}  onClick={this.showMenu.bind(this,j)}>
               <span><img className='m-menu-more' src={ICON_MORE} alt=""/>{item.title}</span>
+            </div>
+          )}
+        </div>
+        <div className="g-menu-wrap">
+          <div className="m-menu m-menu-top"></div>
+          {MENU_MAIN.map((item,j)=>
+            <div className='m-menu' key={j}>
               <div  className={`m-menu-cnt ${menu[j]}`}>
                 {(item.submenu)&& item.submenu.map((subitem,i)=>
                   <div className="m-submenu" key={i}>{subitem.title}</div>
