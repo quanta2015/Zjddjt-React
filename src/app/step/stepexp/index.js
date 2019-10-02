@@ -25,10 +25,6 @@ class Stepexp extends React.Component {
     this.setState({ loading: false })
   }
 
-  setType = (type,e)=>{
-    this.setState({ type: type })
-  }
-
   render() {
     let list = toJS(getValue(this.store, 'example', []))
     

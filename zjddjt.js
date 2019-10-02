@@ -43,8 +43,6 @@ app.get('/userinfo', function(req, res, next) {
 })
 
 app.post('/eleExample', async function(req, res) {
-  
-  console.log('a')
   let ret = await crawler.getEleInfo()
   res.status(200).json({ code: 200, data: ret.data })
 })

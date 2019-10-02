@@ -35,13 +35,17 @@ class Dashboard extends React.Component {
 
   // 隐藏二级菜单
   hideMenu = (menu) => {
-    console.log(menu)
+    // console.log(menu)
     let newMenu = menu.map((item) => {
       return item.length > 0 ? 'fn-show menu-slide-out' : ''
     })
     this.setState({
       menu: newMenu
     })
+  }
+
+  doLink = (link) =>{
+    window.location.replace(`/#${link}`)
   }
 
   render() {
@@ -69,9 +73,10 @@ class Dashboard extends React.Component {
               <div  className={`m-menu-cnt ${menu[j]}`}>
                 {(item.submenu)&& item.submenu.map((subitem,i)=>
                   <div className="m-submenu" key={i}>
-                    <NavLink to={subitem.path}>
-                       <span>{subitem.title}</span>
-                    </NavLink>
+                    <div className="m-link" onClick={this.doLink.bind(this,subitem.path)}>
+                    <span>{subitem.title}</span>
+
+                    </div>
                   </div>
                 )}
               </div>
