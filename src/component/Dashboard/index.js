@@ -68,7 +68,11 @@ class Dashboard extends React.Component {
             <div className='m-menu' key={j}>
               <div  className={`m-menu-cnt ${menu[j]}`}>
                 {(item.submenu)&& item.submenu.map((subitem,i)=>
-                  <div className="m-submenu" key={i}>{subitem.title}</div>
+                  <div className="m-submenu" key={i}>
+                    <NavLink to={subitem.path}>
+                       <span>{subitem.title}</span>
+                    </NavLink>
+                  </div>
                 )}
               </div>
             </div>
