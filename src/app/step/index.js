@@ -17,7 +17,7 @@ class Step extends React.Component {
   render() {
     return (
       <div className='g-step'>
-        Intr
+        Step
       </div>
     )
   }
