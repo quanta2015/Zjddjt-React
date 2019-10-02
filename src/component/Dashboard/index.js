@@ -19,32 +19,21 @@ class Dashboard extends React.Component {
     }
   }
 
-  /**
-   * ios 设备执行如下函数才能激活 active 伪类
-   * @author hsy
-   */
+  // ios 设备执行如下函数才能激活 active 伪类
   componentDidMount() {
     document.body.addEventListener('touchstart', function () { });
   }
 
-  /**
-   * 显示二级菜单
-   * @author hsy
-   */
+  // 显示二级菜单
   showMenu = (index, ele) => {
     ele.stopPropagation()
 
     let menu = ['', '', '']
     menu[index] = 'fn-show menu-slide-in'
     this.setState({menu})
-
-    console.log('a')
   }
 
-  /**
-   * 隐藏二级菜单
-   * @author hsy
-   */
+  // 隐藏二级菜单
   hideMenu = (menu) => {
     console.log(menu)
     let newMenu = menu.map((item) => {
