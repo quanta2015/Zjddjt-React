@@ -1,22 +1,17 @@
 var express = require('express');
 
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 var cors = require('cors');
-var dotenv = require('dotenv');
 var fs = require('fs');
 var path = require('path');
 var axios = require('axios');
-
+var crawler = require('./src/util/crawler')
 
 const app = express();
 
 app.use(cors());
-app.use(logger('dev'));
 app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-app.use(cookieParser());
 app.use(express.static(__dirname + '/'));
 
 
@@ -47,6 +42,12 @@ app.get('/userinfo', function(req, res, next) {
   })
 })
 
+app.post('/eleExample', async function(req, res) {
+  
+  console.log('a')
+  let ret = await crawler.getEleInfo()
+  res.status(200).json({ code: 200, data: ret.data })
+})
 
 
 

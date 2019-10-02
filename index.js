@@ -147,4 +147,13 @@ app.get('/wechat', function(req, res, next) {
     }
 });
 
+
+
+app.post('/eleExample', function(req, res) {
+  
+  console.log('a')
+
+  res.status(200).json({ code: 200, data: 'ret' })
+})
+
 app.listen(80, () => console.log("> Running on localhost:80"));

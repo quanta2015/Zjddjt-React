@@ -9,7 +9,7 @@ import clone from 'util/clone'
 
 
 
-class UserActions extends BaseActions {
+class StepActions extends BaseActions {
   constructor(store) {
     super()
     this.store = store
@@ -17,11 +17,15 @@ class UserActions extends BaseActions {
 
 
   @action
-  async login(params) {
-    
+  async getEleExample() {
+    let r = await this.post(urls.API_ELE_EXAMPLE, null, true)
+    if (r && r.code === 200) {
+      this.store.example = r.data
+    }
+    return r
   }
 
 
 }
 
-export default new UserActions(store)
+export default new StepActions(store)
