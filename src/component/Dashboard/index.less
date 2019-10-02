@@ -81,6 +81,21 @@ footer {
   position: relative;
 }
 
+
+.g-menu-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    z-index: 1;
+}
+
+.g-menu-wrap>div {
+    height: 100%;
+}
+
 .m-menu-top {
   flex: unset;
   width: 48px;
@@ -136,16 +151,3 @@ footer {
 }
 
 
-.g-menu-wrap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
-    display: flex;
-    z-index: 1;
-}
-
-.g-menu-wrap>div {
-    height: 100%;
-}
