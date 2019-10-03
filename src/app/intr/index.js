@@ -10,9 +10,7 @@ import { toJS } from "mobx";
 // import A02 from './assets/A02.jpg'
 // import DD_LOGO from './assets/dd-logo.svg'
 
-@Form.create()
-@inject("mainActions", "mainStore")
-@observer
+
 class Intr extends React.Component {
   constructor(props) {
     super(props);
