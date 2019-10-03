@@ -115,6 +115,7 @@ const URL_USER = (token,openid)=>{
 // code           -> openid
 // opid + token   -> user
 app.get('/userinfo', function(req, res, next) {
+  console.log(req.url)
   let code = req.query.code
   axios.all([
     axios.get(URL_TOKEN),
@@ -128,7 +129,27 @@ app.get('/userinfo', function(req, res, next) {
   })
 })
 
-
+// 用户登录 
+// appid + secret -> token
+// code           -> openid
+// opid + token   -> user
+app.get('/userlogin', function(req, res, next) {
+  console.log(req.url)
+  let code = req.query.code
+  let app  = req.query.app
+  axios.all([
+    axios.get(URL_TOKEN),
+    axios.get(URL_OPENID(code))
+  ]).then((r)=> {
+    let token  = r[0].data.access_token
+    let openid = r[1].data.openid
+    axios.get(URL_USER(token,openid)).then((e)=> {
+      // res.send(e.data)
+      let url = `http://www.zjddd.com:8080/#${app}?code=${openid}`
+      res.redirect(url);
+    })
+  })
+})
 
 app.get('/wechat', function(req, res, next) {
     var token = "zjddd"
