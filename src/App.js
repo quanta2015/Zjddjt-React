@@ -6,6 +6,8 @@ import Dashboard  from 'component/Dashboard'
 import main  from 'app/main'
 import intr  from 'app/intr'
 import step  from 'app/step'
+import appy  from 'app/appy'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class App extends React.Component {
                   <Route exact path='/'      component={main}/>
                   <Route exact path='/intr'  component={intr}/>
                   <Route exact path='/step'  component={step}/>
+                  <Route exact path='/appy'  component={appy}/>
                 </Switch>
               </Dashboard>
             </div>
