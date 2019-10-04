@@ -1,31 +1,24 @@
-import React from 'react'
-import { observer, inject } from 'mobx-react'
-import { Input,Tabs,Form,Button,DatePicker,Select,InputNumber,Modal, message, Skeleton } from 'antd';
-import './index.less'
-import moment  from 'moment'
-import { toJS } from 'mobx'
-
+import React from "react";
+import { Skeleton } from "antd";
+import { HOUSE_LAYOUT } from "./assets";
+import Detail from "./Detail";
+import "./index.less";
 
 class Stepcom extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      type: 0
-    }
-  }
 
-  setType = (type,e)=>{
-    this.setState({ type: type })
-  }
+  state = {
+    loading: true
+  };
 
   render() {
     return (
       <div className='g-stepcom'>
-        g-stepcom
+        {HOUSE_LAYOUT.map((item, index) => (
+          <Detail item={item} key={index}/>
+        ))}
       </div>
-    )
+    );
   }
 }
 
-
-export default Stepcom
+export default Stepcom;
