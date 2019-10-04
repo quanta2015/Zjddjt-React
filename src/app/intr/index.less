@@ -3,7 +3,6 @@
 
 .g-intr {
   width: 100vw;
-
   background: #93A7CB;
 
   .bg-wrap {
@@ -38,14 +37,26 @@
     }
   }
 
+  .intr-wrap {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    align-items: center;
+  }
+
   .content-wrap {
     margin: 16px;
     padding: 12px;
     font-size: 14px;
+    line-height: 24px;
 
     background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+
+    .about-us {
+      text-indent: 24px;
+    }
 
     .left {
       text-align: left;
@@ -88,21 +99,6 @@
     padding-top: 16px;
     align-items: center;
 
-    .reason-title {
-      margin-bottom: 6px;
-
-      h3 {
-        font-family: Helvetica, sans-serif;
-        margin: 3px;
-      }
-
-      .divide-row {
-        width: 100%;
-        display: block;
-        border-top: 2px solid #ffffff;
-      }
-    }
-
     .reason-desc p {
       text-align: center;
       margin: 3px;
@@ -111,6 +107,21 @@
 
   .holder {
     height: 56px;
+  }
+
+  .title {
+    margin-bottom: 6px;
+
+    h3 {
+      font-family: Helvetica, sans-serif;
+      margin: 3px;
+    }
+
+    .divide-row {
+      width: 100%;
+      display: block;
+      border-top: 2px solid #ffffff;
+    }
   }
 }
 
@@ -130,7 +141,7 @@
   animation: fadeInUp 1000ms both
 }
 
-.g-content>.g-intr>.content-wrap, .reason-warp {
+.g-content>.g-intr>.intr-wrap, .g-content>.g-intr>.reason-warp {
   animation: fadeInUp 1250ms both;
   animation-delay: 50ms;
 }

@@ -18,13 +18,22 @@ class Intr extends React.Component {
           </div>
         </div>
 
-        <div className='content-wrap'>
-          <h3>单位简介</h3>
-          {assets.INFO.ABOUT_US}
+        <div className='intr-wrap'>
+          <div className='title'>
+            <div className="divide-row"/>
+            <h3>单 位 简 介</h3>
+            <div className="divide-row"/>
+          </div>
+
+          <div className='content-wrap'>
+            <div className='about-us'>
+              {assets.INFO.ABOUT_US}
+            </div>
+          </div>
         </div>
 
         <div className='reason-warp'>
-          <div className='reason-title'>
+          <div className='title'>
             <div className="divide-row"/>
             <h3>选择我们的理由</h3>
             <div className="divide-row"/>
