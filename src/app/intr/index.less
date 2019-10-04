@@ -4,14 +4,15 @@
 .g-intr {
   width: 100vw;
 
+  background: #93A7CB;
+
   .bg-wrap {
-    height: 100vw;
-    /*background: url('./assets/bg-clip.png') no-repeat center;*/
+
     background-origin: border-box; //从border开始填充
     background-clip: border-box;
 
     .logo-content {
-      height: 100vw;
+      height: 25vh;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -38,12 +39,29 @@
   }
 
   .content-wrap {
-    margin-top: -16px;
-    padding: 0 8px 0 8px;
-    min-height: 100vh;
-    background: #ffffff;
-    border-radius: 15px 15px 0 0;
+    margin: 16px;
+    padding: 12px;
+    font-size: 14px;
+
+    background-color: #ffffff;
+    border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+
+    .left {
+      text-align: left;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .reason-text {
+      margin-bottom: 16px;
+    }
 
     p {
       margin: 8px 0;
@@ -56,6 +74,38 @@
     img {
       max-width: 90%;
       height: auto;
+    }
+
+    h3 {
+      font-family: Helvetica, sans-serif;
+      text-align: center;
+    }
+  }
+
+  .reason-warp {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    align-items: center;
+
+    .reason-title {
+      margin-bottom: 6px;
+
+      h3 {
+        font-family: Helvetica, sans-serif;
+        margin: 3px;
+      }
+
+      .divide-row {
+        width: 100%;
+        display: block;
+        border-top: 2px solid #ffffff;
+      }
+    }
+
+    .reason-desc p {
+      text-align: center;
+      margin: 3px;
     }
   }
 
@@ -80,7 +130,7 @@
   animation: fadeInUp 1000ms both
 }
 
-.g-content>.g-intr>.content-wrap {
+.g-content>.g-intr>.content-wrap, .reason-warp {
   animation: fadeInUp 1250ms both;
   animation-delay: 50ms;
 }
