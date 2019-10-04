@@ -1,86 +1,22 @@
+.g-appy {
+  background: #fff;
+  padding: 10px 20px;
+  height: 100%;
 
+  .m-appy {
+    background-color: white;
+    padding: 10px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.05), -1px -1px 1px rgba(0,0,0,.05);
+    border: 1px solid #eee;
 
-
-.g-intr {
-  width: 100vw;
-
-  .bg-wrap {
-    height: 100vw;
-    /*background: url('./assets/bg-clip.png') no-repeat center;*/
-    background-origin: border-box; //从border开始填充
-    background-clip: border-box;
-
-    .logo-content {
-      height: 100vw;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-
-      .divide {
-        display: block;
-        height: 64px;
-        border-right: 3px solid #ffffff;
-        margin: 0 16px;
-      }
-
-      .dd-logo {
-        width: 56px;
-      }
-    }
-
-    h3 {
-      color: #ffffff;
-      font-family: Helvetica, sans-serif;
-      font-size: 30px;
-      margin: 0;
-    }
   }
 
-  .content-wrap {
-    margin-top: -16px;
-    padding: 0 8px 0 8px;
-    min-height: 100vh;
-    background: #ffffff;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
-
-    p {
-      margin: 8px 0;
-      line-height: 30px;
-      font-size: 16px;
-      font-weight: 400;
-      text-indent:30px;
-    }
-
-    img {
-      max-width: 90%;
-      height: auto;
-    }
-  }
-
-  .holder {
-    height: 56px;
+  .m-appy-tl {
+    font-size: 20px;
+    font-weight: 600;
+    color: #3366aa;
+    margin-bottom: 10px;
+    text-align: center;
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.g-intr>.bg-wrap>.logo-content {
-  animation: fadeInUp 1000ms both
-}
-
-.g-content>.g-intr>.content-wrap {
-  animation: fadeInUp 1250ms both;
-  animation-delay: 50ms;
-}

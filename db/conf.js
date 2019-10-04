@@ -1,9 +1,9 @@
 let conf = {
-  host:     'localhost',
+  host:     '47.111.22.103',
   port:     3306,
   database: 'zjddjt',
-  user: 		'root',
-  password: '123456',
+  user: 		'mysql',
+  password: '12345qwert',
   multipleStatements: true,
   secret: 'quanta',
 };

@@ -30,7 +30,7 @@ class Stepexp extends React.Component {
     
     return (
       <div className='g-stepexp'>
-        <Skeleton loading={this.state.loading}>
+        <Skeleton active loading={this.state.loading}>
           {list.map((item,index)=>
             <div className="m-ele-item" key={index}>
               <div className="m-img">
@@ -39,6 +39,9 @@ class Stepexp extends React.Component {
               <div className="m-info">
                 <div className="m-name">{item.name}</div>
                 <div className="m-area"><span>{item.area}</span></div>
+                <div className="m-detail">
+                  <div className="m-btn c-blue">详情</div>
+                </div>
               </div>
             </div>
             )}

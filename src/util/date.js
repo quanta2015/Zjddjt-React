@@ -13,6 +13,10 @@ export let formatDate = (date) => {
   return moment(date).format("YYYY/MM/DD")
 }
 
+export let newDateTime = (date) => {
+  return moment(new Date()).format("YYYYMMDDhhmmss")
+}
+
 
 export let newDate = () => {
   return moment(new Date()).format("YYYY/MM/DD")

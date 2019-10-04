@@ -25,8 +25,7 @@
 
   .m-name {
     font-size: 16px;
-    padding: 5px;
-    font-weight: 600;
+    padding: 5px 10px;
   }
 
   .m-info {
@@ -41,19 +40,31 @@
     flex: 1 1;
   }
 
-  .m-area {
-    flex: 1;
-    padding: 10px;
-    align-items: flex-end;
+  .m-area,.m-detail {
+    flex: 1 1;
+    padding: 0 10px;
     display: flex;
+  }
+
+  .m-detail {
     justify-content: flex-end;
   }
 
-  .m-area>span {
-    background: #0066aa;
-    padding: 2px 5px;
-    color: #fff;
+  .m-area > span {
+    color: #cc0000;
     font-size: 12px;
+  }
+
+
+  .m-btn {
+    background: #eee;
+    color: #666;
+    height: 30px;
+    padding: 3px 5px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

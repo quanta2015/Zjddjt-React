@@ -45,7 +45,8 @@ class Dashboard extends React.Component {
   }
 
   doLink = (link) =>{
-    window.location.replace(`/#${link}`)
+    let openid = '236f13a40693f48434e788411b9'
+    window.location.replace(`/#${link}?code=${openid}`)
   }
 
   render() {
