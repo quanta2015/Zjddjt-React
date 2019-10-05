@@ -1,8 +1,0 @@
-dist/*
-node_modules/*
-**/node_modules/*
-api/*
-public/*
-test/*
-config-overrides.js
-package.json
