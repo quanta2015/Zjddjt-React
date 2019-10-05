@@ -76,8 +76,8 @@ class Coop extends React.Component {
     value === "请选择服务类型" ? callback("请选择服务类型!") : callback();
   };
 
-  validatePhone = async (rule, value, callback) => {
-    await (REG.PHONE.test(value)) || (REG.TEL.test(value)) ? callback() : callback("请输入正确的电话/手机");
+  validatePhone = (rule, value, callback) => {
+    value === "" || (REG.PHONE.test(value)) || (REG.TEL.test(value)) ? callback() : callback("请输入正确的电话/手机");
   };
 
   render() {
@@ -138,10 +138,10 @@ class Coop extends React.Component {
               })(<Input className="input-text" placeholder="请输入联系人电话..."/>)}
             </Form.Item>
 
-            <Form.Item label="更多描述">
+            <Form.Item label="合作内容">
               {getFieldDecorator("des", {
                 initialValue: ""
-              })(<TextArea rows={4} placeholder="您有什么想提前告诉我们的吗..."/>)}
+              })(<TextArea rows={4} placeholder="请输入合作内容..."/>)}
             </Form.Item>
 
             <Form.Item>
