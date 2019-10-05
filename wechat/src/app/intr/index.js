@@ -45,11 +45,11 @@ class Intr extends React.Component {
           </div>
 
           <div className='content-wrap'>
-            {assets.INFO.REASON.map((item) => (
-              <>
+            {assets.INFO.REASON.map((item, i) => (
+              <div key={i}>
                 <h3 className='center'>{item.key}</h3>
                 <div className='reason-text center'>{item.value}</div>
-              </>
+              </div>
             ))}
           </div>
 
