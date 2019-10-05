@@ -72,7 +72,23 @@ app.post('/ApplyAdd', async function(req, res) {
 app.get('/BradList', async function (req, res){
   let sql = `SELECT * FROM apply`
 
-  db.select('brand', '', '', '', (err, ret) => {
+  await db.select('brand', '', '', '', (err, ret) => {
+    if (err) {
+      res.status(500).json({ code: -1, msg: "提交请求失败，请联系管理员！", data: null });
+    } else {
+      res.status(200).json({ code: 200, data: ret });
+    }
+  })
+})
+
+/**
+ * 添加 商务合作
+ */
+app.post('/CoopAdd', async function(req, res) {
+  let sql  = `CALL PROC_COOP_ADD(?)`;
+  let params = req.body
+
+  await db.procedureSQL(sql, JSON.stringify(params), (err, ret) => {
     if (err) {
       res.status(500).json({ code: -1, msg: "提交请求失败，请联系管理员！", data: null });
     } else {
