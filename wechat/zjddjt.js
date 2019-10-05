@@ -52,6 +52,20 @@ app.post('/ProjList', async function(req, res) {
 })
 
 
+
+app.post('/ApplyList', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST(?)`;
+  let params = req.body
+
+  db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
+    if (err) {
+      res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
+    }else{
+      res.status(200).json({ code: 200, data: ret })
+    }
+  })
+})
+
 app.post('/ApplyAdd', async function(req, res) {
   let sql  = `CALL PROC_APPLY_ADD(?)`;
   let params = req.body
@@ -65,6 +79,8 @@ app.post('/ApplyAdd', async function(req, res) {
     }
   })
 })
+
+
 
 /**
  * 获取所有品牌信息

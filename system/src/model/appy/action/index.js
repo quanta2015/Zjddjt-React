@@ -15,8 +15,8 @@ class AppyActions extends BaseActions {
 
 
   @action
-  async addApply(params) {
-    let r = await this.post(urls.API_ADD_APPLY, params, true)
+  async getApply(params) {
+    let r = await this.post(urls.API_APPLY_LIST, params, true)
     if (r && r.code === 200) {
       this.store.apply = r.data
     }

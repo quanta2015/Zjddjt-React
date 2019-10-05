@@ -28,88 +28,9 @@
   cursor: pointer;
 }
 
-.m-menu>a {
-    color: rgba(255, 255, 255, 0.65)
-}
-
-
-
-.m-menu>a:hover {
-    color: #fff
-}
-
-.m-menu + .m-menu {
-    border-top: 1px solid #dedede;
-}
-
-.m-menu:last-child {
-    border-bottom: 1px solid #dedede;
-}
-
-.g-menu-wrap {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
+.m-appy-menu {
+    margin: 10px 0;
     display: flex;
-    z-index: 1;
+    flex-direction: row-reverse;
 }
-
-.g-menu-wrap>div {
-    height: 100%;
-}
-
-.m-menu-top {
-  flex: unset;
-  width: 48px;
-}
-
-
-
-.m-menu>img {
-    width: 28px;
-}
-
-// hsy 一级菜单小图标样式
-.m-menu-more {
-    width: 14px;
-    padding-right: 5px;
-    padding-bottom: 3px;
-}
-
-
-// hsy 二级菜单弹出动画
-@keyframes slideInUp {
-    from {
-        transform: translate3d(0, 100%, 0);
-        //visibility: visible;
-        opacity:1;
-    }
-
-    to {
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes slideOutDown {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        //visibility: hidden;
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
-    }
-}
-
-.menu-slide-in {
-    animation: slideInUp 100ms both
-}
-
-.menu-slide-out {
-    animation: slideOutDown 100ms both
-}
-
 
