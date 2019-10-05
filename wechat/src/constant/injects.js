@@ -6,6 +6,8 @@ import appyStore       from 'model/appy/store'
 import appyActions     from 'model/appy/action'
 import bradStore       from 'model/brad/action'
 import bradActions     from 'model/brad/action'
+import coopStore       from 'model/coop/store'
+import coopActions     from 'model/coop/action'
 
 export default {
   mainStore,
@@ -15,5 +17,7 @@ export default {
   appyStore,
   appyActions,
   bradStore,
-  bradActions
+  bradActions,
+  coopStore,
+  coopActions
 }

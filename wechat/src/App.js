@@ -8,6 +8,7 @@ import intr  from 'app/intr'
 import step  from 'app/step'
 import appy  from 'app/appy'
 import brad  from 'app/brad'
+import coop  from 'app/coop'
 
 class App extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class App extends React.Component {
                   <Route exact path='/step'  component={step}/>
                   <Route exact path='/appy'  component={appy}/>
                   <Route exact path='/brad'  component={brad}/>
+                  <Route exact path='/coop'  component={coop}/>
                 </Switch>
               </Dashboard>
             </div>
