@@ -1,6 +1,8 @@
 import React from 'react'
 import { Layout, Row, Col,Drawer, Dropdown, Icon, Menu, Avatar, BackTop,Button } from 'antd'
-const { Header, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
+
+
 import { NavLink } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
@@ -15,7 +17,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      menu: ['','','']
+      menu: ['','',''],
     }
   }
 
@@ -24,25 +26,31 @@ class Dashboard extends React.Component {
     window.location.replace(`/#${link}?code=${openid}`)
   }
 
+
   render() {
     let { menu } = this.state
 
     return (
-      <div className="g-index">
-        <div className="g-content">
-          {this.props.children}
-        </div>
-        <div className="g-menu">
-          <div className='m-menu m-menu-top'>
-            <img src={IMG_KY} alt=""/>
-          </div>
-          {MENU_MAIN.map((item,j)=>
-            <div className='m-menu' key={j}>
-              <span><img className='m-menu-more' src={ICON_MORE} alt=""/>{item.title}</span>
-            </div>
-          )}
-        </div>
-      </div>
+      <Layout className="g-menu">
+        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
+          <div className="m-logo">加梯管理系统</div>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
+            {MENU_MAIN.map((item,j)=>
+                <Menu.Item key={j}>
+                  <NavLink to={item.path} >
+                    <Icon type="user" />
+                    <span>{item.title}</span>
+                  </NavLink>
+                </Menu.Item>
+            )}
+          </Menu>
+        </Sider>
+        <Layout className="g-content">
+          <Content>
+            {this.props.children}
+          </Content>
+        </Layout>
+      </Layout>
     )
   }
 }

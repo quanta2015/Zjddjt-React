@@ -1,41 +1,21 @@
 @import '../../less/variables.less';
 
-
-footer {
-  display: flex;
-}
-
-
-.m-submenu {
-    height: 42px;
-    display: flex;
-    align-items: center;
-    padding: 0 6px;
-}
-
-.g-index {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    height: 100%;
-}
-
 .g-content {
     height: 100%;
     background: #ededed;
-    padding: 0 0 56px 0;
+    flex: 1;
 }
 
 .g-menu {
-    display: flex;
-    width: 160px;
-    border-right: 1px solid #d9d9da;
-    z-index: 100;
-    background: #333;
-    position: fixed;
-    left: 0;
-    flex-direction: column;
     height: 100%;
+}
+
+.m-logo {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    background: #006699;
     color: #fff;
 }
 
@@ -46,6 +26,16 @@ footer {
   align-items: center;
   position: relative;
   cursor: pointer;
+}
+
+.m-menu>a {
+    color: rgba(255, 255, 255, 0.65)
+}
+
+
+
+.m-menu>a:hover {
+    color: #fff
 }
 
 .m-menu + .m-menu {

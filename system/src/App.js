@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 import Dashboard  from 'component/Dashboard'
 
 import main  from 'app/main'
+import appy  from 'app/appy'
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends React.Component {
               <Dashboard>
                 <Switch>
                   <Route exact path='/'      component={main}/>
+                  <Route exact path='/appy'  component={appy}/>
                 </Switch>
               </Dashboard>
             </div>
