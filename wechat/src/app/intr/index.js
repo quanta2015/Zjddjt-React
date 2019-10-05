@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.less";
-import assets from './assets'
+import assets from "./assets";
 
 class Intr extends React.Component {
   constructor(props) {
@@ -45,26 +45,19 @@ class Intr extends React.Component {
           </div>
 
           <div className='content-wrap'>
-
-            <h3 className='center'>服务</h3>
-            <div className='reason-text center'>定制加装电梯一站式服务 环节清晰 价格亲民</div>
-
-            <h3 className='center'>设计</h3>
-            <div className='reason-text center'>建筑工程设计甲级与总承包资质</div>
-
-            <h3 className='center'>采购</h3>
-            <div className='reason-text center'>任意选择心仪的电梯品牌</div>
-
-            <h3 className='center'>施工</h3>
-            <div className='reason-text center'>有丰富经验施工团队，安全可靠</div>
-
+            {assets.INFO.REASON.map((item) => (
+              <>
+                <h3 className='center'>{item.key}</h3>
+                <div className='reason-text center'>{item.value}</div>
+              </>
+            ))}
           </div>
 
         </div>
 
         <div className='holder'/>
       </div>
-    )
+    );
   }
 }
 
