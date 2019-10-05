@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.40110e95.chunk.css",
+    "main.js": "/static/js/main.e59df19b.chunk.js",
+    "main.js.map": "/static/js/main.e59df19b.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.42d830fa.chunk.css": "/static/css/2.42d830fa.chunk.css",
+    "static/js/2.2d1a7b11.chunk.js": "/static/js/2.2d1a7b11.chunk.js",
+    "static/js/2.2d1a7b11.chunk.js.map": "/static/js/2.2d1a7b11.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f3b92edca371a6bdb6da90c9d8bf60d9.js": "/precache-manifest.f3b92edca371a6bdb6da90c9d8bf60d9.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.42d830fa.chunk.css.map": "/static/css/2.42d830fa.chunk.css.map",
+    "static/css/main.40110e95.chunk.css.map": "/static/css/main.40110e95.chunk.css.map",
+    "static/media/copy.svg": "/static/media/copy.0fdf2608.svg",
+    "static/media/keyboard.svg": "/static/media/keyboard.6caca68f.svg",
+    "static/media/more.svg": "/static/media/more.0aca3eda.svg",
+    "static/media/type_hdpt13.png": "/static/media/type_hdpt13.51208fe8.png",
+    "static/media/type_splt12.png": "/static/media/type_splt12.26047fe9.png",
+    "static/media/type_splt14.png": "/static/media/type_splt14.faeced9e.png"
+  }
+}

@@ -1,0 +1,153 @@
+@import '../../less/variables.less';
+
+
+footer {
+  display: flex;
+}
+
+.m-menu-cnt {
+    display: none;
+    position: absolute;
+    background: #fff;
+    padding: 0 12px;
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    bottom: 80px;
+}
+
+.m-menu-cnt:before,.m-menu-cnt:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    position: absolute;
+    transform: translate(100%,0) scale(.6,1);
+}
+
+.m-menu-cnt:before {
+    border-top: 12px solid #c3c3c3;
+    bottom: -24px;
+}
+
+.m-menu-cnt:after {
+    border-top: 12px solid #fff;
+    bottom: -22px;
+}
+
+.m-submenu {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+}
+
+
+
+.m-submenu + .m-submenu {
+    border-top: 1px solid #bfbfbf;
+}
+
+
+.g-index {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    height: 100%;
+}
+
+.g-content {
+    height: 100%;
+    background: #ededed;
+    padding: 0 0 56px 0;
+}
+
+.g-menu {
+    display: flex;
+    height: 56px;
+    border-top: 1px solid #d9d9da;
+    z-index: 100;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.m-menu {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+
+.g-menu-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    z-index: 1;
+}
+
+.g-menu-wrap>div {
+    height: 100%;
+}
+
+.m-menu-top {
+  flex: unset;
+  width: 48px;
+}
+
+.m-menu + .m-menu {
+    border-left: 1px solid #dedede;
+}
+
+.m-menu>img {
+    width: 28px;
+}
+
+// hsy 一级菜单小图标样式
+.m-menu-more {
+    width: 14px;
+    padding-right: 5px;
+    padding-bottom: 3px;
+}
+
+
+// hsy 二级菜单弹出动画
+@keyframes slideInUp {
+    from {
+        transform: translate3d(0, 100%, 0);
+        //visibility: visible;
+        opacity:1;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        //visibility: hidden;
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
+.menu-slide-in {
+    animation: slideInUp 100ms both
+}
+
+.menu-slide-out {
+    animation: slideOutDown 100ms both
+}
+
+
