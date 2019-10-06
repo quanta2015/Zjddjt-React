@@ -5,6 +5,7 @@ import Dashboard  from 'component/Dashboard'
 
 import main  from 'app/main'
 import appy  from 'app/appy'
+import brad  from 'app/brad'
 
 class App extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path='/'      component={main}/>
                   <Route exact path='/appy'  component={appy}/>
+                  <Route exact path='/brad'  component={brad}/>
                 </Switch>
               </Dashboard>
             </div>
