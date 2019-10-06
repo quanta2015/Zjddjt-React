@@ -1,9 +1,12 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Tabs, Form, Button, Icon, Tag, Table, Divider, Result, Modal, message, Skeleton } from "antd";
+import { Input, Tabs, Form, Button, Icon, Tag, Table, Divider, Result, Modal, message, Skeleton, Select } from "antd";
 import Highlighter from "react-highlight-words";
+import BradForm from './BradForm'
 import "./index.less";
 import { toJS } from "mobx";
+
+const { Option } = Select;
 
 // 品牌指定
 @inject("bradActions", "bradStore")
@@ -15,7 +18,9 @@ class Brad extends React.Component {
     this.store = this.props.bradStore;
     this.state = {
       loading: false,
-      searchText: ""
+      searchText: "",
+      showModal: false,
+      submitLoading: false
     };
   }
 
@@ -85,6 +90,26 @@ class Brad extends React.Component {
     this.setState({ searchText: "" });
   };
 
+  handleSubmit = async (data) => {
+    data.type = data.type.join(" ");
+    this.setState({ submitLoading: true });
+    this.action.addBrand(data)
+      .then((r) => {
+        if (r.code === 200) {
+          message.success(r.msg, 0.5);
+          this.setState({
+            showModal: false,
+            submitLoading: false
+          });
+          this.bradForm.props.form.resetFields()
+        }
+      });
+  };
+
+  loadForm = (form) => {
+    this.bradForm = form;
+  };
+
   columns = [
     {
       title: "名称",
@@ -98,7 +123,7 @@ class Brad extends React.Component {
       title: "图片",
       dataIndex: "icon",
       render: url => (
-        <img src={url} style={{height: '48px', width: 'auto'}} alt=""/>
+        <img src={url} style={{ height: "48px", width: "auto" }} alt=""/>
       )
     },
     {
@@ -107,7 +132,7 @@ class Brad extends React.Component {
       key: "type",
       sorter: (a, b) => a.name > b.name,
       render: types => (
-        types.split(' ').join(' ')
+        types.split(" ").join(" ")
       ),
       ...this.getColumnSearchProps("type")
     },
@@ -115,7 +140,7 @@ class Brad extends React.Component {
       title: "联系人",
       dataIndex: "contact",
       key: "contact",
-      ...this.getColumnSearchProps("contact"),
+      ...this.getColumnSearchProps("contact")
       // render: phones => (
       //   phones.split(' ').json(',')
       // )
@@ -126,7 +151,7 @@ class Brad extends React.Component {
       key: "phone",
       ...this.getColumnSearchProps("phone"),
       render: phones => (
-        phones.split(' ').join(' ')
+        phones.split(" ").join(" ")
       )
     }, {
       title: "功能",
@@ -138,25 +163,39 @@ class Brad extends React.Component {
         </div>
       )
     }
-  ]
+  ];
 
   render() {
-    // const { loading } = this.state;
     const brand = toJS(this.store.brandAll);
-
-    console.log(brand);
 
     return (
       <div className='g-appy'>
         <div className="m-brad-menu">
           <Button type="primary">导出Excel</Button>
-          <Button type="primary">添加品牌</Button>
+          <Button type="primary" onClick={() => this.setState({ showModal: true })}>添加品牌</Button>
         </div>
-        <Table size='small' dataSource={brand} columns={this.columns}/>
+        <Table size='small' dataSource={brand} columns={this.columns} rowkey={(item) => `key${item.id}`}/>
+
+        <Modal
+          title=''
+          visible={this.state.showModal}
+          confirmLoading={this.state.submitLoading}
+          onCancel={() => {
+            this.setState({ showModal: false });
+          }}
+          onOk={async () => {
+            await this.handleSubmit(this.bradForm.props.form.getFieldsValue());
+          }}
+        >
+          <BradForm
+            wrappedComponentRef={(data) => {
+              this.loadForm(data);
+            }}/>
+        </Modal>
+
       </div>
     );
   }
 }
 
-
-export default Form.create()(Brad);
+export default Form.create({})(Brad);

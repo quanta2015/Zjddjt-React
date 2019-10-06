@@ -104,12 +104,11 @@ app.post('/BrandAdd', async function (req, res){
   let sql  = `CALL PROC_BRAND_ADD(?)`;
   let params = req.body
 
-  console.log(params)
   await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
     if (err) {
       res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
     }else{
-      res.status(200).json({ code: 200, data: ret })
+      res.status(200).json({ code: 200,msg: '添加品牌成功', data: ret })
     }
   })
 })
