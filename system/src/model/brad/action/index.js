@@ -29,6 +29,15 @@ class BradStore extends BaseActions {
     return r
   }
 
+  @action
+  async delBrand(params) {
+    let r = await this.post(urls.API_BRAND_DEL, params,true)
+    if (r && r.code === 200) {
+      await this.getBrandAll()
+    }
+    return r
+  }
+
 }
 
 export default new BradStore(store)

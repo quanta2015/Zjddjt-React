@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Icon, Input, Select } from "antd";
+const {Option} = Select
 
 class BradForm extends React.Component {
 
