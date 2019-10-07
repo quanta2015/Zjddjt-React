@@ -144,9 +144,11 @@ app.post('/BrandAdd', async function (req, res){
 /**
  * 删除品牌
  */
-app.post('/BrandDelete', async function (req, res){
+app.post('/BrandDel', async function (req, res){
   let sql  = `CALL PROC_BRAND_DELETE(?)`;
   let params = req.body
+
+  console.log(JSON.stringify(params))
 
   await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
     if (err) {

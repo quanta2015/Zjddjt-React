@@ -2,8 +2,9 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { Input, Tabs, Form, Button, Icon, Tag, Table, Divider, Result, Modal, message, Skeleton, Select } from "antd";
 import Highlighter from "react-highlight-words";
-import BradForm from './BradForm'
+import BradForm from "./BradForm";
 import "./index.less";
+import { msgRet } from "util/msgRet";
 import { toJS } from "mobx";
 
 const { Option } = Select;
@@ -101,10 +102,22 @@ class Brad extends React.Component {
             showModal: false,
             submitLoading: false
           });
-          this.bradForm.props.form.resetFields()
+          this.bradForm.props.form.resetFields();
         }
       });
   };
+
+  handleDelete = (record) => {
+    this.action.delBrand(record)
+      .then(r => {
+        msgRet(r)
+      })
+  }
+
+  handleEdit = (text, record) => {
+    console.log('edit')
+    console.log(text, record)
+  }
 
   loadForm = (form) => {
     this.bradForm = form;
@@ -158,8 +171,8 @@ class Brad extends React.Component {
       key: "action",
       render: (text, record) => (
         <div>
-          <Button type="primary">修改</Button>
-          <Button>删除</Button>
+          <Button type="primary" onClick={() => this.handleEdit(record)}>修改</Button>
+          <Button onClick={() => this.handleDelete(record)}>删除</Button>
         </div>
       )
     }
