@@ -152,7 +152,7 @@ class Appy extends React.Component {
           let sec   = d.toString().substr(12,2)
           let ret  = `${year}-${month}-${day} ${hour}:${min}:${sec}`
           return (
-            <span>{ret}</span>
+            <span className="m-date">{ret}</span>
           )}
       },{
         title: '申请人',

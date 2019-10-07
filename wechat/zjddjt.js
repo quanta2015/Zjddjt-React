@@ -71,7 +71,7 @@ app.post('/ProjList', async function(req, res) {
 // 取申请加梯列表
 app.post('/ApplyList', async function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
-  let params = req.body
+  let params = 0
 
   callProc(sql,params,(r)=>{
     res.status(200).json({ code: 200, data: r })
@@ -116,7 +116,7 @@ app.post('/ApplyAgree', function(req, res) {
 // 添加申请加梯请求
 app.post('/ApplyExport', function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
-  let params = req.body
+  let params = 1
   let json2csvParser = new Parser();
 
   callProc(sql,params,(r)=>{
