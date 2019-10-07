@@ -38,6 +38,15 @@ class BradStore extends BaseActions {
     return r
   }
 
+  @action
+  async updateBrand(params) {
+    let r = await this.post(urls.API_BRAND_UPDATE, params,true)
+    if (r && r.code === 200) {
+      await this.getBrandAll()
+    }
+    return r
+  }
+
 }
 
 export default new BradStore(store)

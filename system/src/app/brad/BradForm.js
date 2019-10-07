@@ -1,6 +1,7 @@
-import React from 'react'
+import React from "react";
 import { Form, Icon, Input, Select } from "antd";
-const {Option} = Select
+
+const { Option } = Select;
 
 class BradForm extends React.Component {
 
@@ -17,12 +18,22 @@ class BradForm extends React.Component {
 
     const type = ["井道加电梯", "一体机"];
 
+    const init = this.props.init;
+
+    const setVal = (init, key, initVal = "", isArr = false, splitChar = ' ') => {
+      return init ?
+        isArr ? init[key].split(splitChar) : init[key]
+        :
+        initVal;
+    };
+
     return (
       <Form layout='horizontal' onSubmit={this.handleSubmit}>
         <Form.Item label='名称'>
           {
             getFieldDecorator("name", {
-              rules: [{ required: true, message: "请输入品牌名称！" }]
+              rules: [{ required: true, message: "请输入品牌名称！" }],
+              initialValue: setVal(init, "name")
             })(
               <Input
                 prefix={<Icon type="database" style={{ color: "rgba(0,0,0,.25)" }}/>}
@@ -34,7 +45,9 @@ class BradForm extends React.Component {
 
         <Form.Item label='图片'>
           {
-            getFieldDecorator("icon", {})(
+            getFieldDecorator("icon", {
+              initialValue: setVal(init, "icon")
+            })(
               <Input
                 placeholder="图片url"
               />
@@ -45,7 +58,8 @@ class BradForm extends React.Component {
         <Form.Item label='可提供电梯类别'>
           {
             getFieldDecorator("type", {
-              rules: [{ required: true, message: "请提供电梯类别！" }]
+              rules: [{ required: true, message: "请提供电梯类别！" }],
+              initialValue: setVal(init, "type", [], true)
             })(
               <Select mode="tags" placeholder="选择或自定义" onChange={handleChange}>
                 {type.map((item, i) => (
@@ -59,7 +73,8 @@ class BradForm extends React.Component {
         <Form.Item label='联系人姓名'>
           {
             getFieldDecorator("contact", {
-              rules: [{ required: true, message: "请输入联系人姓名！" }]
+              rules: [{ required: true, message: "请输入联系人姓名！" }],
+              initialValue: setVal(init, "contact")
             })(
               <Input
                 prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }}/>}
@@ -72,7 +87,8 @@ class BradForm extends React.Component {
         <Form.Item label='联系人电话'>
           {
             getFieldDecorator("phone", {
-              rules: [{ required: true, message: "请输入联系人电话！" }]
+              rules: [{ required: true, message: "请输入联系人电话！" }],
+              initialValue: setVal(init, "phone")
             })(
               <Input
                 prefix={<Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }}/>}

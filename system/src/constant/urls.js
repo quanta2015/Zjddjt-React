@@ -9,6 +9,7 @@ export const API_APPLY_AGREE = API_SERVER + '/ApplyAgree'
 export const API_BRAND_LIST  = API_SERVER + '/BradList'
 export const API_BRAND_ADD   = API_SERVER + '/BrandAdd'
 export const API_BRAND_DEL   = API_SERVER + '/BrandDel'
+export const API_BRAND_UPDATE   = API_SERVER + '/BrandUpdate'
 
 
 export const HOST_IMG = API_SERVER + '/'

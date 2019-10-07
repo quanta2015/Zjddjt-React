@@ -142,6 +142,24 @@ app.post('/BrandAdd', async function (req, res){
 })
 
 /**
+ * 更新品牌
+ */
+app.post('/BrandUpdate', async function (req, res){
+  let sql  = `CALL PROC_BRAND_UPDATE(?)`;
+  let params = req.body
+
+  console.log('update', params)
+
+  await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
+    if (err) {
+      res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
+    }else{
+      res.status(200).json({ code: 200,msg: '更新品牌信息成功', data: ret })
+    }
+  })
+})
+
+/**
  * 删除品牌
  */
 app.post('/BrandDel', async function (req, res){

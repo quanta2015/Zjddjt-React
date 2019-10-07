@@ -21,7 +21,8 @@ class Brad extends React.Component {
       loading: false,
       searchText: "",
       showModal: false,
-      submitLoading: false
+      submitLoading: false,
+      editItem: null
     };
   }
 
@@ -91,7 +92,7 @@ class Brad extends React.Component {
     this.setState({ searchText: "" });
   };
 
-  handleSubmit = async (data) => {
+  submitAdd = async (data) => {
     data.type = data.type.join(" ");
     this.setState({ submitLoading: true });
     this.action.addBrand(data)
@@ -107,17 +108,52 @@ class Brad extends React.Component {
       });
   };
 
+  submitEdit = async (id, data) => {
+    data.type = data.type.join(" ");
+    data.id = id;
+    this.setState({ submitLoading: true });
+    this.action.updateBrand(data)
+      .then((r) => {
+        if (r.code === 200) {
+          message.success(r.msg, 0.5);
+          this.setState({
+            showModal: false,
+            submitLoading: false,
+            editItem: null
+          });
+          this.bradForm.props.form.resetFields();
+        }
+      });
+  };
+
+  handleSubmit = async () => {
+    const data = this.bradForm.props.form.getFieldsValue();
+    console.log(data);
+
+    if (this.state.editItem) {
+      console.log("edit", data);
+      await this.submitEdit(this.state.editItem.id, data);
+    } else {
+      console.log("add", data);
+      await this.submitAdd(data);
+    }
+
+    console.log();
+  };
+
   handleDelete = (record) => {
     this.action.delBrand(record)
       .then(r => {
-        msgRet(r)
-      })
-  }
+        msgRet(r);
+      });
+  };
 
-  handleEdit = (text, record) => {
-    console.log('edit')
-    console.log(text, record)
-  }
+  handleEdit = (record) => {
+    this.setState({
+      showModal: true,
+      editItem: record
+    });
+  };
 
   loadForm = (form) => {
     this.bradForm = form;
@@ -196,14 +232,18 @@ class Brad extends React.Component {
           onCancel={() => {
             this.setState({ showModal: false });
           }}
-          onOk={async () => {
-            await this.handleSubmit(this.bradForm.props.form.getFieldsValue());
-          }}
+          // onOk={async () => {
+          //   await this.handleSubmit(this.bradForm.props.form.getFieldsValue());
+          // }}
+
+          onOk={this.handleSubmit}
         >
           <BradForm
             wrappedComponentRef={(data) => {
               this.loadForm(data);
-            }}/>
+            }}
+            init={this.state.editItem}
+          />
         </Modal>
 
       </div>
