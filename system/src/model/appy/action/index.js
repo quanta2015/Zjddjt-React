@@ -23,6 +23,15 @@ class AppyActions extends BaseActions {
     return r
   }
 
+  @action
+  async agreeApply(params) {
+    let r = await this.post(urls.API_APPLY_AGREE, params, true)
+    if (r && r.code === 200) {
+      this.store.apply = r.data
+    }
+    return r
+  }
+
 
 }
 

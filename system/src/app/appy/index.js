@@ -1,6 +1,6 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Tabs, Form, Button,Icon,Tag, Table,Divider, Result, Modal, message, Skeleton } from "antd";
+import { Input, Form, Button, Icon,Tag, Table, Divider, Result, Modal, message, Skeleton } from "antd";
 import Highlighter from 'react-highlight-words';
 
 import clone from 'util/clone'
@@ -10,10 +10,9 @@ import "./index.less";
 import moment from "moment";
 import { toJS } from "mobx";
 
-const { TextArea } = Input;
-var _val
 
 // 申请加梯
+@Form.create()
 @inject('appyActions', 'appyStore')
 @observer
 class Appy extends React.Component {
@@ -96,6 +95,15 @@ class Appy extends React.Component {
     this.setState({ searchText: '' });
   };
 
+  doAgree = async (params)=>{
+    this.setState({ loading: true })
+    params.proc_dt = DT.newDateTime()
+    let r = await this.action.agreeApply(params)
+    
+
+    this.setState({ loading: false })
+  }
+
 
 
   render() {
@@ -103,7 +111,7 @@ class Appy extends React.Component {
     const apply = toJS(this.store.apply)
     const columns = [{
         title: '状态',
-        dataIndex: 'stat',
+        dataIndex: 'stat_name',
         filters: [
           {
             text: '已审查',
@@ -113,7 +121,7 @@ class Appy extends React.Component {
             value: '申请中',
           }
         ],
-        onFilter: (value, record) => record.stat  === value,
+        onFilter: (value, record) => record.stat_name  === value,
         render: d =>{
           let color = (d==='申请中')?'red':'blue'
           return (
@@ -155,8 +163,10 @@ class Appy extends React.Component {
       },{
         title: '功能',
         key: 'action',
-        render: (text, record) => (
-          <Button type="primary">同意加梯</Button>
+        render: (text, record, index) => (
+          (record.stat===0)&&
+          <Button type="primary" onClick={this.doAgree.bind(this,record)}>同意加梯</Button>
+        
         ),
       },
     ];
@@ -173,4 +183,4 @@ class Appy extends React.Component {
 }
 
 
-export default Form.create()(Appy);
+export default Appy;
