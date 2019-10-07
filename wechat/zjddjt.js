@@ -75,7 +75,7 @@ app.post('/ApplyList', async function(req, res) {
 app.post('/ApplyAdd', async function(req, res) {
   let sql  = `CALL PROC_APPLY_ADD(?)`;
   let params = req.body
-  
+
   callProc(sql,params,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })
@@ -137,6 +137,22 @@ app.post('/BrandAdd', async function (req, res){
       res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
     }else{
       res.status(200).json({ code: 200,msg: '添加品牌成功', data: ret })
+    }
+  })
+})
+
+/**
+ * 删除品牌
+ */
+app.post('/BrandDelete', async function (req, res){
+  let sql  = `CALL PROC_BRAND_DELETE(?)`;
+  let params = req.body
+
+  await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
+    if (err) {
+      res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
+    }else{
+      res.status(200).json({ code: 200,msg: '删除品牌成功', data: ret })
     }
   })
 })
