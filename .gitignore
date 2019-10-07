@@ -5,6 +5,10 @@
 /system/node_modules
 /wechat/node_modules
 
+# csv
+/wechat/download
+
+
 # production
 /build
 

@@ -32,6 +32,15 @@ class AppyActions extends BaseActions {
     return r
   }
 
+  @action
+  async exportApply() {
+    let r = await this.post(urls.API_APPLY_EXPORT, null, true)
+    if (r && r.code === 200) {
+      this.store.applyfile = r.data
+    }
+    return r
+  }
+
 
 }
 

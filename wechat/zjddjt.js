@@ -7,7 +7,8 @@ var path = require('path');
 var axios = require('axios');
 var crawler = require('./src/util/crawler')
 var db = require("./db/db")
-
+var { Parser } = require('json2csv');
+var moment = require('moment')
 
 const app = express();
 
@@ -32,15 +33,15 @@ const URL_USER = (token,openid)=>{
 // appid + secret -> token
 // code           -> openid
 // opid + token   -> user
-app.get('/userinfo', function(req, res, next) {
-  axios.get(URL_TOKEN).then((r)=> {
-    let token  = r.data.access_token
-    let openid = req.query.openid
-    axios.get(URL_USER(token,openid)).then((e)=> {
-      res.send(e.data)
-    })
-  })
-})
+// app.get('/userinfo', function(req, res, next) {
+//   axios.get(URL_TOKEN).then((r)=> {
+//     let token  = r.data.access_token
+//     let openid = req.query.openid
+//     axios.get(URL_USER(token,openid)).then((e)=> {
+//       res.send(e.data)
+//     })
+//   })
+// })
 
 
 
@@ -53,6 +54,12 @@ function callProc(sql, params, cb) {
     }
   })
 }
+
+
+// 取已经完成项目列表
+app.get('/test', async function(req, res) {
+  res.send('test')
+})
 
 // 取已经完成项目列表
 app.post('/ProjList', async function(req, res) {
@@ -82,13 +89,15 @@ app.post('/ApplyAdd', async function(req, res) {
 })
 
 // 同意申请加梯请求
-app.post('/ApplyAgree', async function(req, res) {
+app.post('/ApplyAgree', function(req, res) {
   let sql  = `CALL PROC_APPLY_AGREE(?)`;
   let params = req.body
 
+  // 取微信token
   axios.get(URL_TOKEN).then((r)=> {
     let token  = r.data.access_token
     let openid = params.opid
+    // 取微信用户信息
     axios.get(URL_USER(token,openid)).then((e)=> {
       params.nickname   = e.data.nickname
       params.sex        = e.data.sex
@@ -101,13 +110,25 @@ app.post('/ApplyAgree', async function(req, res) {
       })
     })
   })
-
-  // console.log(params)
-  // callProc(sql,params,(r)=>{
-  //   res.status(200).json({ code: 200, data: r })
-  // })
 })
 
+
+// 添加申请加梯请求
+app.post('/ApplyExport', function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST(?)`;
+  let params = req.body
+  let json2csvParser = new Parser();
+
+  callProc(sql,params,(r)=>{
+    
+    let csv  = json2csvParser.parse(r);
+    let file =  `/download/Apply_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`
+    fs.writeFile(__dirname + file, csv, function(err) {
+      if (err) throw err;
+      res.status(200).json({ code: 200, data: file })
+    })
+  })
+})
 
 
 /**

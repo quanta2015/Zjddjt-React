@@ -5,6 +5,7 @@ import Highlighter from 'react-highlight-words';
 
 import clone from 'util/clone'
 import * as DT  from 'util/date'
+import { API_SERVER } from 'constant/apis'
 
 import "./index.less";
 import moment from "moment";
@@ -98,9 +99,17 @@ class Appy extends React.Component {
   doAgree = async (params)=>{
     this.setState({ loading: true })
     params.proc_dt = DT.newDateTime()
-    let r = await this.action.agreeApply(params)
-    
+    await this.action.agreeApply(params)
+    this.setState({ loading: false })
+  }
 
+  doExport = async ()=>{
+    this.setState({ loading: true })
+    let r = await this.action.exportApply()
+    let url = `${API_SERVER}${r.data}`
+
+    var win = window.open(url, '_blank');
+    win.focus();
     this.setState({ loading: false })
   }
 
@@ -174,7 +183,7 @@ class Appy extends React.Component {
     return (
       <div className='g-appy'>
         <div className="m-appy-menu">
-          <Button type="primary">导出Excel</Button>
+          <Button type="primary" onClick={this.doExport}>导出Excel</Button>
         </div>
         <Table size='small' dataSource={apply} columns={columns} />;
       </div>
