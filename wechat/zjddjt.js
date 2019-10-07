@@ -120,7 +120,7 @@ app.post('/ApplyExport', function(req, res) {
   let json2csvParser = new Parser();
 
   callProc(sql,params,(r)=>{
-    
+
     let csv  = json2csvParser.parse(r);
     let file =  `/download/Apply_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`
     fs.writeFile(__dirname + file, csv, function(err) {
@@ -153,13 +153,9 @@ app.post('/BrandAdd', async function (req, res){
   let sql  = `CALL PROC_BRAND_ADD(?)`;
   let params = req.body
 
-  await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
-    if (err) {
-      res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
-    }else{
-      res.status(200).json({ code: 200,msg: '添加品牌成功', data: ret })
-    }
-  })
+  callProc(sql, params, (r) => {
+    res.status(200).json({ code: 200, msg: "添加品牌成功", data: r });
+  });
 })
 
 /**
@@ -171,13 +167,9 @@ app.post('/BrandUpdate', async function (req, res){
 
   console.log('update', params)
 
-  await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
-    if (err) {
-      res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
-    }else{
-      res.status(200).json({ code: 200,msg: '更新品牌信息成功', data: ret })
-    }
-  })
+  callProc(sql, params, (r) => {
+    res.status(200).json({ code: 200, msg: "更新品牌信息成功", data: r });
+  });
 })
 
 /**
@@ -189,13 +181,9 @@ app.post('/BrandDel', async function (req, res){
 
   console.log(JSON.stringify(params))
 
-  await db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
-    if (err) {
-      res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
-    }else{
-      res.status(200).json({ code: 200,msg: '删除品牌成功', data: ret })
-    }
-  })
+  callProc(sql, params, (r) => {
+    res.status(200).json({ code: 200, msg: '删除品牌成功', data: r });
+  });
 })
 
 /**
