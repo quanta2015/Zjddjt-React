@@ -7,19 +7,21 @@ var path = require('path');
 var axios = require('axios');
 var crawler = require('./src/util/crawler')
 var db = require("./db/db")
+var formidable = require('formidable');
 var { Parser } = require('json2csv');
 var moment = require('moment')
 
 const app = express();
 
+
 app.use(cors());
 app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(express.static(__dirname + '/'));
-
+app.use('/brandicon', express.static('../brandicon'));
 
 const port = 8080
-
+const SERVER_HOST = `localhost:${port}`
 
 const AppID = 'wx5d00ec8c1456987c'
 const Secret = '590b952b9fddb781c0797870633e9193'
@@ -54,7 +56,6 @@ function callProc(sql, params, cb) {
     }
   })
 }
-
 
 // 取已经完成项目列表
 app.get('/test', async function(req, res) {
@@ -169,6 +170,30 @@ app.post('/BrandUpdate', async function (req, res){
 
   callProc(sql, params, (r) => {
     res.status(200).json({ code: 200, msg: "更新品牌信息成功", data: r });
+  });
+})
+
+/**
+ * 保存品牌图片
+ */
+app.post('/BrandIcon', async function (req, res){
+  const form = new formidable.IncomingForm();
+  form.parse(req);
+
+  form.on('fileBegin', function (name, file){
+    let type = file.name.split('.').slice(-1)
+    file.path = '../brandicon/' + `icon_${moment(new Date()).format("YYYYMMDDhhmmss")}.${type}`;
+  });
+
+  form.on('file', (name, file) => {
+    console.log('Uploaded ' + file.name);
+    console.log(file.path.replace('..', SERVER_HOST))
+
+    res.status(200).json({
+      code: 200,
+      msg: "上传品牌图片成功",
+      data: {path: 'http://' + file.path.replace('..', SERVER_HOST)}
+    });
   });
 })
 

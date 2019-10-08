@@ -126,19 +126,37 @@ class Brad extends React.Component {
       });
   };
 
-  handleSubmit = async () => {
-    const data = this.bradForm.props.form.getFieldsValue();
-    console.log(data);
+  handleCancel = () => {
+    this.setState({
+      showModal: false,
+      editItem: null
+    });
+  }
 
-    if (this.state.editItem) {
-      console.log("edit", data);
-      await this.submitEdit(this.state.editItem.id, data);
-    } else {
-      console.log("add", data);
-      await this.submitAdd(data);
-    }
+  handleSubmit = () => {
+    // const data = this.bradForm.props.form.getFieldsValue();
 
-    console.log();
+    console.log(this.bradForm.props.form.validateFields((err, val) => {
+      if (!err) {
+        if (this.state.editItem) {
+          console.log("edit", val);
+          this.submitEdit(this.state.editItem.id, val)
+            .catch(e => console.log(e))
+        } else {
+          console.log("add", val);
+          this.submitAdd(val)
+            .catch(e => console.log(e))
+        }
+      }
+    }))
+
+    // if (this.state.editItem) {
+    //   console.log("edit", data);
+    //   this.submitEdit(this.state.editItem.id, data);
+    // } else {
+    //   console.log("add", data);
+    //   this.submitAdd(data);
+    // }
   };
 
   handleDelete = (record) => {
@@ -220,7 +238,6 @@ class Brad extends React.Component {
     return (
       <div className='g-appy'>
         <div className="m-brad-menu">
-          <Button type="primary">导出Excel</Button>
           <Button type="primary" onClick={() => this.setState({ showModal: true })}>添加品牌</Button>
         </div>
         <Table size='small' dataSource={brand} columns={this.columns} rowkey={(item) => `key${item.id}`}/>
@@ -229,16 +246,11 @@ class Brad extends React.Component {
           title=''
           visible={this.state.showModal}
           confirmLoading={this.state.submitLoading}
-          onCancel={() => {
-            this.setState({ showModal: false });
-          }}
-          // onOk={async () => {
-          //   await this.handleSubmit(this.bradForm.props.form.getFieldsValue());
-          // }}
-
+          onCancel={this.handleCancel}
           onOk={this.handleSubmit}
         >
           <BradForm
+            className='brand-form'
             wrappedComponentRef={(data) => {
               this.loadForm(data);
             }}

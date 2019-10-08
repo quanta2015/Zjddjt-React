@@ -89,11 +89,11 @@ CREATE TABLE `brand` (
 -- Records of brand
 -- ----------------------------
 BEGIN;
-INSERT INTO `brand` VALUES (1, '东南电梯股份有限公司浙江分公司', 'http://www.zjddjt.com//kindeditor/attached/image/20190923/20190923114230_42597.jpg', '唐中华', '0571-87181113 18157187618', '一体机 井道加电梯');
-INSERT INTO `brand` VALUES (2, '杭州西奥电梯有限公司', 'http://www.zjddjt.com//kindeditor/attached/image/20190923/20190923114230_83038.jpg', '范巨象', '13616508697', '一体机 井道加电梯');
-INSERT INTO `brand` VALUES (3, '奥的斯机电电梯有限公司', 'http://www.zjddjt.com//kindeditor/attached/image/20190923/20190923114229_50942.jpg', '戚洪亮', '13958065148', '井道加电梯');
-INSERT INTO `brand` VALUES (4, '日立电梯（中国）有限公司杭州工程有限公司', 'http://www.hitachi-helc.com/Source/home/images/headlogo.png', '吴伟力', '15968877116', '井道加电梯');
-INSERT INTO `brand` VALUES (5, '郎格尔电梯有限公司', 'http://www.lgeer.com/templates/cn/images/logo.jpg', '陈亮', '13777800553', '井道加电梯');
+INSERT INTO `brand` VALUES (1, '东南电梯股份有限公司浙江分公司', 'http://www.zjddjt.com//kindeditor/attached/image/20190923/20190923114230_42597.jpg', '唐中华', '0571-87181113 18157187618', '一体机 井道加电梯',0);
+INSERT INTO `brand` VALUES (2, '杭州西奥电梯有限公司', 'http://www.zjddjt.com//kindeditor/attached/image/20190923/20190923114230_83038.jpg', '范巨象', '13616508697', '一体机 井道加电梯',0);
+INSERT INTO `brand` VALUES (3, '奥的斯机电电梯有限公司', 'http://www.zjddjt.com//kindeditor/attached/image/20190923/20190923114229_50942.jpg', '戚洪亮', '13958065148', '井道加电梯',0);
+INSERT INTO `brand` VALUES (4, '日立电梯（中国）有限公司杭州工程有限公司', 'http://www.hitachi-helc.com/Source/home/images/headlogo.png', '吴伟力', '15968877116', '井道加电梯',0);
+INSERT INTO `brand` VALUES (5, '郎格尔电梯有限公司', 'http://www.lgeer.com/templates/cn/images/logo.jpg', '陈亮', '13777800553', '井道加电梯',0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
