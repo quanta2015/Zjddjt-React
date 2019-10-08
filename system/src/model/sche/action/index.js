@@ -14,33 +14,38 @@ class AppyActions extends BaseActions {
   }
 
 
+
   @action
-  async getApply(params) {
-    let r = await this.post(urls.API_APPLY_LIST, params, true)
+  async getSchedule(params) {
+    let r = await this.post(urls.API_SCHE_LIST, params, true)
     if (r && r.code === 200) {
-      this.store.apply = r.data
+      this.store.sche = r.data
     }
     return r
   }
 
   @action
-  async agreeApply(params) {
-    let r = await this.post(urls.API_APPLY_AGREE, params, true)
+  async getDetail(params) {
+    let r = await this.post(urls.API_SCHE_DETL, params, true)
     if (r && r.code === 200) {
-      this.store.apply = r.data
+      this.store.detail = r.data
     }
     return r
   }
 
   @action
-  async exportApply() {
-    let r = await this.post(urls.API_APPLY_EXPORT, null, true)
+  async finishDetail(params) {
+    let r = await this.post(urls.API_SCHE_FINISH, params, true)
     if (r && r.code === 200) {
-      this.store.applyfile = r.data
+      this.store.detail = r.data
     }
     return r
   }
 
+
+  
+
+  
 
 
 }

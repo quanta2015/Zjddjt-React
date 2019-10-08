@@ -72,8 +72,7 @@ app.post('/ProjList', async function(req, res) {
 // 取申请加梯列表
 app.post('/ApplyList', async function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
-  let params = req.body
-
+  let params = 0
   callProc(sql,params,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })
@@ -117,7 +116,7 @@ app.post('/ApplyAgree', function(req, res) {
 // 添加申请加梯请求
 app.post('/ApplyExport', function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
-  let params = req.body
+  let params = 1
   let json2csvParser = new Parser();
 
   callProc(sql,params,(r)=>{
@@ -130,6 +129,42 @@ app.post('/ApplyExport', function(req, res) {
     })
   })
 })
+
+
+// 取申请加梯列表
+app.post('/ScheList', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST(?)`;
+  let params = 2
+  callProc(sql,params,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+
+app.post('/ScheDetail', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_DETAIL(?)`;
+  let params = req.body.key
+  callProc(sql,params,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+app.post('/ScheFinish', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_FINISH(?)`;
+  let params = { 
+    id: req.body.key, 
+    pid: req.body.pid,
+    proc_ct: req.body.proc_ct,
+    proc_dt: moment(new Date()).format("YYYYMMDDhhmmss")
+  }
+  callProc(sql,params,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+
+
+
 
 
 /**
