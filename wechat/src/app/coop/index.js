@@ -38,8 +38,6 @@ class Coop extends React.Component {
     this.setState({
       code: params.get("code")
     });
-
-    console.log("did mount", this.store, this.action);
   }
 
   doReturn = (link) => {
@@ -48,7 +46,8 @@ class Coop extends React.Component {
 
   handleCancel = () => {
     this.setState({
-      visible: false
+      visible: false,
+      loading: false
     });
   };
 
@@ -112,13 +111,6 @@ class Coop extends React.Component {
                   ))}
                 </Select>
               )}
-            </Form.Item>
-
-            <Form.Item label="单位地址">
-              {getFieldDecorator("addr", {
-                // rules: [{ required: true, message: "请输入单位地址！" }],
-                initialValue: ""
-              })(<TextArea rows={2} placeholder="请输入单位地址..."/>)}
             </Form.Item>
 
             <Form.Item label="联系人姓名">

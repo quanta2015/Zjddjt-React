@@ -19,7 +19,6 @@ class BradStore extends BaseActions {
     }
     return r
   }
-
 }
 
 export default new BradStore(store)
