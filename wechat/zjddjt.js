@@ -248,9 +248,6 @@ app.post('/BrandIcon', async function (req, res){
   });
 
   form.on('file', (name, file) => {
-    console.log('Uploaded ' + file.name);
-    console.log(file.path.replace('..', SERVER_HOST))
-
     res.status(200).json({
       code: 200,
       msg: "上传品牌图片成功",

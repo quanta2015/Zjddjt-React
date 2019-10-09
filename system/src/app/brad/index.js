@@ -223,6 +223,7 @@ class Brad extends React.Component {
     }, {
       title: "功能",
       key: "action",
+      width: '152px',
       render: (text, record) => (
         <div>
           <Button type="primary" onClick={() => this.handleEdit(record)}>修改</Button>

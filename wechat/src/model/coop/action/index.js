@@ -15,7 +15,6 @@ class CoopAction extends BaseActions {
     if (r && r.code === 200) {
       this.store.coop = r.data
     }
-    console.log(r)
     return r
   }
 }
