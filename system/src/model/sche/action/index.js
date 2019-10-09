@@ -42,7 +42,23 @@ class AppyActions extends BaseActions {
     return r
   }
 
+  @action
+  async cancelDetail(params) {
+    let r = await this.post(urls.API_SCHE_CANCEL, params, true)
+    if (r && r.code === 200) {
+      this.store.detail = r.data
+    }
+    return r
+  }
 
+  @action
+  async exportSche() {
+    let r = await this.post(urls.API_SCHE_EXPORT, null, true)
+    if (r && r.code === 200) {
+      this.store.applyfile = r.data
+    }
+    return r
+  }
   
 
   

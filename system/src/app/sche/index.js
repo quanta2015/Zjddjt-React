@@ -125,6 +125,22 @@ class Sche extends React.Component {
     this.setState({ loading: false })
   }
 
+  doCancel = async (params)=>{
+    this.setState({ loading: true})
+    await this.action.cancelDetail(params)
+    this.setState({ loading: false })
+  }
+
+  doExport = async ()=>{
+    this.setState({ loading: true })
+    let r = await this.action.exportSche()
+    let url = `${API_SERVER}${r.data}`
+
+    var win = window.open(url, '_blank');
+    win.focus();
+    this.setState({ loading: false })
+  }
+
 
 
   render() {
@@ -132,7 +148,6 @@ class Sche extends React.Component {
     const sche = toJS(this.store.sche)
     const detl = toJS(this.store.detail)
 
-    console.log(detl)
     const columnsSche = [{
         title: '申请时间',
         dataIndex: 'apdt',
@@ -210,8 +225,16 @@ class Sche extends React.Component {
         key: 'proc_ct'
       },{
         title: '工程状态',
+        width: '120px',
         dataIndex: 'proc_stat',
-        key: 'proc_stat'
+        key: 'proc_stat',
+        render: d =>{
+          let color = (d==='已完成')?'red':'blue'
+          return (
+            <Tag color={color}>
+              {d}
+            </Tag>)
+        }
       },{
         title: '功能',
         key: 'action',
@@ -220,14 +243,13 @@ class Sche extends React.Component {
           (record.proc_stat==='执行中')&&
           <div>
             <Button type="primary" icon="appstore" onClick={this.doFinish.bind(this,record)}>完成</Button>
-            <Button type="danger" icon="close">撤回</Button>
+            { (record.proc_ct!==2)&& <Button type="danger" icon="close" onClick={this.doCancel.bind(this,record)}>撤回</Button> }
             { (record.proc_ct===3)&& <Button type="default" icon="upload">上传文件</Button> }
           </div>
         ),
       },
     ];
 
-    let detail = []
 
     return (
       <div className='g-sche'>
