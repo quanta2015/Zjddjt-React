@@ -162,8 +162,35 @@ app.post('/ScheFinish', async function(req, res) {
   })
 })
 
+app.post('/ScheCancel', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_CANCEL(?)`;
+  let params = { 
+    id: req.body.key, 
+    pid: req.body.pid,
+    proc_ct: req.body.proc_ct,
+    proc_dt: moment(new Date()).format("YYYYMMDDhhmmss")
+  }
+  callProc(sql,params,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
 
 
+// 添加申请加梯请求
+app.post('/ScheExport', function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST(?)`;
+  let params = 3
+  let json2csvParser = new Parser();
+
+  callProc(sql,params,(r)=>{
+    let csv  = json2csvParser.parse(r);
+    let file =  `/download/Sche_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`
+    fs.writeFile(__dirname + file, csv, function(err) {
+      if (err) throw err;
+      res.status(200).json({ code: 200, data: file })
+    })
+  })
+})
 
 
 

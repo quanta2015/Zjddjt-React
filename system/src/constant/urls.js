@@ -10,7 +10,8 @@ export const API_APPLY_EXPORT = API_SERVER + '/ApplyExport'
 export const API_SCHE_LIST   = API_SERVER + '/ScheList'
 export const API_SCHE_DETL   = API_SERVER + '/ScheDetail'
 export const API_SCHE_FINISH = API_SERVER + '/ScheFinish'
-
+export const API_SCHE_CANCEL = API_SERVER + '/ScheCancel'
+export const API_SCHE_EXPORT = API_SERVER + '/ScheExport'
 
 
 
