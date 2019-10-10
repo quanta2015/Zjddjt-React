@@ -1,8 +1,8 @@
 import { observable } from 'mobx'
 
 class Store {
-  @observable user = null
-  @observable isLogin = null
+  // @observable detail = null
+  // @observable files = null
 }
 
 export default new Store()

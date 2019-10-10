@@ -141,12 +141,32 @@ class Sche extends React.Component {
     this.setState({ loading: false })
   }
 
+  doUpload = async (record, e)=>{
+    if (e.currentTarget.files.length < 1) return;
+    let file = e.currentTarget.files[0]
+    let id   = record.pid
+    this.setState({ loading: true})
+    let r = await this.action.uploadFile(file,id)
+    this.setState({ loading: false })
+  }
+
+  doDelete = async (params,e)=>{
+    e.preventDefault()
+    this.setState({ loading: true})
+    await this.action.deleteFile(params)
+    this.setState({ loading: false })
+  }
+
 
 
   render() {
     const {loading,show} = this.state
-    const sche = toJS(this.store.sche)
-    const detl = toJS(this.store.detail)
+    const sche = toJS(getValue(this.store, 'sche', []))
+    const detl = toJS(getValue(this.store, 'detail', []))
+    const files = toJS(getValue(this.store, 'files', []))
+
+
+    console.log(`files...${files}`)
 
     const columnsSche = [{
         title: '申请时间',
@@ -243,8 +263,12 @@ class Sche extends React.Component {
           (record.proc_stat==='执行中')&&
           <div>
             <Button type="primary" icon="appstore" onClick={this.doFinish.bind(this,record)}>完成</Button>
-            { (record.proc_ct!==2)&& <Button type="danger" icon="close" onClick={this.doCancel.bind(this,record)}>撤回</Button> }
-            { (record.proc_ct===3)&& <Button type="default" icon="upload">上传文件</Button> }
+            { (record.proc_ct!==2)&& <Button type="danger"  icon="close" onClick={this.doCancel.bind(this,record)}>撤回</Button> }
+            { (record.proc_ct===3)&& 
+              <div className="m-upload">
+                <input type="file" className="m-upload-btn" accept="" onChange={this.doUpload.bind(this,record)}/>
+                <Button type="default" icon="upload">上传文件</Button>
+              </div> }
           </div>
         ),
       },
@@ -269,6 +293,15 @@ class Sche extends React.Component {
             <Button type="primary" icon="rollback" onClick={this.doReturn}>返回</Button>
           </div>
           <Table size='small' dataSource={detl} columns={columnsDetail} />
+          <div className="m-files">
+            {files.map((item,index)=>
+              <a href={`${API_SERVER}/${item.url}`} target="_blank" className="m-file-item" key={index}>
+                <div className="m-del" onClick={this.doDelete.bind(this,item)}></div>
+                <Icon type="file" />
+                <p>{item.name}</p>
+              </a>  
+             )}
+          </div>
         </div>
         }
       </div>

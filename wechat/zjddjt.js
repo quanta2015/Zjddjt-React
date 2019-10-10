@@ -10,6 +10,7 @@ var db = require("./db/db")
 var formidable = require('formidable');
 var { Parser } = require('json2csv');
 var moment = require('moment')
+var formidable = require('formidable');
 
 const app = express();
 
@@ -47,7 +48,9 @@ const URL_USER = (token,openid)=>{
 
 
 
-function callProc(sql, params, cb) {
+function callProc(sql, params, res, cb) {
+  console.log(params)
+  console.log(sql)
   db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
     if (err) {
       res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
@@ -73,7 +76,7 @@ app.post('/ProjList', async function(req, res) {
 app.post('/ApplyList', async function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
   let params = 0
-  callProc(sql,params,(r)=>{
+  callProc(sql,params, res, (r)=>{
     res.status(200).json({ code: 200, data: r })
   })
 })
@@ -83,7 +86,7 @@ app.post('/ApplyAdd', async function(req, res) {
   let sql  = `CALL PROC_APPLY_ADD(?)`;
   let params = req.body
 
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res, (r)=>{
     res.status(200).json({ code: 200, data: r })
   })
 })
@@ -119,7 +122,7 @@ app.post('/ApplyExport', function(req, res) {
   let params = 1
   let json2csvParser = new Parser();
 
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res, (r)=>{
 
     let csv  = json2csvParser.parse(r);
     let file =  `/download/Apply_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`
@@ -135,42 +138,50 @@ app.post('/ApplyExport', function(req, res) {
 app.post('/ScheList', async function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
   let params = 2
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res, (r)=>{
     res.status(200).json({ code: 200, data: r })
   })
 })
 
 
 app.post('/ScheDetail', async function(req, res) {
-  let sql  = `CALL PROC_APPLY_DETAIL(?)`;
+  let sql  = `CALL PROC_SCHE_DETAIL(?)`;
   let params = req.body.key
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+app.post('/ScheFile', async function(req, res) {
+  let sql  = `CALL PROC_SCHE_FILE(?)`;
+  let params = req.body.key
+  callProc(sql,params,res,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })
 })
 
 app.post('/ScheFinish', async function(req, res) {
-  let sql  = `CALL PROC_APPLY_FINISH(?)`;
+  let sql  = `CALL PROC_SCHE_FINISH(?)`;
   let params = { 
     id: req.body.key, 
     pid: req.body.pid,
     proc_ct: req.body.proc_ct,
     proc_dt: moment(new Date()).format("YYYYMMDDhhmmss")
   }
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })
 })
 
 app.post('/ScheCancel', async function(req, res) {
-  let sql  = `CALL PROC_APPLY_CANCEL(?)`;
+  let sql  = `CALL PROC_SCHE_CANCEL(?)`;
   let params = { 
     id: req.body.key, 
     pid: req.body.pid,
     proc_ct: req.body.proc_ct,
     proc_dt: moment(new Date()).format("YYYYMMDDhhmmss")
   }
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })
 })
@@ -182,7 +193,7 @@ app.post('/ScheExport', function(req, res) {
   let params = 3
   let json2csvParser = new Parser();
 
-  callProc(sql,params,(r)=>{
+  callProc(sql,params,res,(r)=>{
     let csv  = json2csvParser.parse(r);
     let file =  `/download/Sche_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`
     fs.writeFile(__dirname + file, csv, function(err) {
@@ -191,6 +202,48 @@ app.post('/ScheExport', function(req, res) {
     })
   })
 })
+
+
+app.post('/ScheUpload', function(req, res, next) {
+  let sql  = `CALL PROC_SCHE_UPLOAD(?)`;
+  let params = {
+    id: null,
+    file: null,
+    name: null,
+  }
+  var form = new formidable.IncomingForm();
+  form.encoding = 'utf-8';              //上传文件编码格式
+  form.uploadDir = "upload";            //上传文件保存路径（必须在public下面新建）
+  form.keepExtensions = true;           //保持上传文件后缀
+  form.maxFieldsSize = 300 * 1024 * 1024;  
+  form.parse(req);
+
+  form.on('field', function(name, value) {
+      if (name==='id') params.id = value
+    })
+    .on('file', function(field, file) {
+      params.file = file.path
+      params.name = file.name
+    })
+    .on('end', function() {
+      console.log(params)
+      callProc(sql,params,res,(r)=>{
+        res.status(200).json({ code: 200, data: r })
+      })
+    });
+})
+
+
+app.post('/ScheDelete', async function(req, res) {
+  let sql  = `CALL PROC_SCHE_DELETE(?)`;
+  let params = req.body
+  callProc(sql,params,res,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+
+
 
 
 
@@ -216,7 +269,7 @@ app.post('/BrandAdd', async function (req, res){
   let sql  = `CALL PROC_BRAND_ADD(?)`;
   let params = req.body
 
-  callProc(sql, params, (r) => {
+  callProc(sql, params, res, (r) => {
     res.status(200).json({ code: 200, msg: "添加品牌成功", data: r });
   });
 })
@@ -230,7 +283,7 @@ app.post('/BrandUpdate', async function (req, res){
 
   console.log('update', params)
 
-  callProc(sql, params, (r) => {
+  callProc(sql, params, res, (r) => {
     res.status(200).json({ code: 200, msg: "更新品牌信息成功", data: r });
   });
 })
@@ -265,7 +318,7 @@ app.post('/BrandDel', async function (req, res){
 
   console.log(JSON.stringify(params))
 
-  callProc(sql, params, (r) => {
+  callProc(sql, params,res,  (r) => {
     res.status(200).json({ code: 200, msg: '删除品牌成功', data: r });
   });
 })

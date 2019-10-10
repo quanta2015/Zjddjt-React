@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/wechat/zjddjt.js"
+      "program": "${workspaceFolder}/zjddjt.js"
     }
   ]
 }

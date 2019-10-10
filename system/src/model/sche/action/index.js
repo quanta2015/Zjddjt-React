@@ -26,11 +26,14 @@ class AppyActions extends BaseActions {
 
   @action
   async getDetail(params) {
+    
     let r = await this.post(urls.API_SCHE_DETL, params, true)
-    if (r && r.code === 200) {
+    let s = await this.post(urls.API_SCHE_FILE, params, true)
+    if ((r && r.code === 200)&&(s && s.code === 200)) {
       this.store.detail = r.data
+      this.store.files  = s.data
     }
-    return r
+    // return r
   }
 
   @action
@@ -60,9 +63,29 @@ class AppyActions extends BaseActions {
     return r
   }
   
+  @action
+  async uploadFile(file,id) {
+    let forms = new FormData()
+    forms.append('file',file)
+    forms.append('id', id)
+    let r = await this.post(urls.API_SCHE_UPLOAD, forms, true)
+    if (r && r.code === 200) {
+      this.store.files = r.data
+    }
+    return r
+  }
+
+  @action
+  async deleteFile(params) {
+    let r = await this.post(urls.API_SCHE_DELETE, params, true)
+    if (r && r.code === 200) {
+      this.store.files = r.data
+    }
+    return r
+  }
+
 
   
-
 
 }
 
