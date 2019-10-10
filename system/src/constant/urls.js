@@ -15,6 +15,8 @@ export const API_SCHE_CANCEL = API_SERVER + '/ScheCancel'
 export const API_SCHE_EXPORT = API_SERVER + '/ScheExport'
 export const API_SCHE_UPLOAD = API_SERVER + '/ScheUpload'
 export const API_SCHE_DELETE = API_SERVER + '/ScheDelete'
+export const API_SCHE_STOP   = API_SERVER + '/ScheStop'
+
 
 
 

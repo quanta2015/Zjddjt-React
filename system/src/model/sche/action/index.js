@@ -84,6 +84,15 @@ class AppyActions extends BaseActions {
     return r
   }
 
+  @action
+  async stopSche(params) {
+    let r = await this.post(urls.API_SCHE_STOP, params, true)
+    if (r && r.code === 200) {
+      this.store.sche = r.data
+    }
+    return r
+  }
+
 
   
 

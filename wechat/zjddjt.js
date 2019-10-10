@@ -108,7 +108,7 @@ app.post('/ApplyAgree', function(req, res) {
       params.province   = e.data.province
       params.country    = e.data.country
       params.headimgurl = e.data.headimgurl
-      callProc(sql,params,(r)=>{
+      callProc(sql,params,res, (r)=>{
         res.status(200).json({ code: 200, data: r })
       })
     })
@@ -241,6 +241,17 @@ app.post('/ScheDelete', async function(req, res) {
     res.status(200).json({ code: 200, data: r })
   })
 })
+
+app.post('/ScheStop', async function(req, res) {
+  let sql  = `CALL PROC_SCHE_STOP(?)`;
+  let params = req.body
+  callProc(sql,params,res,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+
+
 
 
 

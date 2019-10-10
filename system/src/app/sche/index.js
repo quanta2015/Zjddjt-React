@@ -157,6 +157,12 @@ class Sche extends React.Component {
     this.setState({ loading: false })
   }
 
+  doStop = async (params,e)=>{
+    this.setState({ loading: true})
+    await this.action.stopSche(params)
+    this.setState({ loading: false })
+  }
+
 
 
   render() {
@@ -164,9 +170,6 @@ class Sche extends React.Component {
     const sche = toJS(getValue(this.store, 'sche', []))
     const detl = toJS(getValue(this.store, 'detail', []))
     const files = toJS(getValue(this.store, 'files', []))
-
-
-    console.log(`files...${files}`)
 
     const columnsSche = [{
         title: '申请时间',
@@ -201,11 +204,21 @@ class Sche extends React.Component {
           },{
             text: '申请中',
             value: '申请中',
+          },{
+            text: '已终止',
+            value: '已终止',
           }
         ],
         onFilter: (value, record) => record.stat_name  === value,
         render: d =>{
-          let color = (d==='申请中')?'red':'blue'
+          let color
+          if (d==='申请中') {
+            color = 'red'
+          }else if (d==='已审查') {
+            color = 'blue'
+          }else {
+            color = 'black'
+          }
           return (
             <Tag color={color}>
               {d}
@@ -216,9 +229,10 @@ class Sche extends React.Component {
         key: 'action',
         width: '200px',
         render: (text, record, index) => (
+          (record.stat!==-1) &&
           <div>
             <Button type="primary" icon="appstore" onClick={this.doDetail.bind(this,record)}>详情</Button>
-            <Button type="danger" icon="close">终止</Button>
+            <Button type="danger"  icon="close" onClick={this.doStop.bind(this,record)}>终止</Button>
           </div>
         ),
       },
