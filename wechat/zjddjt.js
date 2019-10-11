@@ -20,9 +20,10 @@ app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(express.static(__dirname + '/'));
 app.use('/brandicon', express.static('../brandicon'));
+app.use('/csv', express.static('../csv'));
 
 const port = 8080
-const SERVER_HOST = `localhost:${port}`
+const SERVER_HOST = `http://localhost:${port}`
 
 const AppID = 'wx5d00ec8c1456987c'
 const Secret = '590b952b9fddb781c0797870633e9193'
@@ -46,6 +47,24 @@ const URL_USER = (token,openid)=>{
 //   })
 // })
 
+/**
+ * apdt to YYYY/MM/DD or YYYY/MM/DD HH/MM/SS
+ * hms: 是否需要 HH/MM/SS
+ */
+let formatApdt = (d, hms=true) => {
+  let year  = d.toString().substr(0,4)
+  let month = d.toString().substr(4,2)
+  let day   = d.toString().substr(6,2)
+  let hour  = d.toString().substr(8,2)
+  let min   = d.toString().substr(10,2)
+  let sec   = d.toString().substr(12,2)
+
+  if (hms) {
+    return `${year}-${month}-${day} ${hour}:${min}:${sec}`
+  } else {
+    return `${year}-${month}-${day}`
+  }
+}
 
 
 function callProc(sql, params, res, cb) {
@@ -162,8 +181,8 @@ app.post('/ScheFile', async function(req, res) {
 
 app.post('/ScheFinish', async function(req, res) {
   let sql  = `CALL PROC_SCHE_FINISH(?)`;
-  let params = { 
-    id: req.body.key, 
+  let params = {
+    id: req.body.key,
     pid: req.body.pid,
     proc_ct: req.body.proc_ct,
     proc_dt: moment(new Date()).format("YYYYMMDDhhmmss")
@@ -175,8 +194,8 @@ app.post('/ScheFinish', async function(req, res) {
 
 app.post('/ScheCancel', async function(req, res) {
   let sql  = `CALL PROC_SCHE_CANCEL(?)`;
-  let params = { 
-    id: req.body.key, 
+  let params = {
+    id: req.body.key,
     pid: req.body.pid,
     proc_ct: req.body.proc_ct,
     proc_dt: moment(new Date()).format("YYYYMMDDhhmmss")
@@ -215,7 +234,7 @@ app.post('/ScheUpload', function(req, res, next) {
   form.encoding = 'utf-8';              //上传文件编码格式
   form.uploadDir = "upload";            //上传文件保存路径（必须在public下面新建）
   form.keepExtensions = true;           //保持上传文件后缀
-  form.maxFieldsSize = 300 * 1024 * 1024;  
+  form.maxFieldsSize = 300 * 1024 * 1024;
   form.parse(req);
 
   form.on('field', function(name, value) {
@@ -278,7 +297,7 @@ app.get('/BradList', async function (req, res){
  */
 app.post('/BrandAdd', async function (req, res){
   let sql  = `CALL PROC_BRAND_ADD(?)`;
-  let params = req.body
+  let params = -1
 
   callProc(sql, params, res, (r) => {
     res.status(200).json({ code: 200, msg: "添加品牌成功", data: r });
@@ -339,15 +358,46 @@ app.post('/BrandDel', async function (req, res){
  */
 app.post('/CoopAdd', async function(req, res) {
   let sql  = `CALL PROC_COOP_ADD(?)`;
-  let params = req.body
+  let params = {}
 
-  await db.procedureSQL(sql, JSON.stringify(params), (err, ret) => {
-    if (err) {
-      res.status(500).json({ code: -1, msg: "提交请求失败，请联系管理员！", data: null });
-    } else {
-      res.status(200).json({ code: 200, data: ret });
-    }
+  callProc(sql, params,res,  (r) => {
+    res.status(200).json({ code: 200, msg: '已提交合作信息', data: r });
+  });
+})
+
+/**
+ * 查询全部合作信息
+ */
+app.post("/CoopList", async function(req, res) {
+  let sql  = `CALL PROC_COOP_LIST(?)`;
+  let params = 0
+
+  callProc(sql,params, res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
   })
+})
+
+/**
+ * 导出合作信息
+ */
+app.post("/CoopExport", function(req, res) {
+  let sql = `CALL PROC_COOP_LIST(?)`;
+  let params = 1;
+  let json2csvParser = new Parser({excelStrings: true});
+
+  callProc(sql, params, res, (r) => {
+    const _r = r.map((item) => {
+      item['提交日期'] = formatApdt(item['提交日期'], false)
+      return item
+    })
+
+    let csv = json2csvParser.parse(_r);
+    let file = `/csv/Coop_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`;
+    fs.writeFile(path.resolve(__dirname, '..') + file, csv, function(err) {
+      if (err) throw err;
+      res.status(200).json({ code: 200, data: SERVER_HOST + file });
+    });
+  });
 })
 
 app.listen(port, () => console.log(`> Running on localhost:${port}`));
