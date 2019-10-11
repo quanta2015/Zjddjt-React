@@ -358,9 +358,9 @@ app.post('/BrandDel', async function (req, res){
  */
 app.post('/CoopAdd', async function(req, res) {
   let sql  = `CALL PROC_COOP_ADD(?)`;
-  let params = {}
+  let params = req.body
 
-  callProc(sql, params,res,  (r) => {
+  callProc(sql, params, res,  (r) => {
     res.status(200).json({ code: 200, msg: '已提交合作信息', data: r });
   });
 })
