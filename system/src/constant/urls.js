@@ -27,4 +27,8 @@ export const API_BRAND_UPDATE   = API_SERVER + '/BrandUpdate'
 export const API_BRAND_ICON     = API_SERVER + '/BrandIcon'
 
 
+export const API_COOP_LIST       = API_SERVER + '/CoopList'
+export const API_COOP_EXPORT     = API_SERVER + '/CoopExport'
+
+
 export const HOST_IMG = API_SERVER + '/'
