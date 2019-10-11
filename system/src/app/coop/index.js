@@ -142,7 +142,7 @@ class Coop extends React.Component {
       title: "主要描述",
       dataIndex: "des",
       key: "des",
-      ...this.getColumnSearchProps("phone"),
+      ...this.getColumnSearchProps("des"),
       render: (text) => <span className="col-des">{text}</span>
     }, {
       title: "功能",
