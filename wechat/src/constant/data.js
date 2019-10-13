@@ -28,7 +28,9 @@ export const MENU_MAIN = [{ title:'加梯概况', icon:'search', submenu: SUBMEN
 export const STAT = [ ['已终止','black'],
                       ['申请中','red' ],
                       ['已审查','blue'],
-                      ['已竣工','orange'], ]
+                      ['已竣工','#f50'],
+                      ['已评价','#87d068'],
+                      ['已展示','#108ee9'], ]
 
 
 export const PROC_NAME = ['受理申请并确定申请人和实施主体',
