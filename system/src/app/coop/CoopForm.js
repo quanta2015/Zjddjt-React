@@ -23,7 +23,7 @@ class CoopForm extends React.Component {
 
         <Form.Item label='合作类型' key={`合作类型`}>
           <Input
-            prefix={<Icon type="database" style={{ color: "rgba(0,0,0,.25)" }}/>}
+            prefix={<Icon type="unordered-list" style={{ color: "rgba(0,0,0,.25)" }}/>}
             value={getVal(item, 'type')}
           />
         </Form.Item>

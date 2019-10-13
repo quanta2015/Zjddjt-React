@@ -155,7 +155,6 @@ class Coop extends React.Component {
           onOk={this.handleOk}
           confirmLoading={loading}
           onCancel={this.handleCancel}
-
         ><p>确认提交加梯申请?</p></Modal>
 
       </div>

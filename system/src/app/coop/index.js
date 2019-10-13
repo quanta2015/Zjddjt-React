@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import { Input, Form, Button, Icon, Table, Modal, message, Select, Upload, Divider } from "antd";
 import Highlighter from "react-highlight-words";
 import CoopForm from './CoopForm'
+import {API_SERVER} from 'constant/apis'
 import "./index.less";
 import { toJS } from "mobx";
 
@@ -107,7 +108,9 @@ class Coop extends React.Component {
     this.setState({ loading: true });
     let r = await this.action.exportCoop();
     console.log("开始导出Excel");
-    let url = r.data;
+    let url = `${API_SERVER}${r.data}`
+
+    console.log(url)
 
     var win = window.open(url, "_blank");
     win.focus();

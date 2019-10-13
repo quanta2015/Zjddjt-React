@@ -22,7 +22,6 @@ app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(express.static(__dirname + '/'));
 app.use('/brandicon', express.static('../brandicon'));
-app.use('/csv', express.static('../csv'));
 
 const port = 8080
 const SERVER_HOST = `http://localhost:${port}`
@@ -399,11 +398,11 @@ app.post("/CoopExport", function(req, res) {
     })
 
     let csv = json2csvParser.parse(_r);
-    let file = `/csv/Coop_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`;
-    fs.writeFile(path.resolve(__dirname, '..') + file, csv, function(err) {
+    let file =  `/download/Coop_${moment(new Date()).format("YYYYMMDDhhmmss")}.csv`
+    fs.writeFile(__dirname + file, csv, function(err) {
       if (err) throw err;
-      res.status(200).json({ code: 200, data: SERVER_HOST + file });
-    });
+      res.status(200).json({ code: 200, data: file })
+    })
   });
 })
 
