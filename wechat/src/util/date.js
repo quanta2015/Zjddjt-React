@@ -60,7 +60,7 @@ export let html2RagDate = (html) => {
  * hms: 是否需要 HH/MM/SS
  */
 export let formatApdt = (d, hms=true) => {
-  let year  = d.toString().substr(0,4)
+  let year  = d.toString().substr(2,2)
   let month = d.toString().substr(4,2)
   let day   = d.toString().substr(6,2)
   let hour  = d.toString().substr(8,2)

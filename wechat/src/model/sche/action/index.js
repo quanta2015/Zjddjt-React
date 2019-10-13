@@ -15,14 +15,14 @@ class PlanActions extends BaseActions {
 
 
   @action
-  async listPlan(params) {
-    let r = await this.post(urls.API_PLAN_LIST, params, true)
+  async listSche(params) {
+    let r = await this.post(urls.API_SCHE_LIST, params, true)
     if ((r && r.code === 200)) {
       //转换日期和状态信息
       if (r.data.length>0) {
-        list2JSON(r.data,'plan')
+        list2JSON(r.data,'sche')
       }
-      this.store.plan = r.data
+      this.store.sche = r.data
     }
   }
 

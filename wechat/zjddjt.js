@@ -278,6 +278,14 @@ app.post('/PlanList', async function(req, res) {
   })
 })
 
+app.post('/ScheProjList', async function(req, res) {
+  let sql  = `CALL PROC_SCHE_LIST(?)`;
+  let params = req.body
+  callProc(sql,params,res,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
 
 
 

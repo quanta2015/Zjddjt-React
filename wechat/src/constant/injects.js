@@ -10,6 +10,8 @@ import coopStore       from 'model/coop/store'
 import coopActions     from 'model/coop/action'
 import planStore       from 'model/plan/store'
 import planActions     from 'model/plan/action'
+import scheStore       from 'model/sche/store'
+import scheActions     from 'model/sche/action'
 
 
 export default {
@@ -25,4 +27,6 @@ export default {
   coopActions,
   planStore,   
   planActions, 
+  scheStore,  
+  scheActions,
 }

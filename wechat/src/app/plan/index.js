@@ -43,7 +43,7 @@ class Plan extends React.Component {
 
     return (
       <div className='g-plan'>
-        <div className="m-plan-tl">申请方案</div>
+        <div className="m-title">申请方案</div>
 
         {hasApply && plan.map((item,index)=>
           <div className="m-plan-item" key={index}>
