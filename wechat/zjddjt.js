@@ -49,8 +49,6 @@ const URL_USER = (token,openid)=>{
 
 
 function callProc(sql, params, res, cb) {
-  console.log(params)
-  console.log(sql)
   db.procedureSQL(sql,JSON.stringify(params),(err,ret)=>{
     if (err) {
       res.status(500).json({ code: -1, msg: '提交请求失败，请联系管理员！', data: null})
@@ -226,7 +224,6 @@ app.post('/ScheUpload', function(req, res, next) {
       params.name = file.name
     })
     .on('end', function() {
-      console.log(params)
       callProc(sql,params,res,(r)=>{
         res.status(200).json({ code: 200, data: r })
       })
@@ -250,6 +247,16 @@ app.post('/ScheStop', async function(req, res) {
   })
 })
 
+
+
+
+app.post('/PlanList', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST_BY_CODE(?)`;
+  let params = req.body
+  callProc(sql,params,res,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
 
 
 
@@ -291,8 +298,6 @@ app.post('/BrandAdd', async function (req, res){
 app.post('/BrandUpdate', async function (req, res){
   let sql  = `CALL PROC_BRAND_UPDATE(?)`;
   let params = req.body
-
-  console.log('update', params)
 
   callProc(sql, params, res, (r) => {
     res.status(200).json({ code: 200, msg: "更新品牌信息成功", data: r });

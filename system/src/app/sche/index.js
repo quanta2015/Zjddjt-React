@@ -1,6 +1,6 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Form, Button, Icon,Tag, Table, Divider, Result, Modal, message, Skeleton } from "antd";
+import { Input, Form, Button, Icon,Tag, Table, Spin, Divider, Result, Modal, message, Skeleton } from "antd";
 import Highlighter from 'react-highlight-words';
 
 import clone from 'util/clone'
@@ -178,13 +178,13 @@ class Sche extends React.Component {
         defaultSortOrder: 'descend',
         sorter: (a, b) => a.apdt - b.apdt,
         render: d => {
-          let year  = d.toString().substr(0,4)
-          let month = d.toString().substr(4,2)
-          let day   = d.toString().substr(6,2)
-          let hour  = d.toString().substr(8,2)
-          let min   = d.toString().substr(10,2)
-          let sec   = d.toString().substr(12,2)
-          let ret  = `${year}-${month}-${day} ${hour}:${min}:${sec}`
+          // let year  = d.toString().substr(0,4)
+          // let month = d.toString().substr(4,2)
+          // let day   = d.toString().substr(6,2)
+          // let hour  = d.toString().substr(8,2)
+          // let min   = d.toString().substr(10,2)
+          // let sec   = d.toString().substr(12,2)
+          let ret  = DT.formatApdt(d,true)
           return (
             <span className="m-date">{ret}</span>
           )}
@@ -291,6 +291,8 @@ class Sche extends React.Component {
 
     return (
       <div className='g-sche'>
+        {(loading) &&
+        <div className="m-loader"><Spin size="large" /></div>}
         
         {(show===0)&&
         <div className="m-sche">

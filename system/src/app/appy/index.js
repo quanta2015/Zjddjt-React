@@ -132,7 +132,14 @@ class Appy extends React.Component {
         ],
         onFilter: (value, record) => record.stat_name  === value,
         render: d =>{
-          let color = (d==='申请中')?'red':'blue'
+          let color
+          if (d==='申请中') {
+            color = 'red'
+          }else if (d==='已审查') {
+            color = 'blue'
+          }else {
+            color = 'black'
+          }
           return (
             <Tag color={color}>
               {d}

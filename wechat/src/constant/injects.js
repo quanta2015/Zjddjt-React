@@ -8,6 +8,9 @@ import bradStore       from 'model/brad/action'
 import bradActions     from 'model/brad/action'
 import coopStore       from 'model/coop/store'
 import coopActions     from 'model/coop/action'
+import planStore       from 'model/plan/store'
+import planActions     from 'model/plan/action'
+
 
 export default {
   mainStore,
@@ -19,5 +22,7 @@ export default {
   bradStore,
   bradActions,
   coopStore,
-  coopActions
+  coopActions,
+  planStore,   
+  planActions, 
 }
