@@ -1,9 +1,9 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Tabs, Form, Button, Icon, Tag, Table, Divider, Result, Modal, message, Skeleton, Select } from "antd";
+import { Input, Form, Button, Icon, Table, Modal, message, Select, Upload, Divider } from "antd";
 import Highlighter from "react-highlight-words";
+import CoopForm from './CoopForm'
 import "./index.less";
-import { msgRet } from "util/msgRet";
 import { toJS } from "mobx";
 
 // 品牌指定
@@ -19,7 +19,7 @@ class Coop extends React.Component {
       searchText: "",
       showModal: false,
       submitLoading: false,
-      editItem: null
+      selectedItem: null
     };
   }
 
@@ -89,21 +89,24 @@ class Coop extends React.Component {
     this.setState({ searchText: "" });
   };
 
-  handleCancel = () => {
+  handleClose = () => {
     this.setState({
-      showModal: false,
-      editItem: null
+      showDetail: false,
+      selectedItem: null
     });
   };
 
   showDetail = (record) => {
-    console.log(record);
+    this.setState({
+      showDetail: true,
+      selectedItem: record
+    });
   };
 
   doExport = async () => {
     this.setState({ loading: true });
     let r = await this.action.exportCoop();
-    console.log('开始导出Excel')
+    console.log("开始导出Excel");
     let url = r.data;
 
     var win = window.open(url, "_blank");
@@ -116,7 +119,7 @@ class Coop extends React.Component {
       title: "合作对象",
       dataIndex: "name",
       key: "name",
-      width: "400px",
+      width: "300px",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.name > b.name,
       ...this.getColumnSearchProps("name")
@@ -139,18 +142,38 @@ class Coop extends React.Component {
       onFilter: (value, record) => record.type === value
     },
     {
+      title: "联系人",
+      dataIndex: "contact",
+      key: "contact",
+      width: "150px",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.contact > b.contact,
+      ...this.getColumnSearchProps("contact")
+    },
+    {
+      title: "联系人电话",
+      dataIndex: "phone",
+      key: "phone",
+      width: "200px",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.phone > b.phone,
+      ...this.getColumnSearchProps("contact")
+    },
+    {
       title: "主要描述",
       dataIndex: "des",
       key: "des",
-      ...this.getColumnSearchProps("des"),
       render: (text) => <span className="col-des">{text}</span>
-    }, {
+    },
+    {
       title: "功能",
       key: "action",
-      width: "200px",
+      width: "100px",
       render: (text, record) => (
         <div>
-          <Button type="primary" onClick={() => this.showDetail(record)}>详情</Button>
+          <Button type="primary" onClick={() => this.showDetail(record)}>
+            <span><Icon type='appstore' style={{ marginRight: 5 }}/>详情</span>
+          </Button>
         </div>
       )
     }
@@ -158,6 +181,7 @@ class Coop extends React.Component {
 
   render() {
     const coop = toJS(this.store.coopAll);
+    const s = this.state.selectedItem;
 
     return (
       <div className='g-coop'>
@@ -171,9 +195,27 @@ class Coop extends React.Component {
           columns={this.columns}
           rowKey="id"
         />
+
+        <Modal
+          title="合作详情"
+          visible={this.state.showDetail}
+          onCancel={this.handleClose}
+          className='m-detail-modal'
+          footer={[
+            <button type="button" className="ant-btn ant-btn-primary" onClick={this.handleClose}><span>确 定</span>
+            </button>,
+            null
+          ]}
+        >
+          <CoopForm
+            selectedItem={s}
+          />
+        </Modal>
       </div>
     );
   }
 }
+
+
 
 export default Form.create({})(Coop);
