@@ -3,8 +3,9 @@ import { observer, inject } from "mobx-react";
 import { Input, Form, Button, Icon,Tag, Table, Divider, Result, Modal, message, Skeleton } from "antd";
 import Highlighter from 'react-highlight-words';
 
-import clone from 'util/clone'
-import * as DT  from 'util/date'
+import clone       from 'util/clone'
+import * as DT     from 'util/date'
+import { formatStat,getStatFilter}  from 'util/stat'
 import { API_SERVER } from 'constant/apis'
 
 import "./index.less";
@@ -120,47 +121,19 @@ class Appy extends React.Component {
     const apply = toJS(this.store.apply)
     const columns = [{
         title: '状态',
-        dataIndex: 'stat_name',
-        filters: [
-          {
-            text: '已审查',
-            value:'已审查',
-          },{
-            text: '申请中',
-            value: '申请中',
-          }
-        ],
+        dataIndex: 'stat',
+        filters: getStatFilter(),
         onFilter: (value, record) => record.stat_name  === value,
-        render: d =>{
-          let color
-          if (d==='申请中') {
-            color = 'red'
-          }else if (d==='已审查') {
-            color = 'blue'
-          }else {
-            color = 'black'
-          }
-          return (
-            <Tag color={color}>
-              {d}
-            </Tag>)
-        }
+        render: d =>
+          <Tag color={formatStat(d)[1]}>
+            {formatStat(d)[0]}
+          </Tag>
       },{
         title: '时间',
         dataIndex: 'apdt',
         defaultSortOrder: 'descend',
         sorter: (a, b) => a.apdt - b.apdt,
-        render: d => {
-          let year  = d.toString().substr(0,4)
-          let month = d.toString().substr(4,2)
-          let day   = d.toString().substr(6,2)
-          let hour  = d.toString().substr(8,2)
-          let min   = d.toString().substr(10,2)
-          let sec   = d.toString().substr(12,2)
-          let ret  = `${year}-${month}-${day} ${hour}:${min}:${sec}`
-          return (
-            <span className="m-date">{ret}</span>
-          )}
+        render: d => <span className="m-date">{DT.formatApdt(d,true)}</span>
       },{
         title: '申请人',
         dataIndex: 'name',

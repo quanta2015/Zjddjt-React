@@ -5,12 +5,14 @@ var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
 var axios = require('axios');
-var crawler = require('./src/util/crawler')
-var db = require("./db/db")
 var formidable = require('formidable');
 var { Parser } = require('json2csv');
-var moment = require('moment')
 var formidable = require('formidable');
+var moment = require('moment')
+
+var db = require("./db/db")
+var crawler = require('./src/util/crawler')
+
 
 const app = express();
 

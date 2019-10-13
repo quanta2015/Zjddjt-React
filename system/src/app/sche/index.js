@@ -5,6 +5,7 @@ import Highlighter from 'react-highlight-words';
 
 import clone from 'util/clone'
 import * as DT  from 'util/date'
+import { formatStat,getStatFilter}  from 'util/stat'
 import { API_SERVER } from 'constant/apis'
 
 import "./index.less";
@@ -177,17 +178,7 @@ class Sche extends React.Component {
         width: '160px',
         defaultSortOrder: 'descend',
         sorter: (a, b) => a.apdt - b.apdt,
-        render: d => {
-          // let year  = d.toString().substr(0,4)
-          // let month = d.toString().substr(4,2)
-          // let day   = d.toString().substr(6,2)
-          // let hour  = d.toString().substr(8,2)
-          // let min   = d.toString().substr(10,2)
-          // let sec   = d.toString().substr(12,2)
-          let ret  = DT.formatApdt(d,true)
-          return (
-            <span className="m-date">{ret}</span>
-          )}
+        render: d => <span className="m-date">{ DT.formatApdt(d,true) }</span>
       },{
         title: '项目名称',
         dataIndex: 'addr',
@@ -195,35 +186,14 @@ class Sche extends React.Component {
         ...this.getColumnSearchProps('addr'),
       },{
         title: '状态',
-        dataIndex: 'stat_name',
+        dataIndex: 'stat',
         width: '120px',
-        filters: [
-          {
-            text: '已审查',
-            value:'已审查',
-          },{
-            text: '申请中',
-            value: '申请中',
-          },{
-            text: '已终止',
-            value: '已终止',
-          }
-        ],
+        filters: getStatFilter(),
         onFilter: (value, record) => record.stat_name  === value,
-        render: d =>{
-          let color
-          if (d==='申请中') {
-            color = 'red'
-          }else if (d==='已审查') {
-            color = 'blue'
-          }else {
-            color = 'black'
-          }
-          return (
-            <Tag color={color}>
-              {d}
-            </Tag>)
-        }
+        render: d =>
+          <Tag color={formatStat(d)[1]}>
+            {formatStat(d)[0]}
+          </Tag>
       },{
         title: '功能',
         key: 'action',
@@ -242,17 +212,7 @@ class Sche extends React.Component {
         title: '时间',
         dataIndex: 'proc_dt',
         width: '160px',
-        render: d => {
-          let year  = d.toString().substr(0,4)
-          let month = d.toString().substr(4,2)
-          let day   = d.toString().substr(6,2)
-          let hour  = d.toString().substr(8,2)
-          let min   = d.toString().substr(10,2)
-          let sec   = d.toString().substr(12,2)
-          let ret  = `${year}-${month}-${day} ${hour}:${min}:${sec}`
-          return (
-            <span className="m-date">{ret}</span>
-          )}
+        render: d => <span className="m-date">{ DT.formatApdt(d,true) }</span>
       },{
         title: '工程内容',
         dataIndex: 'proc_ct_name',

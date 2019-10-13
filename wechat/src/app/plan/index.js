@@ -74,7 +74,7 @@ class Plan extends React.Component {
                 </a>  
               )}
 
-              {(item.files.length===0) && <div className="m-file-none">设计文件尚未交付！</div>}
+              {(item.files.length===0) && <div className="m-file-none">加梯设计文件尚未交付！</div>}
             </div>
             
           </div>
