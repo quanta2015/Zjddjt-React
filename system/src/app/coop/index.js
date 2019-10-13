@@ -1,12 +1,11 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Tabs, Form, Button, Icon, Tag, Table, Divider, Result, Modal, message, Skeleton, Select } from "antd";
+import { Input, Form, Button, Icon, Table, } from "antd";
 import Highlighter from "react-highlight-words";
 import "./index.less";
-import { msgRet } from "util/msgRet";
 import { toJS } from "mobx";
 
-// 品牌指定
+// 商务合作管理
 @inject("coopActions", "coopStore")
 @observer
 class Coop extends React.Component {
@@ -89,17 +88,6 @@ class Coop extends React.Component {
     this.setState({ searchText: "" });
   };
 
-  handleCancel = () => {
-    this.setState({
-      showModal: false,
-      editItem: null
-    });
-  };
-
-  showDetail = (record) => {
-    console.log(record);
-  };
-
   doExport = async () => {
     this.setState({ loading: true });
     let r = await this.action.exportCoop();
@@ -116,7 +104,7 @@ class Coop extends React.Component {
       title: "合作对象",
       dataIndex: "name",
       key: "name",
-      width: "400px",
+      width: "300px",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.name > b.name,
       ...this.getColumnSearchProps("name")
@@ -139,21 +127,29 @@ class Coop extends React.Component {
       onFilter: (value, record) => record.type === value
     },
     {
+      title: "联系人",
+      dataIndex: "contact",
+      key: "contact",
+      width: "150px",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.contact > b.contact,
+      ...this.getColumnSearchProps("contact")
+    },
+    {
+      title: "联系人电话",
+      dataIndex: "phone",
+      key: "phone",
+      width: "200px",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.phone > b.phone,
+      ...this.getColumnSearchProps("contact")
+    },
+    {
       title: "主要描述",
       dataIndex: "des",
       key: "des",
-      ...this.getColumnSearchProps("des"),
       render: (text) => <span className="col-des">{text}</span>
-    }, {
-      title: "功能",
-      key: "action",
-      width: "200px",
-      render: (text, record) => (
-        <div>
-          <Button type="primary" onClick={() => this.showDetail(record)}>详情</Button>
-        </div>
-      )
-    }
+    },
   ];
 
   render() {
@@ -175,5 +171,4 @@ class Coop extends React.Component {
     );
   }
 }
-
 export default Form.create({})(Coop);
