@@ -1,11 +1,12 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Form, Button, Icon, Table, } from "antd";
+import { Input, Form, Button, Icon, Table, Modal, message, Select, Upload, Divider } from "antd";
 import Highlighter from "react-highlight-words";
+import CoopForm from './CoopForm'
 import "./index.less";
 import { toJS } from "mobx";
 
-// 商务合作管理
+// 品牌指定
 @inject("coopActions", "coopStore")
 @observer
 class Coop extends React.Component {
@@ -18,7 +19,7 @@ class Coop extends React.Component {
       searchText: "",
       showModal: false,
       submitLoading: false,
-      editItem: null
+      selectedItem: null
     };
   }
 
@@ -88,10 +89,24 @@ class Coop extends React.Component {
     this.setState({ searchText: "" });
   };
 
+  handleClose = () => {
+    this.setState({
+      showDetail: false,
+      selectedItem: null
+    });
+  };
+
+  showDetail = (record) => {
+    this.setState({
+      showDetail: true,
+      selectedItem: record
+    });
+  };
+
   doExport = async () => {
     this.setState({ loading: true });
     let r = await this.action.exportCoop();
-    console.log('开始导出Excel')
+    console.log("开始导出Excel");
     let url = r.data;
 
     var win = window.open(url, "_blank");
@@ -150,10 +165,23 @@ class Coop extends React.Component {
       key: "des",
       render: (text) => <span className="col-des">{text}</span>
     },
+    {
+      title: "功能",
+      key: "action",
+      width: "100px",
+      render: (text, record) => (
+        <div>
+          <Button type="primary" onClick={() => this.showDetail(record)}>
+            <span><Icon type='appstore' style={{ marginRight: 5 }}/>详情</span>
+          </Button>
+        </div>
+      )
+    }
   ];
 
   render() {
     const coop = toJS(this.store.coopAll);
+    const s = this.state.selectedItem;
 
     return (
       <div className='g-coop'>
@@ -167,8 +195,27 @@ class Coop extends React.Component {
           columns={this.columns}
           rowKey="id"
         />
+
+        <Modal
+          title="合作详情"
+          visible={this.state.showDetail}
+          onCancel={this.handleClose}
+          className='m-detail-modal'
+          footer={[
+            <button type="button" className="ant-btn ant-btn-primary" onClick={this.handleClose}><span>确 定</span>
+            </button>,
+            null
+          ]}
+        >
+          <CoopForm
+            selectedItem={s}
+          />
+        </Modal>
       </div>
     );
   }
 }
+
+
+
 export default Form.create({})(Coop);
