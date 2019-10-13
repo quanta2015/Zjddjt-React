@@ -10,13 +10,19 @@ class CoopAction extends BaseActions {
   }
 
   @action
-  async addCoop(params) {
-    let r = await this.post(urls.API_ADD_COOP, params, true)
+  async listCoop(params=0) {
+    let r = await this.post(urls.API_COOP_LIST, params, true)
     if (r && r.code === 200) {
-      this.store.coop = r.data
+      runInAction(() => {
+        this.store.coopAll = r.data
+      })
     }
-    console.log(r)
     return r
+  }
+
+  @action
+  async exportCoop(params=0) {
+    return await this.post(urls.API_COOP_EXPORT, params, true)
   }
 }
 

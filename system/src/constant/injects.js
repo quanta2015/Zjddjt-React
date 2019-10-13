@@ -6,6 +6,8 @@ import bradStore       from 'model/brad/store'
 import bradActions     from 'model/brad/action'
 import scheStore       from 'model/sche/store'
 import scheActions     from 'model/sche/action'
+import coopStore       from 'model/coop/store'
+import coopActions     from 'model/coop/action'
 
 
 export default {
@@ -15,6 +17,8 @@ export default {
   appyActions,
   bradStore,
   bradActions,
-  scheStore,  
+  scheStore,
   scheActions,
+  coopStore,
+  coopActions
 }
