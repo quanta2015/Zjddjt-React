@@ -5,7 +5,6 @@ var cors = require('cors');
 var fs = require('fs');
 var path = require('path');
 var axios = require('axios');
-var formidable = require('formidable');
 var { Parser } = require('json2csv');
 var formidable = require('formidable');
 var moment = require('moment')
@@ -38,7 +37,7 @@ const URL_USER = (token,openid)=>{
 // appid + secret -> token
 // code           -> openid
 // opid + token   -> user
-// app.get('/userinfo', function(req, res, next) {
+// app.get('/userinfo', function(req, res) {
 //   axios.get(URL_TOKEN).then((r)=> {
 //     let token  = r.data.access_token
 //     let openid = req.query.openid
@@ -287,6 +286,7 @@ app.post('/ScheProjList', async function(req, res) {
   })
 })
 
+
 app.post('/ScheCommAdd', async function(req, res) {
   let sql  = `CALL PROC_COMM_ADD(?)`;
   let params = req.body
@@ -294,6 +294,9 @@ app.post('/ScheCommAdd', async function(req, res) {
     res.status(200).json({ code: 200, data: r })
   })
 })
+
+
+
 
 
 /**
@@ -415,6 +418,74 @@ app.post("/CoopExport", function(req, res) {
       res.status(200).json({ code: 200, data: file })
     })
   });
+})
+
+/**
+ * 查询全部serv模板文件
+ */
+app.post("/ServFileList", async function(req, res) {
+  let sql  = `CALL PROC_SERV_FILE_LIST`;
+  let params = 0
+
+  callProc(sql,params, res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+/**
+ * 添加 ServFile
+ */
+app.post("/ServFileAdd", async function(req, res) {
+  let sql = `CALL PROC_SERV_FILE_ADD(?)`;
+  let params = {
+    name: null,
+    type: null,
+    size: null,
+    url: null,
+    apdt: null
+  };
+
+  const form = new formidable.IncomingForm();
+  form.encoding = "utf-8";
+  form.uploadDir = "download";
+  form.keepExtensions = true;
+  form.maxFieldsSize = 300 * 1024 * 1024;
+  form.parse(req);
+
+  form.on("fileBegin", function(field, file) {
+      let _name = file.name
+      let _type = file.type.split('/')[1]
+      let _apdt = moment(new Date()).format("YYYYMMDDhhmmss")
+
+      file.path = `download/Serv_${_apdt}.${_type}`
+
+      params.name = _name
+      params.type = _type
+      params.apdt = _apdt
+      params.url  = file.path
+   })
+    .on("file", function(field, file) {
+      params.size = file.size
+    })
+    .on("end", function() {
+      callProc(sql, params, res, (r) => {
+        res.status(200).json({ code: 200, msg: '添加文件成功', data: r });
+      });
+    });
+})
+
+/**
+ * 删除serv模板文件
+ */
+app.post("/ServFileDel", async function(req, res) {
+  let sql = `CALL PROC_SERV_FILE_DELETE(?)`;
+  let params = req.body;
+
+  console.log(JSON.stringify(params))
+
+  callProc(sql, params, res, (r) => {
+    res.status(200).json({ code: 200, data: r })
+  })
 })
 
 app.listen(port, () => console.log(`> Running on localhost:${port}`));

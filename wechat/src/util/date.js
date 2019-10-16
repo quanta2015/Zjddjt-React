@@ -3,7 +3,7 @@ import cheerio from 'cheerio'
 
 
 let prefixInteger = (num, length) => {
-	let len = num.toString().length 
+	let len = num.toString().length
 	num = (len<2)? ('0'+num):num
    return num
   }
@@ -59,17 +59,19 @@ export let html2RagDate = (html) => {
  * apdt to YYYY/MM/DD or YYYY/MM/DD HH/MM/SS
  * hms: 是否需要 HH/MM/SS
  */
-export let formatApdt = (d, hms=true) => {
-  let year  = d.toString().substr(2,2)
-  let month = d.toString().substr(4,2)
-  let day   = d.toString().substr(6,2)
-  let hour  = d.toString().substr(8,2)
-  let min   = d.toString().substr(10,2)
-  let sec   = d.toString().substr(12,2)
+export let formatApdt = (d, hms = true) => {
+  if (d === null || d === undefined) return "";
+
+  let year = d.toString().substr(2, 2);
+  let month = d.toString().substr(4, 2);
+  let day = d.toString().substr(6, 2);
+  let hour = d.toString().substr(8, 2);
+  let min = d.toString().substr(10, 2);
+  let sec = d.toString().substr(12, 2);
 
   if (hms) {
-    return `${year}-${month}-${day} ${hour}:${min}:${sec}`
+    return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
   } else {
-    return `${year}-${month}-${day}`
+    return `${year}-${month}-${day}`;
   }
 }
