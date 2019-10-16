@@ -8,7 +8,8 @@ import scheStore       from 'model/sche/store'
 import scheActions     from 'model/sche/action'
 import coopStore       from 'model/coop/store'
 import coopActions     from 'model/coop/action'
-
+import servStore       from 'model/serv/store'
+import servActions     from 'model/serv/action'
 
 export default {
   mainStore,
@@ -20,5 +21,7 @@ export default {
   scheStore,
   scheActions,
   coopStore,
-  coopActions
+  coopActions,
+  servStore,
+  servActions
 }
