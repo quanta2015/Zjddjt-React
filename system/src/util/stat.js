@@ -1,12 +1,19 @@
-const STAT=[ ['已终止','black'],
-             ['申请中','red' ],
-             ['已审查','blue'],
-             ['已竣工','orange'], ];
+import {STAT, PROC_NAME, STAT_NAME}  from 'constant/data'
 
 
 export function formatStat(state) {
   return STAT[state+1]
 }
+
+
+export function formatProcName(index) {
+  return PROC_NAME[index-1]
+}
+
+export function formatProcStat(index) {
+  return STAT_NAME[index]
+}
+
 
 
 export function getStatFilter() {

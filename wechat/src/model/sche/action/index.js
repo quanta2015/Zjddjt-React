@@ -26,6 +26,21 @@ class PlanActions extends BaseActions {
     }
   }
 
+  @action
+  async addComment(params) {
+    let r = await this.post(urls.API_SCHE_COMMENT, params, true)
+    if ((r && r.code === 200)) {
+      if (r.data.length>0) {
+        list2JSON(r.data,'sche')
+      }
+      message.info('您的评论已经提交成功！')
+      this.store.sche = r.data
+    }
+  }
+
+
+  
+
 
 }
 

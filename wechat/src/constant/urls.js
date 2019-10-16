@@ -11,6 +11,8 @@ export const API_PLAN_LIST    = API_SERVER + '/PlanList'
 export const API_PLAN_FILE    = API_SERVER + '/ScheFile'
 
 export const API_SCHE_LIST    = API_SERVER + '/ScheProjList'
+export const API_SCHE_COMMENT = API_SERVER + '/ScheCommAdd'
+
 
 
 

@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import { Input, Tabs, Form, Button, DatePicker,Result,Modal, message, Skeleton } from "antd";
 import clone from 'util/clone'
 import * as DT  from 'util/date'
+import {initCode} from 'util/openid'
 
 import "./index.less";
 import moment from "moment";
@@ -29,10 +30,8 @@ class Appy extends React.Component {
 
  
   async UNSAFE_componentWillMount() {
-    const params = new URLSearchParams(this.props.location.search)
-    this.setState({
-      code: params.get("code"),
-    })
+    var params = initCode(this.props.location.search)
+    this.setState({ code: params.code })
   }
 
 

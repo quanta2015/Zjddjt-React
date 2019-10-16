@@ -5,9 +5,10 @@ import { message } from 'antd'
 import store from '../store'
 import jwt from 'util/token'
 import clone from 'util/clone'
+import list2JSON from 'util/list2JSON'
 
 
-class AppyActions extends BaseActions {
+class ScheActions extends BaseActions {
   constructor(store) {
     super()
     this.store = store
@@ -19,6 +20,9 @@ class AppyActions extends BaseActions {
   async getSchedule(params) {
     let r = await this.post(urls.API_SCHE_LIST, params, true)
     if (r && r.code === 200) {
+      if (r.data.length>0) {
+        list2JSON(r.data,'sche')
+      }
       this.store.sche = r.data
     }
     return r
@@ -98,4 +102,4 @@ class AppyActions extends BaseActions {
 
 }
 
-export default new AppyActions(store)
+export default new ScheActions(store)

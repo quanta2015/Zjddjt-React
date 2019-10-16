@@ -259,6 +259,7 @@ app.post('/ScheDelete', async function(req, res) {
   })
 })
 
+
 app.post('/ScheStop', async function(req, res) {
   let sql  = `CALL PROC_SCHE_STOP(?)`;
   let params = req.body
@@ -286,11 +287,13 @@ app.post('/ScheProjList', async function(req, res) {
   })
 })
 
-
-
-
-
-
+app.post('/ScheCommAdd', async function(req, res) {
+  let sql  = `CALL PROC_COMM_ADD(?)`;
+  let params = req.body
+  callProc(sql,params,res,(r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
 
 
 /**

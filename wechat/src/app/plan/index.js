@@ -8,6 +8,10 @@ import "./index.less";
 import moment from "moment";
 import { toJS } from "mobx";
 import { API_SERVER } from 'constant/apis'
+import {initCode} from 'util/openid'
+
+
+
 
 // 申请加梯
 @Form.create()
@@ -26,9 +30,9 @@ class Plan extends React.Component {
 
  
   async UNSAFE_componentWillMount() {
-    const params = new URLSearchParams(this.props.location.search)
-    const code   = params.get("code")
-    this.setState({ loading: true, code: code })
+    var params = initCode(this.props.location.search)
+    
+    this.setState({ loading: true, code: params.code })
     await this.action.listPlan(params)
     this.setState({ loading: false })
   }
