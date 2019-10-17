@@ -1,7 +1,7 @@
 import * as DT    from './date'
 import { formatStat,formatProcName,formatProcStat } from './stat'
 
-export default function list2JSON(list,type) {
+export default function list2JSON(list) {
   list.forEach((item,index)=>{
     let ret = []
     

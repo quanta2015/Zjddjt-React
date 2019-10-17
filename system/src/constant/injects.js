@@ -10,6 +10,9 @@ import coopStore       from 'model/coop/store'
 import coopActions     from 'model/coop/action'
 import servStore       from 'model/serv/store'
 import servActions     from 'model/serv/action'
+import heatStore       from 'model/heat/store'
+import heatActions     from 'model/heat/action'
+
 
 export default {
   mainStore,
@@ -23,5 +26,7 @@ export default {
   coopStore,
   coopActions,
   servStore,
-  servActions
+  servActions,
+  heatStore,  
+  heatActions,
 }
