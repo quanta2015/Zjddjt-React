@@ -12,6 +12,8 @@ import planStore       from 'model/plan/store'
 import planActions     from 'model/plan/action'
 import scheStore       from 'model/sche/store'
 import scheActions     from 'model/sche/action'
+import servStore     from 'model/serv/store'
+import servActions     from 'model/serv/action'
 
 
 export default {
@@ -25,8 +27,10 @@ export default {
   bradActions,
   coopStore,
   coopActions,
-  planStore,   
-  planActions, 
-  scheStore,  
+  planStore,
+  planActions,
+  scheStore,
   scheActions,
+  servStore,
+  servActions
 }
