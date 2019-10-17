@@ -2,7 +2,8 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { Input, Form, Button, Icon, Table, Modal, message, Select, Upload, Divider } from "antd";
 import Highlighter from "react-highlight-words";
-import { API_SERVER, API_SERV_FILE_ADD } from "constant/apis";
+import { API_SERVER } from "constant/apis";
+import {API_SERV_FILE_ADD} from "constant/urls"
 import { formatApdt } from "util/date";
 import "./index.less";
 import { toJS } from "mobx";
@@ -102,14 +103,16 @@ class Serv extends React.Component {
 
   downloadFile = (record) => {
     let url = `${API_SERVER}/${record.url}`;
-
     var win = window.open(url, "_blank");
     win.focus();
     this.setState({ loading: false });
   };
 
   delFile = async (record) => {
-    await this.action.delServFile({ id: record.id });
+    let r = await this.action.delServFile({ id: record.id });
+    if (r.code === 200) {
+      message.success(r.msg, 0.5)
+    }
   };
 
   columns = [
@@ -185,7 +188,7 @@ class Serv extends React.Component {
 
     const uploadProps = {
       name: "file",
-      action: {API_SERV_FILE_ADD},
+      action: API_SERV_FILE_ADD,
       showUploadList: false,
       onChange: this.handleUploadChange
     };
