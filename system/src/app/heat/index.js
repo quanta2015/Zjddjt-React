@@ -27,7 +27,6 @@ class Heat extends React.Component {
       loading: false,
       searchText: '',
       visible: false,
-      fileList:[],
     }
   }
 
@@ -111,9 +110,10 @@ class Heat extends React.Component {
     this.setState({ loading: true })
     let r = await this.action.getHeatComment(params)
     if (r && r.code === 200) {
+      let comment = (r.data.length===0)?'':r.data[0].content
       Modal.info({
         title: '用户评价',
-        content: r.data[0].content,
+        content: comment,
       });
     }
     this.setState({ loading: false })
@@ -126,20 +126,17 @@ class Heat extends React.Component {
   }
 
   doUpload=(info)=>{
-    let fileList = [...info.fileList];
-    fileList = fileList.slice(-1);
-    
-
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
+    if (info.file.status === 'uploading') {
+      this.setState({ loading: true });
+      return;
     }
     if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
+      message.success(`${info.file.name} 视频上传成功`)
+      this.action.updateHeadList(info.file.response.data)
+      this.setState({ loading: false });
     } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
+      message.error(`${info.file.name} 视频上传失败.`)
     }
-
-    this.setState({ fileList });
   }
 
 
@@ -147,12 +144,11 @@ class Heat extends React.Component {
     const {loading,show} = this.state
     const heat = toJS(getValue(this.store, 'heat', []))
 
-    const props = {
+    const uploadProps = {
       name: 'file',
       action: urls.API_HEAT_UPLOAD,
-      headers: {
-        authorization: 'authorization-text',
-      }
+      showUploadList: false,
+      onChange: this.doUpload,
     };
 
     const columnsHeat = [{
@@ -178,6 +174,14 @@ class Heat extends React.Component {
             {formatStat(d)[0]}
           </Tag>
       },{
+        title: '视频',
+        dataIndex: 'filename',
+        width: '120px',
+        render: (text, record, index) =>
+          <Tag>
+            <a href={`${API_SERVER}/${record.url}`} target="_blank">{record.filename}</a>
+          </Tag>
+      },{
         title: '功能',
         key: 'action',
         width: '270px',
@@ -190,7 +194,7 @@ class Heat extends React.Component {
             { (record.stat==3) && <Button type="danger"  size="small" icon="check" onClick={this.doShow.bind(this,record,1,1)}>通过</Button> }
             
             { (record.stat==4) && 
-              <Upload data={record} {...props} onChange={this.doUpload} fileList={this.state.fileList}>
+              <Upload data={record} {...uploadProps} >
                 <Button type="default"  size="small" icon="upload" className="c-green">上传视频</Button>
               </Upload> }
             { (record.stat==4) && <Button type="default"  size="small" icon="eye-invisible" className="c-black" onClick={this.doShow.bind(this,record,0,0)}>下架</Button> }
@@ -204,7 +208,6 @@ class Heat extends React.Component {
       <div className='g-sche'>
         {(loading) &&
         <div className="m-loader"><Spin size="large" /></div>}
-        
         
         <div className="m-sche">
           <div className="m-appy-menu">

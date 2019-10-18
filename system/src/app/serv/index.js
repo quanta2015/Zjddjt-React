@@ -200,7 +200,7 @@ class Serv extends React.Component {
           <Upload
             {...uploadProps}
           >
-            <Button type="primary" onClick={this.doExport}><Icon type="upload"/>添加文件</Button>
+            <Button type="primary"><Icon type="upload"/>添加文件</Button>
           </Upload>
         </div>
 

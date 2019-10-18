@@ -19,7 +19,7 @@ class HeatActions extends BaseActions {
   async getHeatList(params) {
     let r = await this.post(urls.API_HEAT_LIST, params, true)
     if (r && r.code === 200) {
-      this.store.heat = r.data
+        this.store.heat = r.data
     }
     return r
   }
@@ -39,6 +39,13 @@ class HeatActions extends BaseActions {
     
     return r
   }
+
+  @action
+  async updateHeadList(params) {
+    this.store.heat = params
+  }
+  
+
   
 
 
