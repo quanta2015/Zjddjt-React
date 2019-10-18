@@ -7,7 +7,7 @@ import store from '../store'
 import list2JSON from 'util/list2JSON'
 
 
-class PlanActions extends BaseActions {
+class Actions extends BaseActions {
   constructor(store) {
     super()
     this.store = store
@@ -44,4 +44,4 @@ class PlanActions extends BaseActions {
 
 }
 
-export default new PlanActions(store)
+export default new Actions(store)

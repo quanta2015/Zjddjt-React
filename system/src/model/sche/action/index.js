@@ -20,9 +20,6 @@ class ScheActions extends BaseActions {
   async getSchedule(params) {
     let r = await this.post(urls.API_SCHE_LIST, params, true)
     if (r && r.code === 200) {
-      if (r.data.length>0) {
-        list2JSON(r.data,'sche')
-      }
       this.store.sche = r.data
     }
     return r

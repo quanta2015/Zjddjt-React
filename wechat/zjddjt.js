@@ -348,8 +348,13 @@ app.post('/HeatUpload', async function(req, res) {
     });
 })
 
-
-
+app.post('/HeatListShow', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST(?)`;
+  let params = 4
+  callProc(sql,params,res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
 
 
 

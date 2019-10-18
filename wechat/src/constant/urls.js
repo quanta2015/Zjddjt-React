@@ -13,6 +13,11 @@ export const API_PLAN_FILE    = API_SERVER + '/ScheFile'
 export const API_SCHE_LIST    = API_SERVER + '/ScheProjList'
 export const API_SCHE_COMMENT = API_SERVER + '/ScheCommAdd'
 
+export const API_HEAT_LIST_S  = API_SERVER + '/HeatListShow'
+
+
+
+
 export const API_SERV_FILE_LIST   = API_SERVER + '/ServFileList'
 
 

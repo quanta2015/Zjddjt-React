@@ -12,7 +12,7 @@ import coop  from 'app/coop'
 import plan  from 'app/plan'
 import sche  from 'app/sche'
 import serv  from 'app/serv'
-
+import heat  from 'app/heat'
 
 class App extends React.Component {
   constructor(props) {
@@ -36,6 +36,7 @@ class App extends React.Component {
                   <Route exact path='/plan'  component={plan}/>
                   <Route exact path='/sche'  component={sche}/>
                   <Route exact path='/serv'  component={serv}/>
+                  <Route exact path='/heat'  component={heat}/>
                 </Switch>
               </Dashboard>
             </div>

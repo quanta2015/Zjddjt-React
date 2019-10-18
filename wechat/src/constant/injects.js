@@ -12,8 +12,10 @@ import planStore       from 'model/plan/store'
 import planActions     from 'model/plan/action'
 import scheStore       from 'model/sche/store'
 import scheActions     from 'model/sche/action'
-import servStore     from 'model/serv/store'
+import servStore       from 'model/serv/store'
 import servActions     from 'model/serv/action'
+import heatStore       from 'model/heat/store'
+import heatActions     from 'model/heat/action'
 
 
 export default {
@@ -32,5 +34,7 @@ export default {
   scheStore,
   scheActions,
   servStore,
-  servActions
+  servActions,
+  heatStore,  
+  heatActions,
 }
