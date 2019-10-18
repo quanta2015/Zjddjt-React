@@ -488,4 +488,19 @@ app.post("/ServFileDel", async function(req, res) {
   });
 })
 
+/**
+ * 问答模块接口
+ * params: {keyword: "key"}
+ */
+app.post("/ServQues", async function(req, res) {
+  let sql = `CALL PROC_SERV_QUES(?)`;
+  let params = req.body;
+
+  console.log(JSON.stringify(params));
+
+  callProc(sql, params, res, (r) => {
+    res.status(200).json({ code: 200, data: r });
+  });
+})
+
 app.listen(port, () => console.log(`> Running on localhost:${port}`));
