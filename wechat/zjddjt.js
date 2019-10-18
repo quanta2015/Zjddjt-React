@@ -296,6 +296,60 @@ app.post('/ScheCommAdd', async function(req, res) {
 })
 
 
+app.post('/HeatList', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_LIST(?)`;
+  let params = 3
+  callProc(sql,params,res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+app.post('/HeatShow', async function(req, res) {
+  let sql  = `CALL PROC_APPLY_SHOW(?)`;
+  let params = req.body
+  callProc(sql,params,res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+app.post('/HeatComment', async function(req, res) {
+  let sql  = `CALL PROC_COMM_SHOW(?)`;
+  let params = req.body
+  callProc(sql,params,res, (r)=>{
+    res.status(200).json({ code: 200, data: r })
+  })
+})
+
+app.post('/HeatUpload', async function(req, res) {
+  let sql  = `CALL PROC_VIDEO_ADD(?)`;
+  let params = {
+    id: null,
+    file: null,
+    name: null,
+  }
+
+  var form = new formidable.IncomingForm();
+  form.encoding = 'utf-8';              //上传文件编码格式
+  form.uploadDir = "upload";            //上传文件保存路径（必须在public下面新建）
+  form.keepExtensions = true;           //保持上传文件后缀
+  form.maxFieldsSize = 300 * 1024 * 1024;
+  form.parse(req);
+
+  form.on('field', function(name, value) {
+      if (name==='key') params.id = value
+    }).on('file', function(field, file) {
+      params.file = file.path
+      params.name = file.name
+  }).on('end', function() {
+      params.dt = moment(new Date()).format("YYYYMMDDhhmmss")
+      callProc(sql,params,res,(r)=>{
+        res.status(200).json({ code: 200, data: r })
+      })
+    });
+})
+
+
+
 
 
 

@@ -1,0 +1,111 @@
+.g-sche {
+  background: #fff;
+  padding: 10px 20px;
+  height: 100%;
+  position: relative;
+
+  .m-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255,255,255,.8);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .m-appy {
+    background-color: white;
+    padding: 10px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.05), -1px -1px 1px rgba(0,0,0,.05);
+    border: 1px solid #eee;
+
+  }
+
+  .m-appy-tl {
+    font-size: 20px;
+    font-weight: 600;
+    color: #3366aa;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .m-date {
+    font-size: 12px;
+  }
+
+  .m-upload {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    width: 110px;
+    height: 32px;
+  }
+
+  .m-upload-btn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 999999;
+  }
+
+  .m-file-item {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    margin: 5px;
+    position: relative;
+  }
+
+  .m-file-item>i {
+      width: 24px;
+      height: 24px;
+      margin: 10px 0;
+  }
+
+  .m-file-item svg {
+      height: 100%;
+      width: 100%;
+  }
+
+  .m-files {
+    display: flex;
+  }
+
+  .m-file-item p {
+    flex: 1;
+    margin: 0;
+    display:flex;
+    align-items: center;
+  }
+
+  .m-file-item:hover {
+    box-shadow: 2px 2px 2px rgba(0,0,0,.1),-2px 2px 2px rgba(0,0,0,.1);
+    color: #0066cc;
+  }
+
+  .m-file-item:hover .m-del {
+    display: block;
+  }
+
+  .m-fun-wrap {
+    display: flex;
+  }
+
+  .m-fun-wrap>button,.m-fun-wrap>span {
+    margin-left: 5px;
+  }
+
+
+}
+

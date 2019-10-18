@@ -18,6 +18,14 @@ export const API_SCHE_DELETE = API_SERVER + '/ScheDelete'
 export const API_SCHE_STOP   = API_SERVER + '/ScheStop'
 
 
+export const API_HEAT_LIST   = API_SERVER + '/HeatList'
+export const API_HEAT_SHOW   = API_SERVER + '/HeatShow'
+export const API_HEAT_COMMENT= API_SERVER + '/HeatComment'
+export const API_HEAT_UPLOAD = API_SERVER + '/HeatUpload'
+
+
+
+
 
 
 export const API_BRAND_LIST   = API_SERVER + '/BradList'
