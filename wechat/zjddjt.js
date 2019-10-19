@@ -78,11 +78,6 @@ function callProc(sql, params, res, cb) {
 }
 
 // 取已经完成项目列表
-app.get('/test', async function(req, res) {
-  res.send('test')
-})
-
-// 取已经完成项目列表
 app.post('/ProjList', async function(req, res) {
   let ret = await crawler.getEleInfo()
   res.status(200).json({ code: 200, data: ret.data })
@@ -133,7 +128,7 @@ app.post('/ApplyAgree', function(req, res) {
 })
 
 
-// 添加申请加梯请求
+// 导出申请加梯请求
 app.post('/ApplyExport', function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST(?)`;
   let params = 1
@@ -268,8 +263,6 @@ app.post('/ScheStop', async function(req, res) {
 })
 
 
-
-
 app.post('/PlanList', async function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST_BY_CODE(?)`;
   let params = req.body
@@ -278,6 +271,7 @@ app.post('/PlanList', async function(req, res) {
     res.status(200).json({ code: 200, data: r })
   })
 })
+
 
 app.post('/ScheProjList', async function(req, res) {
   let sql  = `CALL PROC_SCHE_LIST(?)`;
