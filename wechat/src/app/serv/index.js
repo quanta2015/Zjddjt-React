@@ -1,7 +1,8 @@
 import React from "react";
-import { Drawer, List, Avatar, Divider, Col, Row, Icon, Skeleton } from "antd";
+import { Drawer, List, Avatar, Divider, Col, Row, Icon, Skeleton, message } from "antd";
 import "./index.less";
 import { API_SERVER } from "constant/apis";
+import { initCode } from "util/openid";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 
@@ -14,15 +15,20 @@ class Serv extends React.Component {
   state = {
     visible: false,
     container: null,
+    loading: true,
     currUser: {
-      nickName: "Hytonight云息",
-      area: "浙江 杭州 仓前"
-    },
-    loading: true
+      nickName: "Hy",
+      area: "浙江"
+    }
   };
 
   async componentDidMount() {
     // this.setState({ loading: true });
+    let openid = initCode(this.props.location.search);
+    let hasUser = await this.action.getUser(openid.code);
+    if (hasUser && hasUser.errcode) {
+      message.error(hasUser.errmsg, 0.5);
+    }
     await this.action.listServFile();
     this.setState({ loading: false });
   }
@@ -32,7 +38,6 @@ class Serv extends React.Component {
   };
 
   saveContainer = (container) => {
-    console.log(container);
     this.setState({ container });
   };
 
@@ -53,22 +58,28 @@ class Serv extends React.Component {
   };
 
   render() {
-    const { currUser } = this.state;
+    const currUser = toJS(this.store.currUser) || {};
     const files = toJS(this.store.servFileList) || [];
 
     return (
       <div className='g-serv' ref={this.saveContainer}>
-        <div className="user-wrap card-shadow">
-          <Skeleton active loading={this.state.loading}>
-            <div className="avatar">
-              <img src="https://picsum.photos/64/64" alt=""/>
-            </div>
-            <div className="info">
-              <div className="username">{currUser.nickName}</div>
 
-              <div className="area"><span>地区: {currUser.area}</span></div>
-            </div>
-          </Skeleton>
+        <div className="user-wrap card-shadow">
+          {
+            Object.getOwnPropertyNames(currUser).length === 0 ?
+              <div className='no-login'>尚未登录</div>
+              :
+              <Skeleton active loading={this.state.loading}>
+                <div className="avatar">
+                  <img src={currUser.headimgurl} style={{ width: 64 }} alt=""/>
+                </div>
+                <div className="info">
+                  <div className="username">{currUser.nickname}</div>
+                  <div className="area"><span>地区: {`${currUser.country} ${currUser.province} ${currUser.city}`}</span>
+                  </div>
+                </div>
+              </Skeleton>
+          }
         </div>
 
         <div className="file-wrap card-shadow" onClick={this.showDrawer}>
@@ -88,8 +99,8 @@ class Serv extends React.Component {
 
           <div className='file-card'>
             {
-              files.map((item) => (
-                <div className="m-plan-file">
+              files.map((item, index) => (
+                <div className="m-plan-file" key={`file-${index}`}>
                   <a href={`${API_SERVER}/${item.url}`} target="_blank"
                      className="m-file-item">
                     <p>{item.name}</p>
