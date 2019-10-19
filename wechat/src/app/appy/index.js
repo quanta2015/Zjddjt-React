@@ -31,6 +31,7 @@ class Appy extends React.Component {
  
   async UNSAFE_componentWillMount() {
     var params = initCode(this.props.location.search)
+    // console.log(params)
     this.setState({ code: params.code })
   }
 
@@ -58,6 +59,8 @@ class Appy extends React.Component {
     let params = clone(this.state.values)
     params.opid = this.state.code
     params.apdt = DT.newDateTime()
+
+    // alert(params)
     this.setState({ loading: true })
     let r = await this.action.addApply(params)
     if (r && r.code === 200) {

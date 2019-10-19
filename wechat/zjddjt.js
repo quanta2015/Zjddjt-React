@@ -273,6 +273,7 @@ app.post('/ScheStop', async function(req, res) {
 app.post('/PlanList', async function(req, res) {
   let sql  = `CALL PROC_APPLY_LIST_BY_CODE(?)`;
   let params = req.body
+  console.log(params)
   callProc(sql,params,res,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })
@@ -290,6 +291,7 @@ app.post('/ScheProjList', async function(req, res) {
 app.post('/ScheCommAdd', async function(req, res) {
   let sql  = `CALL PROC_COMM_ADD(?)`;
   let params = req.body
+  console.log(params)
   callProc(sql,params,res,(r)=>{
     res.status(200).json({ code: 200, data: r })
   })

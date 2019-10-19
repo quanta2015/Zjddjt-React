@@ -57,12 +57,8 @@ doComment = async (id, e)=>{
     const sche = toJS(getValue(this.store, 'sche', []))
     const hasApply = (sche.length!==0)?true:false
 
-    console.log(sche)
-
-
     return (
       <div className='g-sche'>
-
         <div className="m-title">工程进度</div>
 
         {hasApply && sche.map((item,index)=>
@@ -109,7 +105,6 @@ doComment = async (id, e)=>{
 
         { !hasApply &&  <Result status="info" title="您还未申请加梯！" /> }
         
-
       </div>
     )
   }

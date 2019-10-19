@@ -11,8 +11,6 @@ import { API_SERVER } from 'constant/apis'
 import {initCode} from 'util/openid'
 
 
-
-
 // 申请加梯
 @Form.create()
 @inject('planActions', 'planStore')
@@ -31,7 +29,6 @@ class Plan extends React.Component {
  
   async UNSAFE_componentWillMount() {
     var params = initCode(this.props.location.search)
-    
     this.setState({ loading: true, code: params.code })
     await this.action.listPlan(params)
     this.setState({ loading: false })
@@ -42,8 +39,6 @@ class Plan extends React.Component {
     const { loading } = this.state
     const plan = toJS(getValue(this.store, 'plan', []))
     const hasApply = (plan.length!==0)?true:false
-
-    console.log(plan)
 
     return (
       <div className='g-plan'>

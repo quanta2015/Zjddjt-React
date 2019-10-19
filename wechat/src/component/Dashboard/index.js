@@ -45,9 +45,15 @@ class Dashboard extends React.Component {
   }
 
   doLink = (link) =>{
-    // let openid = '236f13a40693f48434e788411b9'
+    // let openid = 'oMQQY1HIEcLlk0_fC81KaDiys79s'
     // window.location.replace(`/#${link}?code=${openid}`)
-    window.location.replace(`/#${link}`)
+
+    if (link==='/exam') {
+      window.location.replace(`https://mp.weixin.qq.com/s?__biz=MzU1ODM0MzcyOQ==&mid=2247483703&idx=1&sn=088984a3653d87a8aaa1a4e7ffb03333&chksm=fc26b269cb513b7f8d45ecb8427f28669c6c45d8f4ecba28f1b9c6a751dba237d425bb73edde&token=1031499802&lang=zh_CN#rd`)
+    }else{
+      window.location.replace(`/#${link}`)
+    }
+    
   }
 
   render() {
