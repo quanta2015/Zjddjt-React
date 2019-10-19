@@ -37,15 +37,17 @@ const URL_USER = (token,openid)=>{
 // appid + secret -> token
 // code           -> openid
 // opid + token   -> user
-// app.get('/userinfo', function(req, res) {
-//   axios.get(URL_TOKEN).then((r)=> {
-//     let token  = r.data.access_token
-//     let openid = req.query.openid
-//     axios.get(URL_USER(token,openid)).then((e)=> {
-//       res.send(e.data)
-//     })
-//   })
-// })
+app.get('/userinfo', function(req, res) {
+  console.log(req.query.openid)
+  axios.get(URL_TOKEN).then((r)=> {
+    let token  = r.data.access_token
+    let openid = req.query.openid
+
+    axios.get(URL_USER(token,openid)).then((e)=> {
+      res.send(e.data)
+    })
+  })
+})
 
 /**
  * apdt to YYYY/MM/DD or YYYY/MM/DD HH/MM/SS
@@ -556,9 +558,6 @@ app.post("/ServFileDel", async function(req, res) {
 app.post("/ServQues", async function(req, res) {
   let sql = `CALL PROC_SERV_QUES(?)`;
   let params = req.body;
-
-  console.log(JSON.stringify(params));
-
   callProc(sql, params, res, (r) => {
     res.status(200).json({ code: 200, data: r });
   });

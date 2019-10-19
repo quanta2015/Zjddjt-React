@@ -24,6 +24,18 @@ class ServAction extends BaseActions {
     }
     return r
   }
+
+  @action
+  async getUser(openid) {
+    let url = `${urls.API_SERV_GET_USER}?openid=${openid}`
+    let r = await this.get(url, {}, true)
+    if (r && r.errcode === undefined) {
+      runInAction(() => {
+        this.store.currUser = r
+      })
+    }
+    return r
+  }
 }
 
 export default new ServAction(store)
