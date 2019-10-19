@@ -5,7 +5,7 @@ import Dashboard  from 'component/Dashboard'
 
 import main  from 'app/main'
 import intr  from 'app/intr'
-import step  from 'app/step'
+import exam  from 'app/exam'
 import appy  from 'app/appy'
 import brad  from 'app/brad'
 import coop  from 'app/coop'
@@ -29,7 +29,7 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path='/'      component={main}/>
                   <Route exact path='/intr'  component={intr}/>
-                  <Route exact path='/step'  component={step}/>
+                  <Route exact path='/exam'  component={exam}/>
                   <Route exact path='/appy'  component={appy}/>
                   <Route exact path='/brad'  component={brad}/>
                   <Route exact path='/coop'  component={coop}/>
