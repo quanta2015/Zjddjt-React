@@ -15,11 +15,7 @@ class Serv extends React.Component {
   state = {
     visible: false,
     container: null,
-    loading: true,
-    currUser: {
-      nickName: "Hy",
-      area: "浙江"
-    }
+    loading: true
   };
 
   async componentDidMount() {
