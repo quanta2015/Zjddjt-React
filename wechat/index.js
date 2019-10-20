@@ -129,6 +129,24 @@ app.get('/userinfo', function(req, res, next) {
   })
 })
 
+
+// 根据openid取用户信息
+app.get('/userinfoByOpenid', function(req, res, next) {
+  axios.get(URL_TOKEN).then((r)=> {
+
+    let token  = r.data.access_token
+    let openid = req.query.openid
+    console.log(openid)
+    axios.get(URL_USER(token,openid)).then((e)=> {
+      console.log(e.data)
+      res.send(e.data)
+    })
+  })
+})
+
+
+
+
 // 用户登录 
 // appid + secret -> token
 // code           -> openid
