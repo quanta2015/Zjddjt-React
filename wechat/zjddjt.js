@@ -37,17 +37,17 @@ const URL_USER = (token,openid)=>{
 // appid + secret -> token
 // code           -> openid
 // opid + token   -> user
-app.get('/userinfo', function(req, res) {
-  console.log(req.query.openid)
-  axios.get(URL_TOKEN).then((r)=> {
-    let token  = r.data.access_token
-    let openid = req.query.openid
-
-    axios.get(URL_USER(token,openid)).then((e)=> {
-      res.send(e.data)
-    })
-  })
-})
+// app.get('/userinfo', function(req, res) {
+//   console.log(req.query.openid)
+//   axios.get(URL_TOKEN).then((r)=> {
+//     let token  = r.data.access_token
+//     let openid = req.query.openid
+//
+//     axios.get(URL_USER(token,openid)).then((e)=> {
+//       res.send(e.data)
+//     })
+//   })
+// })
 
 /**
  * apdt to YYYY/MM/DD or YYYY/MM/DD HH/MM/SS
@@ -546,7 +546,7 @@ app.post("/ServFileDel", async function(req, res) {
 })
 
 /**
- * 问答模块接口
+ * 问答模块查询接口
  * params: {keyword: "key"}
  */
 app.post("/ServQues", async function(req, res) {
@@ -556,5 +556,40 @@ app.post("/ServQues", async function(req, res) {
     res.status(200).json({ code: 200, data: r });
   });
 })
+
+/**
+ * 问答模块修改关键词
+ */
+app.post("/ServQuesUpdate", async function(req, res) {
+  let sql = `CALL PROC_SERV_QUES_UPDATE(?)`;
+  let params = req.body;
+  callProc(sql, params, res, (r) => {
+    res.status(200).json({ code: 200, data: r });
+  });
+})
+
+/**
+ * 问答模块列表
+ */
+app.post("/ServQuesList", async function(req, res) {
+  let sql = `CALL PROC_SERV_QUES_LIST`;
+  let params = req.body;
+  callProc(sql, params, res, (r) => {
+    res.status(200).json({ code: 200, data: r });
+  });
+})
+
+/**
+ * 问答模块-删除模块
+ */
+app.post("/ServQuesDel", async function(req, res) {
+  let sql = `CALL PROC_SERV_QUES_DELETE(?)`;
+  let params = req.body;
+  callProc(sql, params, res, (r) => {
+    res.status(200).json({ code: 200, data: r });
+  });
+})
+
+
 
 app.listen(port, () => console.log(`> Running on localhost:${port}`));
