@@ -1,7 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import "./index.less";
-import { Skeleton, message } from "antd";
+import { Skeleton, message, Icon, Tag } from "antd";
 import { toJS } from "mobx";
 
 @inject("bradActions", "bradStore")
@@ -28,6 +28,8 @@ class Brad extends React.Component {
 
   render() {
     let list = toJS(getValue(this.store.store, "brandAll", []));
+    
+    console.log(list)
 
     return (
       <div className='g-brad'>
@@ -35,37 +37,36 @@ class Brad extends React.Component {
           {list && list.map((item, index) => (
               <div className='m-detail-wrap' key={index}>
                 <div className="info">
-                  <div className='title'>
-                    {item.name}
+                  <div className="m-tl">
+                    <div className='m-logo'>
+                      <img src={item.icon} alt=""/>
+                    </div>
+                    <div className='title'>
+                      {item.name}
+                    </div>
+                  </div>
+                  <div className="m-type">
+                    {item.type.split(' ').map((t,i)=> <Tag color='red'>{t}</Tag> )}
+                  </div>
+                  <div className='m-cnt'>
+                    <div className="m-person">
+                      <Icon type="user" />
+                      {item.contact}
+                    </div>
+                    <div className="m-phone">
+                      <Icon type="phone" />
+                      <div className="m-phone-list">
+                        {item.phone.split(" ").map((p, i) =>
+                          <li key={`phone-${i}`}>
+                            {p}
+                          </li>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  <div className='content'>
-                    <h4>联系人:</h4>
-                    {item.contact}
-                  </div>
-
-                  <div className='content'>
-                    <h4>联系方式:</h4>
-                    {item.phone.split(" ").map((p, i) =>
-                      <li key={`phone-${i}`}>
-                        {p}
-
-
-                      </li>
-                    )}
-                  </div>
-
-                  <div className='content'>
-                    <h4>可提供电梯类别:</h4>
-                    {item.type}
-                  </div>
-
+                  
                 </div>
-
-                <div className='icon-wrap'>
-                  <img src={item.icon} alt=""/>
-                </div>
-
               </div>
             )
           )}

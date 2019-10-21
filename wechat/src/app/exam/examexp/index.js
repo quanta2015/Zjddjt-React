@@ -16,6 +16,8 @@ class Stepexp extends React.Component {
     this.store  = this.props.stepStore
     this.state = {
       loading: false,
+      detail: false,
+      cur: 0,
     }
   }
 
@@ -25,26 +27,60 @@ class Stepexp extends React.Component {
     this.setState({ loading: false })
   }
 
+  showDetail = (index)=>{
+    this.setState( { detail: true, cur: index})
+  }
+
+  closeDetail = (index)=>{
+    this.setState( {detail: false })
+  }
+
   render() {
     let list = toJS(getValue(this.store, 'example', []))
+    let { detail,cur } = this.state
+    console.log(list)
     
     return (
-      <div className='g-stepexp'>
+      <div className='g-examexp'>
         <Skeleton active loading={this.state.loading}>
-          {list.map((item,index)=>
-            <div className="m-ele-item" key={index}>
-              <div className="m-img">
-                <img src={item.img}/>
-              </div>
-              <div className="m-info">
-                <div className="m-name">{item.name}</div>
-                <div className="m-area"><Tag color='red'>{item.area}</Tag></div>
-                <div className="m-detail">
-                  <div className="m-btn c-blue">详情</div>
+          
+          {!detail &&
+            <div className="m-list">
+            {list.map((item,index)=>
+              <div className="m-ele-item" key={index}>
+                <div className="m-img">
+                  <img src={item.img}/>
+                </div>
+                <div className="m-info">
+                  <div className="m-name">{item.name}</div>
+                  <div className="m-area"><Tag color='red'>{item.area}</Tag></div>
+                  <div className="m-detail">
+                    <div className="m-btn c-blue" onClick={this.showDetail.bind(this,index)}>详情</div>
+                  </div>
                 </div>
               </div>
+              )}
             </div>
-            )}
+          }
+
+          {detail &&
+            <div className="m-wrap">
+              <div className="m-title">{list[cur].name}</div>
+              <div className="m-img">
+                <img src={list[cur].img}/>
+                <div className="m-area"><Tag color='red'>{list[cur].area}</Tag></div>
+              </div>
+              <div className="m-info">
+                {list[cur].desc.map((item,i)=>
+                  <span key={i}>{item}</span>
+                  )}
+              </div>
+              <div className="m-detail">
+                  <div className="m-btn c-blue" onClick={this.closeDetail}>关闭</div>
+              </div>
+            </div>
+          }
+
         </Skeleton>
       </div>
     )
