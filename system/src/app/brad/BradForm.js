@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Divider, Form, Icon, Input, Select, Upload, message } from "antd";
 import * as urls from "constant/urls";
+import {API_SERVER} from 'constant/apis'
 import "./index.less";
 
 const { Option } = Select;
@@ -62,8 +63,8 @@ class BradForm extends React.Component {
       const r = info.file.response;
 
       if (r && r.code === 200) {
-        let iconUrl = r.data.path;
         message.success(r.msg, 0.5);
+        let iconUrl = `${API_SERVER}/${r.data.path}`
         this.setState({
           iconUrl
         }, this.resetIconVal);

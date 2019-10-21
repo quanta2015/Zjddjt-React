@@ -376,7 +376,7 @@ app.get('/BradList', async function (req, res){
  */
 app.post('/BrandAdd', async function (req, res){
   let sql  = `CALL PROC_BRAND_ADD(?)`;
-  let params = -1
+  let params = req.body
 
   callProc(sql, params, res, (r) => {
     res.status(200).json({ code: 200, msg: "添加品牌成功", data: r });
@@ -404,14 +404,14 @@ app.post('/BrandIcon', async function (req, res){
 
   form.on('fileBegin', function (name, file){
     let type = file.name.split('.').slice(-1)
-    file.path = '../brandicon/' + `icon_${moment(new Date()).format("YYYYMMDDhhmmss")}.${type}`;
+    file.path = 'download/' + `Icon_${moment(new Date()).format("YYYYMMDDhhmmss")}.${type}`;
   });
 
   form.on('file', (name, file) => {
     res.status(200).json({
       code: 200,
       msg: "上传品牌图片成功",
-      data: {path: 'http://' + file.path.replace('..', SERVER_HOST)}
+      data: {path: file.path}
     });
   });
 })
