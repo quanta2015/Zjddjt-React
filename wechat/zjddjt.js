@@ -20,13 +20,13 @@ app.use(cors());
 app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(express.static(__dirname + '/'));
-app.use('/brandicon', express.static('../brandicon'));
 
 const port = 8080
 const SERVER_HOST = `http://localhost:${port}`
-
-const AppID = 'wx5d00ec8c1456987c'
-const Secret = '590b952b9fddb781c0797870633e9193'
+// const AppID = 'wx5d00ec8c1456987c'
+// const Secret = '590b952b9fddb781c0797870633e9193'
+const AppID = 'wxfebf1f2f297529c4'
+const Secret = 'f2e39b37ee92c92cfdb7098e9291badc'
 const URL_TOKEN  = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${AppID}&secret=${Secret}`
 const URL_OPENID = (code)=>{ return `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${AppID}&secret=${Secret}&code=${code}&grant_type=authorization_code` }
 const URL_USER = (token,openid)=>{
@@ -564,7 +564,7 @@ app.post("/ServQuesUpdate", async function(req, res) {
   let sql = `CALL PROC_SERV_QUES_UPDATE(?)`;
   let params = req.body;
   callProc(sql, params, res, (r) => {
-    res.status(200).json({ code: 200, data: r });
+    res.status(200).json({ code: 200, msg: '修改关键词成功',data: r });
   });
 })
 
@@ -586,7 +586,7 @@ app.post("/ServQuesDel", async function(req, res) {
   let sql = `CALL PROC_SERV_QUES_DELETE(?)`;
   let params = req.body;
   callProc(sql, params, res, (r) => {
-    res.status(200).json({ code: 200, data: r });
+    res.status(200).json({ code: 200 ,data: r });
   });
 })
 

@@ -42,5 +42,7 @@ export const API_COOP_EXPORT = API_SERVER + '/CoopExport'
 export const API_SERV_FILE_LIST   = API_SERVER + '/ServFileList'
 export const API_SERV_FILE_ADD    = API_SERVER + '/ServFileAdd'
 export const API_SERV_FILE_DELETE = API_SERVER + '/ServFileDel'
+export const API_SERV_QUES_LIST   = API_SERVER + '/ServQuesList'
+export const API_SERV_QUES_UPDATE = API_SERVER + '/ServQuesUpdate'
 
 export const HOST_IMG = API_SERVER + '/'

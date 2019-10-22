@@ -29,7 +29,27 @@ class ServAction extends BaseActions {
   async delServFile(params) {
     let r = await this.post(urls.API_SERV_FILE_DELETE, params, true)
     if (r && r.code === 200) {
-      this.listServFile()
+      this.listServQues()
+    }
+    return r
+  }
+
+  @action
+  async updateServQues(params) {
+  let r = await this.post(urls.API_SERV_QUES_UPDATE, params, true)
+    if (r && r.code === 200) {
+      this.listServQues()
+    }
+    return r
+  }
+
+  @action
+  async listServQues() {
+    let r = await this.post(urls.API_SERV_QUES_LIST, {}, true)
+    if (r && r.code === 200) {
+      runInAction(() => {
+        this.store.servQuesList = r.data
+      })
     }
     return r
   }

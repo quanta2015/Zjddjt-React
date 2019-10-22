@@ -3,11 +3,13 @@ import { observer, inject } from "mobx-react";
 import { Input, Form, Button, Icon, Table, Modal, message, Select, Upload, Divider } from "antd";
 import Highlighter from "react-highlight-words";
 import { API_SERVER } from "constant/apis";
-import {API_SERV_FILE_ADD} from "constant/urls"
+import { API_SERV_FILE_ADD } from "constant/urls";
 import { formatApdt } from "util/date";
+import ServQuesForm from './ServQuesForm'
 import "./index.less";
 import { toJS } from "mobx";
 
+const { Option } = Select;
 
 // 用户服务管理
 @inject("servActions", "servStore")
@@ -22,13 +24,14 @@ class Serv extends React.Component {
       searchText: "",
       showModal: false,
       submitLoading: false,
-      selectedItem: null
+      sel: null
     };
   }
 
   async componentDidMount() {
     this.setState({ loading: true });
     await this.action.listServFile();
+    await this.action.listServQues();
     this.setState({ loading: false });
   }
 
@@ -111,8 +114,48 @@ class Serv extends React.Component {
   delFile = async (record) => {
     let r = await this.action.delServFile({ id: record.id });
     if (r.code === 200) {
-      message.success(r.msg, 0.5)
+      message.success(r.msg, 0.5);
     }
+  };
+
+  updateQues = (record) => {
+    this.setState({
+      showModal: true,
+      sel: record
+    });
+  };
+
+  handleOk = () => {
+    this.quesForm.props.form.validateFields((err, val) => {
+      if (!err) {
+        let params = { id: this.state.sel.id, keyword: val.keyword.join(" ") };
+        this.action.updateServQues(params)
+          .then(r => {
+            console.log(r);
+            if (r && r.code === 200) {
+              message.success(r.msg, 0.5);
+              this.setState({
+                showModal: false,
+                sel: null
+              });
+            }
+          })
+          .catch(e => message.error(r.msg, 0.5));
+      }
+    });
+    this.quesForm.props.form.resetFields(['keyword']);
+  };
+
+  handleCancel = e => {
+    this.setState({
+      showModal: false,
+      sel: null
+    });
+    this.quesForm.props.form.resetFields(['keyword']);
+  };
+
+  loadForm = (form) => {
+    this.quesForm = form;
   };
 
   columns = [
@@ -172,11 +215,48 @@ class Serv extends React.Component {
       render: (text, record) => (
         <div>
           <Button type="primary" onClick={() => this.downloadFile(record)}>
-            <span><Icon type='appstore' style={{ marginRight: 5 }}/>下载</span>
+            <span><Icon type='download' style={{ marginRight: 5 }}/>下载</span>
           </Button>
 
           <Button type="danger" onClick={() => this.delFile(record)}>
-            <span><Icon type='download' style={{ marginRight: 5 }}/>删除</span>
+            <span><Icon type='delete' style={{ marginRight: 5 }}/>删除</span>
+          </Button>
+        </div>
+      )
+    }
+  ];
+
+  col_ques = [
+    {
+      title: "模块名",
+      dataIndex: "title",
+      key: "title",
+      width: "200px",
+      sorter: (a, b) => a.title > b.title,
+      ...this.getColumnSearchProps("title")
+    },
+    {
+      title: "路径",
+      dataIndex: "path",
+      key: "path",
+      width: "200px",
+      defaultSortOrder: "path",
+      sorter: (a, b) => a.path > b.path,
+      ...this.getColumnSearchProps("path")
+    },
+    {
+      title: "关键词",
+      dataIndex: "keyword",
+      key: "keyword"
+    },
+    {
+      title: "功能",
+      key: "action",
+      width: "150px",
+      render: (text, record) => (
+        <div>
+          <Button type="primary" onClick={() => this.updateQues(record)}>
+            <span><Icon type='edit' style={{ marginRight: 5 }}/>修改</span>
           </Button>
         </div>
       )
@@ -185,6 +265,7 @@ class Serv extends React.Component {
 
   render() {
     const files = toJS(this.store.servFileList);
+    const ques = toJS(this.store.servQuesList);
 
     const uploadProps = {
       name: "file",
@@ -213,12 +294,41 @@ class Serv extends React.Component {
 
         <Divider orientation='left'>咨询数据管理</Divider>
         <div className="m-serv-menu">
-          <Button type="primary" onClick={this.doExport}>修改咨询数据</Button>
+          {/*<Button type="primary" onClick={this.addKeyword}>添加咨询数据</Button>*/}
         </div>
+
+        <Table
+          size='small'
+          dataSource={ques}
+          columns={this.col_ques}
+          rowKey="id"
+          pagination={{ defaultPageSize: 4 }}
+        />
+
+        <Modal
+          title="Basic Modal"
+          visible={this.state.showModal}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          destroyOnClose = {true}
+        >
+          <div>
+            <ServQuesForm
+              sel={this.state.sel}
+              wrappedComponentRef={(data) => {
+                this.loadForm(data);
+              }}
+            />
+          </div>
+
+        </Modal>
+
       </div>
     );
   }
 }
+
+
 
 /**
  * 文件大小转换
@@ -229,4 +339,4 @@ function formatFileSize(size) {
 }
 
 
-export default Form.create({})(Serv);
+export default Serv;
