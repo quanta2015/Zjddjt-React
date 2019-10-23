@@ -5,11 +5,9 @@ import Highlighter from "react-highlight-words";
 import { API_SERVER } from "constant/apis";
 import { API_SERV_FILE_ADD } from "constant/urls";
 import { formatApdt } from "util/date";
-import ServQuesForm from './ServQuesForm'
+import ServQuesForm from "./ServQuesForm";
 import "./index.less";
 import { toJS } from "mobx";
-
-const { Option } = Select;
 
 // 用户服务管理
 @inject("servActions", "servStore")
@@ -128,7 +126,11 @@ class Serv extends React.Component {
   handleOk = () => {
     this.quesForm.props.form.validateFields((err, val) => {
       if (!err) {
-        let params = { id: this.state.sel.id, keyword: val.keyword.join(" ") };
+        let params = {
+          id: this.state.sel.id,
+          keyword: val.keyword.join(" "),
+          des: val.des
+        };
         this.action.updateServQues(params)
           .then(r => {
             console.log(r);
@@ -143,7 +145,7 @@ class Serv extends React.Component {
           .catch(e => message.error(r.msg, 0.5));
       }
     });
-    this.quesForm.props.form.resetFields(['keyword']);
+    this.quesForm.props.form.resetFields(["keyword"]);
   };
 
   handleCancel = e => {
@@ -151,7 +153,7 @@ class Serv extends React.Component {
       showModal: false,
       sel: null
     });
-    this.quesForm.props.form.resetFields(['keyword']);
+    this.quesForm.props.form.resetFields(["keyword"]);
   };
 
   loadForm = (form) => {
@@ -231,7 +233,7 @@ class Serv extends React.Component {
       title: "模块名",
       dataIndex: "title",
       key: "title",
-      width: "200px",
+      width: "100px",
       sorter: (a, b) => a.title > b.title,
       ...this.getColumnSearchProps("title")
     },
@@ -239,7 +241,7 @@ class Serv extends React.Component {
       title: "路径",
       dataIndex: "path",
       key: "path",
-      width: "200px",
+      width: "100px",
       defaultSortOrder: "path",
       sorter: (a, b) => a.path > b.path,
       ...this.getColumnSearchProps("path")
@@ -247,7 +249,15 @@ class Serv extends React.Component {
     {
       title: "关键词",
       dataIndex: "keyword",
+      width: "300px",
       key: "keyword"
+    },
+    {
+      title: "描述",
+      dataIndex: "des",
+      width: "500px",
+      key: "des",
+      render: (text) => <span className="col-des">{text}</span>
     },
     {
       title: "功能",
@@ -306,11 +316,11 @@ class Serv extends React.Component {
         />
 
         <Modal
-          title="Basic Modal"
+          title="修改模块信息"
           visible={this.state.showModal}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          destroyOnClose = {true}
+          destroyOnClose={true}
         >
           <div>
             <ServQuesForm
@@ -327,8 +337,6 @@ class Serv extends React.Component {
     );
   }
 }
-
-
 
 /**
  * 文件大小转换

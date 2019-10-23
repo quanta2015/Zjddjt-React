@@ -1,5 +1,7 @@
 import React from "react";
-import { Form, Select } from "antd";
+import { Form, Input, Select } from "antd";
+
+const { TextArea } = Input;
 
 class ServQuesForm extends React.Component {
   state = {
@@ -13,6 +15,16 @@ class ServQuesForm extends React.Component {
     return (
       <div>
         <Form>
+          <Form.Item label='模块名'>
+            {
+              getFieldDecorator("title", {
+                initialValue: sel && sel.title
+              })(
+                <Input disabled={true}/>
+              )
+            }
+          </Form.Item>
+
           <Form.Item label='关键词设置'>
             {
               getFieldDecorator("keyword", {
@@ -20,6 +32,18 @@ class ServQuesForm extends React.Component {
               })(
                 <Select mode="tags" placeholder="选择或自定义">
                 </Select>
+              )
+            }
+          </Form.Item>
+
+          <Form.Item label='描述'>
+            {
+              getFieldDecorator("des", {
+                initialValue: sel && sel.des
+              })(
+                <TextArea
+                  autosize={{minRows: 2, maxRows: 6}}
+                />
               )
             }
           </Form.Item>
