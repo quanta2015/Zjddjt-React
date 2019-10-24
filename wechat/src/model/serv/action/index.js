@@ -1,7 +1,7 @@
-import { action, observable, runInAction, toJS } from "mobx";
-import BaseActions from 'component/BaseActions'
-import * as urls from 'constant/urls'
-import store from '../store'
+import { action, runInAction } from "mobx";
+import BaseActions from "component/BaseActions";
+import * as urls from "constant/urls";
+import store from "../store";
 
 class ServAction extends BaseActions {
   constructor(store) {
@@ -23,6 +23,11 @@ class ServAction extends BaseActions {
       })
     }
     return r
+  }
+
+  @action
+  async servQues(params) {
+    return await this.post(urls.API_SERV_QUES, params, true)
   }
 
   @action

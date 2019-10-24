@@ -19,6 +19,7 @@ export const API_HEAT_LIST_S  = API_SERVER + '/HeatListShow'
 
 
 export const API_SERV_FILE_LIST   = API_SERVER + '/ServFileList'
+export const API_SERV_QUES   = API_SERVER + '/ServQues'
 export const API_SERV_GET_USER   = API_SERVER + '/userinfo'
 
 
