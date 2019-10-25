@@ -6,6 +6,7 @@ import BradForm from "./BradForm";
 import "./index.less";
 import { msgRet } from "util/msgRet";
 import { toJS } from "mobx";
+import { API_SERVER } from "constant/apis";
 
 const { Option } = Select;
 
@@ -134,9 +135,7 @@ class Brad extends React.Component {
   }
 
   handleSubmit = () => {
-    // const data = this.bradForm.props.form.getFieldsValue();
-
-    console.log(this.bradForm.props.form.validateFields((err, val) => {
+    this.bradForm.props.form.validateFields((err, val) => {
       if (!err) {
         if (this.state.editItem) {
           console.log("edit", val);
@@ -148,7 +147,7 @@ class Brad extends React.Component {
             .catch(e => console.log(e))
         }
       }
-    }))
+    })
 
     // if (this.state.editItem) {
     //   console.log("edit", data);
@@ -190,7 +189,7 @@ class Brad extends React.Component {
       title: "图片",
       dataIndex: "icon",
       render: url => (
-        <img src={url} style={{ height: "48px", width: "auto" }} alt=""/>
+        <img src={`${API_SERVER}/${url}`} style={{ height: "48px", width: "auto" }} alt=""/>
       )
     },
     {
@@ -249,6 +248,7 @@ class Brad extends React.Component {
           confirmLoading={this.state.submitLoading}
           onCancel={this.handleCancel}
           onOk={this.handleSubmit}
+          destroyOnClose={true}
         >
           <BradForm
             className='brand-form'
