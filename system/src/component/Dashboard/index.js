@@ -38,7 +38,7 @@ class Dashboard extends React.Component {
             {MENU_MAIN.map((item,j)=>
                 <Menu.Item key={j}>
                   <NavLink to={item.path} >
-                    <Icon type="user" />
+                    <Icon type={item.icon} />
                     <span>{item.title}</span>
                   </NavLink>
                 </Menu.Item>
