@@ -22,7 +22,7 @@ class Serv extends React.Component {
     quesList: []
   };
 
-  async componentDidMount() {
+  async UNSAFE_componentWillMount() {
     this.setState({ loading: true });
     let openid = initCode(this.props.location.search);
     let hasUser = await this.action.getUser(openid.code);
@@ -167,7 +167,7 @@ class Serv extends React.Component {
                 {quesList.map((item, index) => {
                   return (
                     <div key={`ques-${index}`} className='ques-row' onClick={this.doLink.bind(this, item.path)}>
-                      <h1 className='title'>{item.title}</h1>
+                      <h1 className='title tag-color'>{item.title}</h1>
                       <Divider className='divider' type="vertical"/>
                       <div className='des'>{item.des}</div>
                       <div className='icon'><Icon type="right"/></div>
