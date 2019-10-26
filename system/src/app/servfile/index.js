@@ -5,7 +5,6 @@ import Highlighter from "react-highlight-words";
 import { API_SERVER } from "constant/apis";
 import { API_SERV_FILE_ADD } from "constant/urls";
 import { formatApdt } from "util/date";
-import ServQuesForm from "./ServQuesForm";
 import "./index.less";
 import { toJS } from "mobx";
 
@@ -88,6 +87,11 @@ class Serv extends React.Component {
     this.setState({ searchText: selectedKeys[0] });
   };
 
+  handleReset = clearFilters => {
+    clearFilters();
+    this.setState({ searchText: '' });
+  };
+
   handleUploadChange = info => {
     if (info.file.status === "uploading") {
       this.setState({ loading: true });
@@ -96,6 +100,7 @@ class Serv extends React.Component {
     if (info.file.status === "done") {
       const r = info.file.response;
       if (r && r.code === 200) {
+        console.log(r.data)
         this.action.setServFile(r.data);
         message.success(r.msg, 0.5);
       }
@@ -112,40 +117,9 @@ class Serv extends React.Component {
   delFile = async (record) => {
     let r = await this.action.delServFile({ id: record.id });
     if (r.code === 200) {
+      this.action.setServFile(r.data);
       message.success(r.msg, 0.5);
     }
-  };
-
-  updateQues = (record) => {
-    this.setState({
-      showModal: true,
-      sel: record
-    });
-  };
-
-  handleOk = () => {
-    this.quesForm.props.form.validateFields((err, val) => {
-      if (!err) {
-        let params = {
-          id: this.state.sel.id,
-          keyword: val.keyword.join(" "),
-          des: val.des
-        };
-        this.action.updateServQues(params)
-          .then(r => {
-            console.log(r);
-            if (r && r.code === 200) {
-              message.success(r.msg, 0.5);
-              this.setState({
-                showModal: false,
-                sel: null
-              });
-            }
-          })
-          .catch(e => message.error(r.msg, 0.5));
-      }
-    });
-    this.quesForm.props.form.resetFields(["keyword"]);
   };
 
   handleCancel = e => {
@@ -191,24 +165,17 @@ class Serv extends React.Component {
       width: "200px",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.size > b.size,
-      ...this.getColumnSearchProps("size"),
       render: (s) => formatFileSize(s)
     },
     {
       title: "上传日期",
       dataIndex: "apdt",
       key: "apdt",
-      width: "150px",
+      width: "200px",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.contact > b.contact,
+      sorter: (a, b) => a.apdt > b.apdt,
       ...this.getColumnSearchProps("contact"),
       render: (text) => formatApdt(text)
-    },
-    {
-      title: "说明",
-      dataIndex: "des",
-      key: "des",
-      render: (text) => <span className="col-des">{text}</span>
     },
     {
       title: "功能",
@@ -228,54 +195,8 @@ class Serv extends React.Component {
     }
   ];
 
-  col_ques = [
-    {
-      title: "模块名",
-      dataIndex: "title",
-      key: "title",
-      width: "100px",
-      sorter: (a, b) => a.title > b.title,
-      ...this.getColumnSearchProps("title")
-    },
-    {
-      title: "路径",
-      dataIndex: "path",
-      key: "path",
-      width: "100px",
-      defaultSortOrder: "path",
-      sorter: (a, b) => a.path > b.path,
-      ...this.getColumnSearchProps("path")
-    },
-    {
-      title: "关键词",
-      dataIndex: "keyword",
-      width: "300px",
-      key: "keyword"
-    },
-    {
-      title: "描述",
-      dataIndex: "des",
-      width: "500px",
-      key: "des",
-      render: (text) => <span className="col-des">{text}</span>
-    },
-    {
-      title: "功能",
-      key: "action",
-      width: "150px",
-      render: (text, record) => (
-        <div>
-          <Button type="primary" onClick={() => this.updateQues(record)}>
-            <span><Icon type='edit' style={{ marginRight: 5 }}/>修改</span>
-          </Button>
-        </div>
-      )
-    }
-  ];
-
   render() {
     const files = toJS(this.store.servFileList);
-    const ques = toJS(this.store.servQuesList);
 
     const uploadProps = {
       name: "file",
@@ -286,7 +207,6 @@ class Serv extends React.Component {
 
     return (
       <div className='g-serv'>
-        <Divider orientation='left'>常用文件管理</Divider>
         <div className="m-serv-menu">
           <Upload
             {...uploadProps}
@@ -301,38 +221,6 @@ class Serv extends React.Component {
           columns={this.columns}
           rowKey="id"
         />
-
-        <Divider orientation='left'>咨询数据管理</Divider>
-        <div className="m-serv-menu">
-          {/*<Button type="primary" onClick={this.addKeyword}>添加咨询数据</Button>*/}
-        </div>
-
-        <Table
-          size='small'
-          dataSource={ques}
-          columns={this.col_ques}
-          rowKey="id"
-          pagination={{ defaultPageSize: 4 }}
-        />
-
-        <Modal
-          title="修改模块信息"
-          visible={this.state.showModal}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          destroyOnClose={true}
-        >
-          <div>
-            <ServQuesForm
-              sel={this.state.sel}
-              wrappedComponentRef={(data) => {
-                this.loadForm(data);
-              }}
-            />
-          </div>
-
-        </Modal>
-
       </div>
     );
   }

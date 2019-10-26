@@ -34,7 +34,7 @@ class BradForm extends React.Component {
       selected: [],
       iconUrl: this.props.init ? this.props.init.icon : null,
       loading: false
-    });
+    }, this.resetIconVal);
   }
 
   componentDidMount() {
@@ -59,12 +59,13 @@ class BradForm extends React.Component {
       this.setState({ loading: true });
       return;
     }
+
     if (info.file.status === "done") {
       const r = info.file.response;
 
       if (r && r.code === 200) {
         message.success(r.msg, 0.5);
-        let iconUrl = `${API_SERVER}/${r.data.path}`
+        let iconUrl = r.data.path
         this.setState({
           iconUrl
         }, this.resetIconVal);
@@ -131,8 +132,7 @@ class BradForm extends React.Component {
 
         <Form.Item label='图片'>
           {
-            getFieldDecorator("icon", {
-            })(
+            getFieldDecorator("icon", {})(
               <div className='upload-wrap'>
                 <Upload
                   name="file"
@@ -143,7 +143,7 @@ class BradForm extends React.Component {
                   beforeUpload={beforeUpload}
                   onChange={this.handleUploadChange}
                 >
-                  {iconUrl ? <img src={iconUrl} alt="icon" style={{maxHeight: 64}}/> : uploadButton}
+                  {iconUrl ? <img src={`${API_SERVER}/${iconUrl}`} alt="icon" style={{maxHeight: 64}}/> : uploadButton}
                 </Upload>
               </div>
             )

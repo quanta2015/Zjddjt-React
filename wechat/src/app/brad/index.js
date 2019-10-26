@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import "./index.less";
 import { Skeleton, message, Icon, Tag } from "antd";
 import { toJS } from "mobx";
+import { API_SERVER } from "constant/apis";
 
 @inject("bradActions", "bradStore")
 @observer
@@ -28,7 +29,7 @@ class Brad extends React.Component {
 
   render() {
     let list = toJS(getValue(this.store.store, "brandAll", []));
-    
+
     console.log(list)
 
     return (
@@ -39,13 +40,20 @@ class Brad extends React.Component {
                 <div className="info">
                   <div className="m-tl">
                     <div className='m-logo'>
-                      <img src={item.icon} alt=""/>
+                      <img src={`${API_SERVER}/${item.icon}`} alt=""/>
+                      {console.log(`${API_SERVER}/${item.icon}`)}
                     </div>
                     <div className='title'>
                       {item.name}
                     </div>
                   </div>
+<<<<<<< HEAD
                   
+=======
+                  <div className="m-type">
+                    {item.type.split(' ').map((t,i)=> <Tag color='red' key={`tag-${i}`}>{t}</Tag> )}
+                  </div>
+>>>>>>> 9e6ef5a7a1a84c5c97665d5b5b765613a0e2b479
                   <div className='m-cnt'>
                     <div className="m-person">
                       <Icon type="user" />
@@ -57,7 +65,7 @@ class Brad extends React.Component {
                     </div>
                   </div>
 
-                  
+
                 </div>
               </div>
             )
