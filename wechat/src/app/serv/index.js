@@ -109,24 +109,13 @@ class Serv extends React.Component {
           }
         </div>
 
+        <div className="file-wrap card-shadow">
+          <span></span>
+          <Search size="large" placeholder="请输入您需要咨询解答的问题" enterButton="搜索" enterButton/>
+        </div>
+
         <div className="file-wrap card-shadow" onClick={this.showDrawer}>
-          <span><Icon type="download"/>常用文件模板</span>
-        </div>
-
-        <div className="file-wrap card-shadow" onClick={this.showQuesDrawer}>
-          <span><Icon type="question-circle" />咨询解答</span>
-        </div>
-
-        <Drawer
-          title="常用文件模板"
-          placement="right"
-          className='serv-drawer'
-          width='100vw'
-          closable={true}
-          onClose={this.onClose}
-          visible={this.state.visible}
-          getContainer={false}
-        >
+          <span className="m-tl"><Icon type="download"/>常用文件模板</span>
           <div className='file-card'>
             {
               files.map((item, index) => (
@@ -139,7 +128,8 @@ class Serv extends React.Component {
               ))
             }
           </div>
-        </Drawer>
+        </div>
+
 
         <Drawer
           title="咨询解答"

@@ -45,23 +45,15 @@ class Brad extends React.Component {
                       {item.name}
                     </div>
                   </div>
-                  <div className="m-type">
-                    {item.type.split(' ').map((t,i)=> <Tag color='red'>{t}</Tag> )}
-                  </div>
+                  
                   <div className='m-cnt'>
                     <div className="m-person">
                       <Icon type="user" />
                       {item.contact}
                     </div>
-                    <div className="m-phone">
-                      <Icon type="phone" />
-                      <div className="m-phone-list">
-                        {item.phone.split(" ").map((p, i) =>
-                          <li key={`phone-${i}`}>
-                            {p}
-                          </li>
-                        )}
-                      </div>
+                    <div className="m-type">
+                      <Icon type="project" />
+                      {item.type.split(' ').map((t,i)=> <Tag color='red'>{t}</Tag> )}
                     </div>
                   </div>
 
