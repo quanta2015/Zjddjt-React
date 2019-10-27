@@ -30,7 +30,6 @@ class Brad extends React.Component {
   render() {
     let list = toJS(getValue(this.store.store, "brandAll", []));
 
-    console.log(list)
 
     return (
       <div className='g-brad'>
@@ -41,31 +40,26 @@ class Brad extends React.Component {
                   <div className="m-tl">
                     <div className='m-logo'>
                       <img src={`${API_SERVER}/${item.icon}`} alt=""/>
-                      {console.log(`${API_SERVER}/${item.icon}`)}
                     </div>
                     <div className='title'>
                       {item.name}
                     </div>
                   </div>
-<<<<<<< HEAD
-                  
-=======
+
                   <div className="m-type">
-                    {item.type.split(' ').map((t,i)=> <Tag color='red' key={`tag-${i}`}>{t}</Tag> )}
+                    {item.type.split(" ").map((t, i) => <Tag color='red' key={`tag-${i}`}>{t}</Tag>)}
                   </div>
->>>>>>> 9e6ef5a7a1a84c5c97665d5b5b765613a0e2b479
+
                   <div className='m-cnt'>
                     <div className="m-person">
-                      <Icon type="user" />
+                      <Icon type="user"/>
                       {item.contact}
                     </div>
                     <div className="m-type">
-                      <Icon type="project" />
-                      {item.type.split(' ').map((t,i)=> <Tag color='red'>{t}</Tag> )}
+                      <Icon type="project"/>
+                      {item.type.split(" ").map((t, i) => <Tag color='red'>{t}</Tag>)}
                     </div>
                   </div>
-
-
                 </div>
               </div>
             )
