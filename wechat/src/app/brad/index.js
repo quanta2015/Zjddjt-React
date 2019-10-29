@@ -47,13 +47,6 @@ class Brad extends React.Component {
                       {item.name}
                     </div>
                   </div>
-<<<<<<< HEAD
-                  
-=======
-                  <div className="m-type">
-                    {item.type.split(' ').map((t,i)=> <Tag color='red' key={`tag-${i}`}>{t}</Tag> )}
-                  </div>
->>>>>>> 9e6ef5a7a1a84c5c97665d5b5b765613a0e2b479
                   <div className='m-cnt'>
                     <div className="m-person">
                       <Icon type="user" />
