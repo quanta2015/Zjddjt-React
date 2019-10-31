@@ -53,7 +53,7 @@ class Brad extends React.Component {
                     </div>
                     <div className="m-type">
                       <Icon type="project"/>
-                      {item.type.split(" ").map((t, i) => <Tag color='red'>{t}</Tag>)}
+                      {item.type.split(" ").map((t, i) => <Tag color='red' key={i}>{t}</Tag>)}
                     </div>
                   </div>
                 </div>

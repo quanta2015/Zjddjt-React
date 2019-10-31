@@ -5,6 +5,7 @@
   height: 100%;
   background: #F1F1F1;
 
+
   .user-wrap {
     display: flex;
     flex-direction: row;
@@ -117,6 +118,10 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
+  .search-input {
+    height: 45px;
+  }
+
   .card-shadow {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, .05), -1px -1px 1px rgba(0, 0, 0, .05);
     border: 1px solid #eee;
@@ -156,9 +161,17 @@
     display: inline-block;
     text-overflow: ellipsis;
   }
+
+  .m-file-item {
+    height: 40px;
+  }
 }
 
 /* 下拉框不消失，用于测试下拉选择框的样式 */
 //.ant-select-dropdown-hidden {
 //  display: block !important;
 //}
+
+.ant-select-dropdown-menu-item {
+    padding: 15px 12px;
+  }

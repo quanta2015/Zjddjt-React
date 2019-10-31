@@ -120,6 +120,7 @@ class Serv extends React.Component {
 
         <div className="search-wrap card-border">
           <Select
+            size={'large'}
             showSearch
             value={inputVal}
             placeholder="请输入您需要咨询解答的关键词"
