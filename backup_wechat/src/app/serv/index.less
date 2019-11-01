@@ -1,0 +1,177 @@
+.g-serv {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 56px;
+  height: 100%;
+  background: #F1F1F1;
+
+
+  .user-wrap {
+    display: flex;
+    flex-direction: row;
+    padding: 30px 25px;
+    background-color: #FFFFFF;
+
+    .no-login {
+      font-size: 20px;
+    }
+
+    .avatar {
+      flex: 1;
+    }
+
+    .info {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .username {
+        flex: 3;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 20px;
+        line-height: 21px;
+        color: #000000;
+      }
+
+      .area {
+        flex: 2;
+        font-size: 14px;
+        color: #999999;
+      }
+    }
+  }
+
+  .file-wrap {
+    margin-top: 16px;
+    padding: 12px 10px;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    i {
+      margin: 0 16px;
+    }
+
+    .m-tl {
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #eee;
+      margin-bottom: 10px;
+    }
+  }
+
+  .m-plan-item {
+    font-size: 12px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .05), -2px -2px 2px rgba(0, 0, 0, .05);
+    margin: 10px 0;
+    padding: 5px;
+  }
+
+  .m-plan-file {
+    display: flex;
+    flex-direction: column;
+    color: #ff3300;
+    font-weight: 600;
+  }
+
+  .m-file-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #3d74aa;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    color: #3d74aa;
+    font-size: 12px;
+  }
+
+  .m-file-item p {
+    flex: 1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .file-card {
+    display: flex;
+    flex-direction: column;
+
+    .file-tl {
+      font-size: 16px;
+    }
+  }
+
+  .search-wrap {
+    margin-top: 16px;
+    padding: 12px 10px;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .search-input {
+    height: 45px;
+  }
+
+  .card-shadow {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .05), -1px -1px 1px rgba(0, 0, 0, .05);
+    border: 1px solid #eee;
+  }
+
+  .card-border {
+    border: 1px solid #DBDBDB;
+  }
+
+  .ant-select-arrow .ant-select-arrow-icon svg {
+    transform: unset !important;
+  }
+
+  .ant-select-selection__placeholder {
+    padding-left: 7px;
+  }
+}
+
+.ques-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .des {
+    flex: 5;
+    font-size: 12px;
+    color: #3C4E65;
+    vertical-align: middle;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+
+  .m-file-item {
+    height: 40px;
+  }
+}
+
+/* 下拉框不消失，用于测试下拉选择框的样式 */
+//.ant-select-dropdown-hidden {
+//  display: block !important;
+//}
+
+.ant-select-dropdown-menu-item {
+    padding: 15px 12px;
+  }
