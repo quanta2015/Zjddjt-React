@@ -6,14 +6,17 @@
 /wechat/node_modules
 
 # file
-/wechat/download
-/wechat/upload
+/server/download
+/server/upload
 
 # production
-/build
+/server/build
+/wechat/build
+/backup_wechat/build
 
 # misc
 .DS_Store
+.vscode
 
 npm-debug.log*
 yarn-debug.log*

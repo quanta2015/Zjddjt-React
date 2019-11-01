@@ -1,22 +1,6 @@
-import React from 'react';
+import React,{ Suspense, lazy } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
 import Dashboard  from 'component/Dashboard'
-
-import main  from 'app/main'
-import intr  from 'app/intr'
-import exam  from 'app/exam'
-import appy  from 'app/appy'
-import brad  from 'app/brad'
-import coop  from 'app/coop'
-import plan  from 'app/plan'
-import sche  from 'app/sche'
-import serv  from 'app/serv'
-import heat  from 'app/heat'
-import step  from 'app/step'
-import cont  from 'app/cont'
-
-
 
 class App extends React.Component {
   constructor(props) {
@@ -30,20 +14,21 @@ class App extends React.Component {
           <Route path='/' render={() => (
             <div className='app-root'>
               <Dashboard>
-                <Switch>
-                  <Route exact path='/'      component={main}/>
-                  <Route exact path='/intr'  component={intr}/>
-                  <Route exact path='/exam'  component={exam}/>
-                  <Route exact path='/appy'  component={appy}/>
-                  <Route exact path='/brad'  component={brad}/>
-                  <Route exact path='/coop'  component={coop}/>
-                  <Route exact path='/plan'  component={plan}/>
-                  <Route exact path='/sche'  component={sche}/>
-                  <Route exact path='/serv'  component={serv}/>
-                  <Route exact path='/heat'  component={heat}/>
-                  <Route exact path='/step'  component={step}/>
-                  <Route exact path='/cont'  component={cont}/>
-                </Switch>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Switch>
+                    <Route exact path='/intr'  component={lazy(() => import('app/intr'))}/>
+                    <Route exact path='/exam'  component={lazy(() => import('app/exam'))}/>
+                    <Route exact path='/appy'  component={lazy(() => import('app/appy'))}/>
+                    <Route exact path='/brad'  component={lazy(() => import('app/brad'))}/>
+                    <Route exact path='/coop'  component={lazy(() => import('app/coop'))}/>
+                    <Route exact path='/plan'  component={lazy(() => import('app/plan'))}/>
+                    <Route exact path='/sche'  component={lazy(() => import('app/sche'))}/>
+                    <Route exact path='/serv'  component={lazy(() => import('app/serv'))}/>
+                    <Route exact path='/heat'  component={lazy(() => import('app/heat'))}/>
+                    <Route exact path='/step'  component={lazy(() => import('app/step'))}/>
+                    <Route exact path='/cont'  component={lazy(() => import('app/cont'))}/>
+                  </Switch>
+                </Suspense>
               </Dashboard>
             </div>
            )} />

@@ -36,9 +36,10 @@ class Stepexp extends React.Component {
   }
 
   render() {
-    let list = toJS(getValue(this.store, 'example', []))
+    let list = toJS(this.store.example)
+    list = (typeof(list)==='undefined')?[]:list
     let { detail,cur } = this.state
-    console.log(list)
+    
     
     return (
       <div className='g-examexp'>

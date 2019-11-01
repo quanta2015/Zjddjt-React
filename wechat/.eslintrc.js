@@ -1,6 +1,4 @@
 module.exports = {
-  extends: ['prettier', 'prettier/react'],
-  plugins: ['prettier'],
   rules: {
     'no-console': 0,
     'no-debugger': 'error',

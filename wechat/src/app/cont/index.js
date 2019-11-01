@@ -14,45 +14,45 @@ class Cont extends React.Component {
         <div className="m-title">联系咨询</div>
         <div className="m-contact">
           <div className="m-contact-item">
-            <li class="m-dep">
+            <li className="m-dep">
               <span>市场部 - 孙工</span>
             </li>
             <li>
-              <span class="m-tel">电话：</span>
-              <span class="m-num">0571-85117066</span>
+              <span className="m-tel">电话：</span>
+              <span className="m-num">0571-85117066</span>
             </li>
             <li>
-              <span class="m-tel">手机：</span>
-              <span class="m-num">15372080427</span>
+              <span className="m-tel">手机：</span>
+              <span className="m-num">15372080427</span>
             </li>
             <li>
-              <span class="m-tel">邮箱：</span>
-              <span class="m-num">mtybgs@sina.com</span>
+              <span className="m-tel">邮箱：</span>
+              <span className="m-num">mtybgs@sina.com</span>
             </li>
           </div>
 
           <div className="m-contact-item">
-            <li  class="m-dep">
+            <li  className="m-dep">
               <span>综合办公室 - 李工</span>
             </li>
             <li>
-              <span class="m-tel">电话：</span>
-              <span class="m-num">0571-87051402</span>
+              <span className="m-tel">电话：</span>
+              <span className="m-num">0571-87051402</span>
             </li>
             <li>
-              <span class="m-tel">手机：</span>
-              <span class="m-num">13906813283</span>
+              <span className="m-tel">手机：</span>
+              <span className="m-num">13906813283</span>
             </li>
             <li>
-              <span class="m-tel">邮箱：</span>
-              <span class="m-num">mtybgs@sina.com</span>
+              <span className="m-tel">邮箱：</span>
+              <span className="m-num">mtybgs@sina.com</span>
             </li>
           </div>
         </div>
 
         <div className="m-addr">
           <iframe 
-            class="contact__map"
+            className="contact__map"
             id = "contactMap"
             width='400' 
             height='400'

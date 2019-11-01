@@ -17,7 +17,7 @@ class Brad extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  async UNSAFE_componentWillMount() {
     this.setState({ loading: true });
     await this.action.getBrandAll();
     this.setState({ loading: false });
@@ -28,8 +28,7 @@ class Brad extends React.Component {
   };
 
   render() {
-    let list = toJS(getValue(this.store.store, "brandAll", []));
-
+    let list = toJS(this.store.store.brandAll)
 
     return (
       <div className='g-brad'>

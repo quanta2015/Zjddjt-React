@@ -54,8 +54,8 @@ doComment = async (id, e)=>{
 
   render() {
     const { loading } = this.state
-    const sche = toJS(getValue(this.store, 'sche', []))
-    const hasApply = (sche.length!==0)?true:false
+    const sche = toJS(this.store.sche)
+    const hasApply = (typeof(sche)!=='undefined')?true:false
 
     return (
       <div className='g-sche'>

@@ -11,7 +11,10 @@ class BradStore extends BaseActions {
 
   @action
   async getBrandAll() {
-    let r = await this.get(urls.API_BRAND_ALL, {},true)
+    let url = urls.API_BRAND_ALL
+
+    console.log(url)
+    let r = await this.get(url, {},true)
     if (r && r.code === 200) {
       runInAction(() => {
         this.store.brandAll = r.data

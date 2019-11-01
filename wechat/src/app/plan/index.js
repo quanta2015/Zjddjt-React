@@ -31,14 +31,18 @@ class Plan extends React.Component {
     var params = initCode(this.props.location.search)
     this.setState({ loading: true, code: params.code })
     await this.action.listPlan(params)
+
+    console.log(params)
     this.setState({ loading: false })
   }
 
 
   render() {
     const { loading } = this.state
-    const plan = toJS(getValue(this.store, 'plan', []))
-    const hasApply = (plan.length!==0)?true:false
+    const plan = toJS(this.store.plan)
+    const hasApply = (typeof(plan)!=='undefined')?true:false
+
+    console.log(plan)
 
     return (
       <div className='g-plan'>

@@ -42,10 +42,8 @@ class Heat extends React.Component {
 
   render() {
     const { loading } = this.state
-    const heat = toJS(getValue(this.store, 'heat', []))
-
-    console.log(heat)
-
+    var heat = toJS(this.store.heat)
+    heat=(typeof(heat)==='undefined')?[]:heat
 
     return (
       <div className='g-heat'>

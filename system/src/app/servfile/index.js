@@ -148,7 +148,7 @@ class Serv extends React.Component {
       title: "文件类型",
       dataIndex: "type",
       key: "type",
-      width: "200px",
+      width: "150px",
       sorter: (a, b) => a.name > b.name,
       filters: [
         { text: "docx", value: "docx" },
@@ -162,7 +162,7 @@ class Serv extends React.Component {
       title: "文件大小",
       dataIndex: "size",
       key: "size",
-      width: "200px",
+      width: "150px",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.size > b.size,
       render: (s) => formatFileSize(s)
